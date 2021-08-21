@@ -164,6 +164,7 @@ body.offcanvas-active {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   display: inline-block;
+  margin-left: 20px;
 }
 .navbar-aside .aside-top .logo {
   height: 46px;
