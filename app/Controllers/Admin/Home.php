@@ -11,7 +11,7 @@ class Home extends AdminBaseController
         $this->data['title'] = 'Início';
 
 
-//        return $this->display_template($this->smarty->setData($this->data)->view('Admin/Home/index'));
-        return view('errors/construct_admin');
+        return $this->display_template($this->smarty->setData($this->data)->view('Admin/Home/index'));
+//        return view('errors/construct_admin');
     }
 }
