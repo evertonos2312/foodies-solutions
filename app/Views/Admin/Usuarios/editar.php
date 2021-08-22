@@ -64,4 +64,4 @@
                             <small class="text-muted d-block" style="width:70%">Cuidado, exclusão permanente.</small>
                         </article>
                     </div>
-                </div> <
+                </div>
