@@ -9,6 +9,7 @@ class Home extends AdminBaseController
     public function index()
     {
         $this->data['title'] = 'Início';
+        $this->data['active'] = 'dashboard';
 
 
         return $this->display_template($this->smarty->setData($this->data)->view('Admin/Home/index'));

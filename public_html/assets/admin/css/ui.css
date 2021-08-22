@@ -986,3 +986,11 @@ body.dark .nav-pills .nav-link.active {
 body.dark .card-product-grid .title {
   color: #fff;
 }
+
+.anchor-link {
+  text-decoration: none;
+}
+
+.anchor-link:hover {
+  text-decoration: none;
+}
