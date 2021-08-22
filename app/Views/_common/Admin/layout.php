@@ -44,12 +44,12 @@
 
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
+            <li id="li_dashboard" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/home"> <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
+            <li id="li_produtos" class="menu-item has-submenu">
                 <a class="menu-link" href="#"> <i class="icon material-icons md-shopping_bag"></i>
                     <span class="text">Produtos</span>
                 </a>
@@ -58,7 +58,7 @@
                     <a href="#">Categorias</a>
                 </div>
             </li>
-            <li class="menu-item has-submenu">
+            <li id="li_pedidos" class="menu-item has-submenu">
                 <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
                     <span class="text">Pedidos</span>
                 </a>
@@ -67,12 +67,12 @@
                     <a href="">Detalhes de pedidos</a>
                 </div>
             </li>
-            <li class="menu-item">
+            <li id="li_usuarios" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/usuarios"> <i class="icon material-icons md-people"></i>
                     <span class="text">Usuários</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
+            <li id="li_entregadores" class="menu-item has-submenu">
                 <a class="menu-link" href=""> <i class="icon material-icons md-store"></i>
                     <span class="text">Entregadores</span>
                 </a>
@@ -81,7 +81,7 @@
                 </div>
             </li>
 
-            <li class="menu-item has-submenu">
+            <li id="li_conta" class="menu-item has-submenu">
                 <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
                     <span class="text">Minha Conta</span>
                 </a>
@@ -134,6 +134,8 @@
     } else {
         $("#nav-icon").attr("src",app_url+"assets/admin/images/pizza-planet.png");
     }
+    $('#li_'+"{$active}").addClass("active");
+
 
 </script>
 <!-- Custom JS -->
