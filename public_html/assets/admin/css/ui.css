@@ -164,6 +164,7 @@ body.offcanvas-active {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   display: inline-block;
+  margin-left: 20px;
 }
 .navbar-aside .aside-top .logo {
   height: 46px;
@@ -984,4 +985,12 @@ body.dark .nav-pills .nav-link.active {
 }
 body.dark .card-product-grid .title {
   color: #fff;
+}
+
+.anchor-link {
+  text-decoration: none;
+}
+
+.anchor-link:hover {
+  text-decoration: none;
 }
