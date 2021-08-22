@@ -1,25 +1,29 @@
-<!doctype html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Whoops!</title>
+    <title>Pizza Planet - Página não encontrada</title>
 
-	<style type="text/css">
-		<?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.css')) ?>
-	</style>
+    <link href="<?php echo base_url()?>/assets/admin/images/pizza_ico.png" rel="shortcut icon" type="image/x-icon">
+
+    <link href="<?php echo base_url()?>/assets/admin/css/bootstrap.css?v=1.1" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="<?php echo base_url()?>/assets/admin/fonts/material-icon/css/round.css"/>
+
+    <!-- custom style -->
+    <link href="<?php echo base_url()?>/assets/admin/css/ui.css?v=1.1" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo base_url()?>/assets/admin/css/responsive.css?v=1.1" rel="stylesheet" />
+
 </head>
-<body>
-
-	<div class="container text-center">
-
-		<h1 class="headline">Whoops!</h1>
-
-		<p class="lead">We seem to have hit a snag. Please try again later...</p>
-
-	</div>
-
-</body>
-
-</html>
+<div class="row" style="margin-top:60px">
+    <div class="col-sm-12">
+        <div class="w-50 mx-auto text-center">
+            <img class="img-fluid" src="<?php echo base_url()?>/assets/admin/images/empty-notfound.svg" width="350" alt="Página não encontrada">
+            <h3 class="mt-4">Oops! Página não encontrada</h3>
+            <p>Parece que você pegou o caminho errado. Não se preocupe... Aqui vai uma ajuda para te colocar no caminho certo</p>
+            <a href="<?php echo base_url()?>/admin/home" class="btn btn-primary mt-4">Página inicial</a>
+        </div>
+    </div>
+</div>
