@@ -13,11 +13,14 @@
     <!-- custom style -->
     <link href="{$app_url}assets/admin/css/ui.css?v=1.1" rel="stylesheet" type="text/css"/>
     <link href="{$app_url}assets/admin/css/responsive.css?v=1.1" rel="stylesheet" />
+    <link href="{$app_url}assets/css/fontawesome-all.min.css" rel="stylesheet" />
 
     <!-- iconfont -->
     <link rel="stylesheet" href="{$app_url}assets/admin/fonts/material-icon/css/round.css"/>
     <script src="{$app_url}assets/admin/js/jquery-3.5.0.min.js"></script>
-    <script src="{$app_url}assets/admin/js/bootstrap.bundle.min.js"></script>
+    <script src="{$app_url}assets/admin/js/bootstrap.min.js"></script>
+    <script src="{$app_url}assets/admin/js/bootstrap.min.js.map"></script>
+    <script src="{$app_url}assets/js/fontawesome.min.js"></script>
 
 
 
@@ -35,7 +38,7 @@
 <aside class="navbar-aside" id="offcanvas_aside">
     <div class="aside-top">
         <a href="page-index-1.html" class="brand-wrap">
-            <img id="nav-icon" src="" height="46" class="logo" alt="Pizza Planet">
+            <img id="nav-icon" src="{$app_url}assets/admin/images/pizza-planet.png" height="46" class="logo" alt="Pizza Planet">
         </a>
         <div>
             <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
@@ -46,7 +49,7 @@
         <ul class="menu-aside">
             <li id="li_dashboard" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/home"> <i class="icon material-icons md-home"></i>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Início</span>
                 </a>
             </li>
             <li id="li_produtos" class="menu-item has-submenu">

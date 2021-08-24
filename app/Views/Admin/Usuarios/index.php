@@ -1,10 +1,21 @@
 <link href="{$app_url}assets/admin/vendors/auto-complete/jquery-ui.css" rel="stylesheet" type="text/css"/>
+{if ($msg)}
+<div class="alert {if ($msg_type)}{$msg_type}{else}alert-danger{/if} alert-dismissible fade show" role="alert">
+    <i class="far fa-lightbulb mr-5"></i>
+    <span>&nbsp;</span>
+    {$msg}
+    <button type="button" class="{if ($msg_type)}{$msg_type}{else}alert-danger{/if} close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
 <div class="content-header">
     <h2 class="content-title">{$title}</h2>
     <div>
         <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Criar Novo</a>
     </div>
 </div>
+{$breadcrumbs}
 
 <div class="card mb-4">
     <header class="card-header">
@@ -51,7 +62,7 @@
                     <td>{$usuario['cpf']}</td>
                     <td><span class="badge rounded-pill {$usuario['ativo_class']}">{$usuario['ativo']}</span></td>
                     <td class="text-center">
-                        <a class="btn btn-light" href="#">Editar</a>
+                        <a class="btn btn-light" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
                         <a class="btn btn-light text-danger" href="#">Excluir</a>
                     </td>
                 </tr>

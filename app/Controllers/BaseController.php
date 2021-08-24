@@ -6,6 +6,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\libraries\Breadcrumb;
 
 /**
  * Class BaseController
@@ -28,6 +29,7 @@ class BaseController extends Controller
      */
     protected $helpers = ['html', 'form', 'url', 'funcoes', 'filesystem'];
     public $smarty;
+    public $breadcrumb;
     /*
     Session core service of CI
     */
@@ -67,6 +69,7 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->session = \Config\Services::session();
+        $this->breadcrumb = new \App\Libraries\Breadcrumb();
     }
 
     /**
@@ -113,6 +116,7 @@ class BaseController extends Controller
             'msg_type' => $msg_type,
             'title' => '',
             'active' => '',
+            'breadcrumbs' => '',
             'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
             'isLoggedIn' => $this->session->get('isLoggedIn'),
             'isLoggedAdmin' => $this->session->get('isLoggedAdmin'),
@@ -130,5 +134,11 @@ class BaseController extends Controller
     public function display($content)
     {
         return $content;
+    }
+
+    public function render(array $data, string $content)
+    {
+        $data['breadcrumbs'] = $this->breadcrumb->render();
+        return $this->display_template($this->smarty->setData($data)->view($content));
     }
 }

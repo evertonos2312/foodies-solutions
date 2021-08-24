@@ -1,6 +1,7 @@
 <div class="content-header">
     <h2 class="content-title"> Dashboard </h2>
 </div>
+{$breadcrumbs}
 <div class="row">
     <div class="col-lg-6">
         <div class="card card-body mb-4">

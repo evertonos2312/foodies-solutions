@@ -1,6 +1,7 @@
 <div class="content-header">
     <h2 class="content-title">{$title} </h2>
 </div>
+{$breadcrumbs}
 
 <div class="card">
     <div class="card-body">
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <br>
-                <a class="btn btn-primary" href="{$app_url}/admin/usuarios/editar/{$usuario['id']}" >Editar</a>
+                <a class="btn btn-primary" href="{$app_url}admin/usuarios/editar/{$usuario['id']}" >Editar</a>
                 <a class="btn btn-primary" href="{$app_url}admin/usuarios" >Voltar</a>
 
                 <hr class="my-5">
