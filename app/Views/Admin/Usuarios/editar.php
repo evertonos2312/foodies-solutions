@@ -1,53 +1,17 @@
 <div class="content-header">
     <h2 class="content-title">{$title} </h2>
 </div>
+{$breadcrumbs}
 
 <div class="card">
     <div class="card-body">
         <div class="col-lg-12">
             <section class="content-body p-xl-4">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="row gx-3">
-                            <div class="col-10  mb-3">
-                                <label class="form-label">Nome completo</label>
-                                <input class="form-control"  type="text" value="{$usuario['nome']}">
-                            </div>
-                            <div class="col-2  mb-3">
-                                <label class="form-label">ID</label>
-                                <input class="form-control" readonly type="text" value="{$usuario['id']}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">E-mail</label>
-                                <input class="form-control"  type="email" value="{$usuario['email']}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">Telefone</label>
-                                <input class="form-control" type="tel"  value="{$usuario['telefone']}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">Perfil</label>
-                                <input class="form-control" type="text"  value="{$usuario['tipo']}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">Status</label>
-                                <input class="form-control" type="text"  value="{$usuario['ativo']}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">Criado</label>
-                                <input class="form-control" type="text"  value="{toDataBR($usuario['criado_em'], true)}">
-                            </div>
-                            <div class="col-lg-6  mb-3">
-                                <label class="form-label">Atualizado</label>
-                                <input class="form-control" type="text"  value="{toDataBR($usuario['atualizado_em'], true)}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <a class="btn btn-primary" href="#" >Salvar</a>
 
-                <hr class="my-5">
+                {include file="Admin/Usuarios/form.php"}
+
+
+
 
                 <div class="row" style="max-width:920px">
                     <div class="col-md">
@@ -65,3 +29,10 @@
                         </article>
                     </div>
                 </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+<script src="{$app_url}assets/admin/vendors/mask/jquery.mask.min.js"></script>
+<script src="{$app_url}assets/admin/vendors/mask/app.js"></script>

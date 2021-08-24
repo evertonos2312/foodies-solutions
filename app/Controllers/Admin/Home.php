@@ -6,13 +6,18 @@ class Home extends AdminBaseController
 {
     public $data = array();
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->data['active'] = 'dashboard';
+    }
+
     public function index()
     {
         $this->data['title'] = 'Início';
-        $this->data['active'] = 'dashboard';
 
 
-        return $this->display_template($this->smarty->setData($this->data)->view('Admin/Home/index'));
+        return $this->render($this->data, 'Admin/Home/index');
 //        return view('errors/construct_admin');
     }
 }
