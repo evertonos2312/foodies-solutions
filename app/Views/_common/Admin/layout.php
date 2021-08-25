@@ -14,6 +14,7 @@
     <link href="{$app_url}assets/admin/css/ui.css?v=1.1" rel="stylesheet" type="text/css"/>
     <link href="{$app_url}assets/admin/css/responsive.css?v=1.1" rel="stylesheet" />
     <link href="{$app_url}assets/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{$app_url}assets/sweetalert/css/sweetalert2.min.css">
 
     <!-- iconfont -->
     <link rel="stylesheet" href="{$app_url}assets/admin/fonts/material-icon/css/round.css"/>
@@ -21,6 +22,7 @@
     <script src="{$app_url}assets/admin/js/bootstrap.min.js"></script>
     <script src="{$app_url}assets/admin/js/bootstrap.min.js.map"></script>
     <script src="{$app_url}assets/js/fontawesome.min.js"></script>
+    <script src="{$app_url}assets/sweetalert/js/sweetalert2.all.min.js"></script>
 
 
 

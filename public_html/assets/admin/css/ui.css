@@ -1019,3 +1019,7 @@ button.close {
   text-shadow: 0 1px 0 #fff;
   opacity: .5;
 }
+
+.label-form{
+  margin-left: 5px;
+}

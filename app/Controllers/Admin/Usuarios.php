@@ -79,15 +79,24 @@ class Usuarios extends AdminBaseController
             $this->data['usuario'] = $usuario;
 
             $this->breadcrumb->add($usuario['nome'], '/admin/usuarios/editar/');
-            return $this->render($this->data, 'Admin/Usuarios/editar');
+            return $this->render($this->data, 'Admin/Usuarios/form');
         }
         return view('errors/404_admin');
     }
 
-    public function atualizar()
+    public function criar()
+    {
+
+        $this->data['title'] = 'Criando novo usuário';
+
+        $this->breadcrumb->add('Criar Usuário', '/admin/usuarios/criar/');
+        return $this->render($this->data, 'Admin/Usuarios/form');
+    }
+
+    public function salvar()
     {
         if ($this->request->getPost()) {
-            $id = $this->request->getPost('id');
+            $id = $this->request->getPost('id_hidden');
 
             $newUser = [
                 'nome' => $this->request->getPost('nome'),
@@ -97,23 +106,35 @@ class Usuarios extends AdminBaseController
                 'is_admin' => $this->request->getPost('is_admin'),
             ];
             if ($id) {
+                $usuario = $this->buscaUsuarioOu404($id);
                 $newUser['id'] = $id;
+                $this->usuarioModel->unsetPassword();
                 $newUser['ativo'] = $this->request->getPost('ativo');
             } else {
+                $newUser['password'] = $this->request->getPost('is_admin');
+                $newUser['password_confirmation'] = $this->request->getPost('password_confirmation');
                 $newUser['ativo'] = 0;
             }
 
-            $saved = $this->usuarioModel->save($newUser);
+            $saved = $this->usuarioModel->protect(false)->save($newUser);
             if ($saved) {
                 $this->session->setFlashdata('msg', 'Usuário salvo com sucesso');
                 $this->session->setFlashdata('msg_type', 'success');
+                if (empty($id)) {
+                    $id = $this->usuarioModel->getInsertID();
+                }
+                return redirect()->to("admin/usuarios/show/".$id);
             } else {
                 $this->data['msg'] = $this->usuarioModel->errors();
                 $this->data['msg_type'] = 'alert-danger';
                 $this->data['id'] = $id;
-                return $this->render($this->data, 'Admin/Usuarios/editar');
+                if (!empty($usuario)) {
+                    $this->breadcrumb->add($usuario['nome'], '/admin/usuarios/editar/');
+                } else {
+                    $this->breadcrumb->add('Criar Usuário', '/admin/usuarios/criar/');
+                }
+                return $this->render($this->data, 'Admin/Usuarios/form');
             }
-            return redirect()->to(base_url() . '/admin/usuarios');
         }
         $this->session->setFlashdata('msg', 'A ação que você requisitou não é permitida.');
         $this->session->setFlashdata('msg_type', 'danger');
@@ -126,5 +147,27 @@ class Usuarios extends AdminBaseController
             return view('errors/404_admin');
         }
         return $usuario;
+    }
+
+    public function excluir()
+    {
+        if ($this->request->isAJAX()) {
+            $data = array();
+            $user_id = $this->request->getPost('user_id');
+            $data['token'] = csrf_hash();
+            if (!empty($user_id)) {
+                if ($this->usuarioModel->delete($user_id)) {
+                    $data['code'] = 200;
+                    $data['status'] = 'success';
+                    $data['detail'] = ['id' => $user_id];
+                } else {
+                    $data['code'] = 503;
+                    $data['status'] = 'error';
+                    $data['detail'] = 'Database error';
+                }
+                return $this->response->setJSON($data);
+            }
+        }
+        return view('errors/404_admin');
     }
 }
