@@ -131,13 +131,6 @@
 <!--                            <small class="text-muted d-block" style="width:70%">Você pode reiniciar a senha do usuário aqui.</small>-->
 <!--                        </article>-->
 <!--                    </div>-->
-                    <div class="col-md">
-                        <article class="box mb-3 bg-light">
-                            <button class="btn float-end btn-outline-danger btn-sm" >Excluir</button>
-                            <h6>Remover conta</h6>
-                            <small class="text-muted d-block" style="width:70%">Cuidado, exclusão permanente.</small>
-                        </article>
-                    </div>
                 </div>
             </section>
 
