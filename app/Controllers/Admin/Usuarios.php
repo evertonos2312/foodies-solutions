@@ -88,81 +88,36 @@ class Usuarios extends AdminBaseController
     {
         if ($this->request->getPost()) {
             $id = $this->request->getPost('id');
-            $post = $this->request->getPost();
-            $rules = [
-                'nome' => [
-                    'rules' => 'required',
-                    'label' => 'Pergunta',
-                    'errors' => ['required' => 'O campo Nome é obrigatório.']
-                ],
-                'id' => [
-                    'rules' => 'required|is_natural_no_zero',
-                    'label' => 'Produto',
-                    'errors' => ['required' => 'O campo ID é obrigatório.']
-                ],
-                'email' => [
-                    'rules' => 'required|valid_email',
-                    'label' => 'E-mail',
-                    'errors' => ['required' => 'O campo E-mail é obrigatório.',
-                                'valid_email' => 'Digite um e-mail válido.']
-                ],
-                'cpf' => [
-                    'rules' => 'required',
-                    'label' => 'CPF',
-                    'errors' => ['required' => 'O campo CPF é obrigatório.']
-                ],
-                'telefone' => [
-                    'rules' => 'required',
-                    'label' => 'Resposta',
-                    'errors' => ['required' => 'O campo Telefone é obrigatório.']
-                ],
-                'ativo' => [
-                    'rules' => 'required',
-                    'label' => 'Status',
-                    'errors' => ['required' => 'O campo Status é obrigatório.']
-                ],
-                'is_admin' => [
-                    'rules' => 'required',
-                    'label' => 'Perfil',
-                    'errors' => ['required' => 'O campo Perfil é obrigatório.']
-                ],
+
+            $newUser = [
+                'nome' => $this->request->getPost('nome'),
+                'email' => $this->request->getPost('email'),
+                'cpf' => $this->request->getPost('cpf'),
+                'telefone' => $this->request->getPost('telefone'),
+                'is_admin' => $this->request->getPost('is_admin'),
             ];
-
-            if ($this->validate($rules)) {
-                $newUser = [
-                    'nome' => $this->request->getPost('nome'),
-                    'email' => $this->request->getPost('email'),
-                    'cpf' => $this->request->getPost('cpf'),
-                    'telefone' => $this->request->getPost('telefone'),
-                    'is_admin' => $this->request->getPost('is_admin'),
-                ];
-                if ($id) {
-                    $newUser['id'] = $id;
-                    $newUser['ativo'] = $this->request->getPost('ativo');
-                } else {
-                    $newUser['situacao'] = 0;
-                }
-
-                $saved = $this->usuarioModel->save($newUser);
-                if ($saved) {
-                    $this->session->setFlashdata('msg', 'Usuário salvo com sucesso');
-                    $this->session->setFlashdata('msg_type', 'success');
-                } else {
-                    $this->session->setFlashdata('msg', 'Ops, erro ao salvar registro, tente novamente mais tarde.');
-                    $this->session->setFlashdata('msg_type', 'danger');
-                }
-                return redirect()->to(base_url() . '/admin/usuarios');
-
+            if ($id) {
+                $newUser['id'] = $id;
+                $newUser['ativo'] = $this->request->getPost('ativo');
             } else {
-                $this->data['msg'] = $this->validator->listErrors();
+                $newUser['ativo'] = 0;
+            }
+
+            $saved = $this->usuarioModel->save($newUser);
+            if ($saved) {
+                $this->session->setFlashdata('msg', 'Usuário salvo com sucesso');
+                $this->session->setFlashdata('msg_type', 'success');
+            } else {
+                $this->data['msg'] = $this->usuarioModel->errors();
                 $this->data['msg_type'] = 'alert-danger';
-                $this->data['subtitle'] = !empty($post['id']) ? 'Editar' : 'Cadastrar';
                 $this->data['id'] = $id;
                 return $this->render($this->data, 'Admin/Usuarios/editar');
             }
-
+            return redirect()->to(base_url() . '/admin/usuarios');
         }
-        return $this->render($this->data, 'Admin/Usuarios/editar');
+        $this->session->setFlashdata('msg', 'A ação que você requisitou não é permitida.');
+        $this->session->setFlashdata('msg_type', 'danger');
+        return redirect()->to(base_url() . '/admin/usuarios');
     }
     
     private function buscaUsuarioOu404(int $id = null)
