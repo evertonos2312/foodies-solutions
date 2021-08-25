@@ -47,10 +47,6 @@
                         {$perfil = set_value('is_admin')}
                     {/if}
                     {form_dropdown('is_admin', $options_perfil, $perfil, ['id' => 'is_admin', 'class' => 'form-control'])}
-
-                    {if (!empty($errors['perfil']))}
-                    <div class="alert alert-danger mt-2">{$errors['perfil']}</div>
-                    {/if}
                 </div>
                 <div class="col-lg-3  mb-3">
                     <label class="form-label">Status</label>
@@ -62,9 +58,6 @@
                     {/if}
                     {form_dropdown('ativo', $options, $situacao, ['id' => 'ativo', 'class' => 'form-control'])}
 
-                    {if (!empty($errors['status']))}
-                    <div class="alert alert-danger mt-2">{$errors['status']}</div>
-                    {/if}
                 </div>
                 <div class="col-lg-6  mb-3">
                     <label class="form-label">CPF</label>
