@@ -12,7 +12,7 @@
 <div class="content-header">
     <h2 class="content-title">{$title}</h2>
     <div>
-        <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Criar Novo</a>
+        <a href="{$app_url}admin/usuarios/criar" class="btn btn-primary"><i class="material-icons md-plus"></i> Criar Novo</a>
     </div>
 </div>
 {$breadcrumbs}
@@ -63,12 +63,13 @@
                     <td><span class="badge rounded-pill {$usuario['ativo_class']}">{$usuario['ativo']}</span></td>
                     <td class="text-center">
                         <a class="btn btn-light" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
-                        <a class="btn btn-light text-danger" href="#">Excluir</a>
+                        <button class="btn btn-light text-danger" onclick="excluirUsuario('{$usuario.id}', '{$usuario.nome}')">Excluir</button>
                     </td>
                 </tr>
                 {/foreach}
 
                 </tbody>
+                <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </table>
         </div> <!-- table-responsive //end -->
     </div> <!-- card-body end// -->
