@@ -2,7 +2,13 @@
 <div class="alert {if ($msg_type)}{$msg_type}{else}alert-danger{/if} alert-dismissible fade show" role="alert">
     <i class="far fa-lightbulb mr-5"></i>
     <span>&nbsp;</span>
-    {$msg}
+    <ul>
+    {foreach $msg as $err}
+        <li>
+            {$err}
+        </li>
+    {/foreach}
+    </ul>
     <button type="button" class="{if ($msg_type)}{$msg_type}{else}alert-danger{/if} close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -17,12 +23,7 @@
     <div class="card-body">
         <div class="col-lg-12">
             <section class="content-body p-xl-4">
-
                 {include file="Admin/Usuarios/form.php"}
-
-
-
-
                 <div class="row" style="max-width:920px">
                     <div class="col-md">
                         <article class="box mb-3 bg-light">
