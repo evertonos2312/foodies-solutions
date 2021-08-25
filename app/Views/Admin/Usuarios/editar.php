@@ -1,3 +1,13 @@
+{if ($msg)}
+<div class="alert {if ($msg_type)}{$msg_type}{else}alert-danger{/if} alert-dismissible fade show" role="alert">
+    <i class="far fa-lightbulb mr-5"></i>
+    <span>&nbsp;</span>
+    {$msg}
+    <button type="button" class="{if ($msg_type)}{$msg_type}{else}alert-danger{/if} close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
 <div class="content-header">
     <h2 class="content-title">{$title} </h2>
 </div>

@@ -86,7 +86,7 @@ class Usuarios extends AdminBaseController
 
     public function atualizar()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getPost()) {
             $id = $this->request->getPost('id');
             $post = $this->request->getPost();
             $rules = [
@@ -98,12 +98,13 @@ class Usuarios extends AdminBaseController
                 'id' => [
                     'rules' => 'required|is_natural_no_zero',
                     'label' => 'Produto',
-                    'errors' => ['is_natural_no_zero' => 'O campo ID é obrigatório.']
+                    'errors' => ['required' => 'O campo ID é obrigatório.']
                 ],
                 'email' => [
-                    'rules' => 'required',
+                    'rules' => 'required|valid_email',
                     'label' => 'E-mail',
-                    'errors' => ['required' => 'O campo E-mail é obrigatório.']
+                    'errors' => ['required' => 'O campo E-mail é obrigatório.',
+                                'valid_email' => 'Digite um e-mail válido.']
                 ],
                 'cpf' => [
                     'rules' => 'required',
