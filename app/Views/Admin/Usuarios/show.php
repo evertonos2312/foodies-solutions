@@ -60,20 +60,3 @@
                 <a class="btn btn-primary" href="{$app_url}admin/usuarios" >Voltar</a>
 
                 <hr class="my-5">
-
-                <div class="row" style="max-width:920px">
-                    <div class="col-md">
-                        <article class="box mb-3 bg-light">
-                            <a class="btn float-end btn-light btn-sm" href="#">Reiniciar</a>
-                            <h6>Senha</h6>
-                            <small class="text-muted d-block" style="width:70%">Você pode reiniciar a senha do usuário aqui.</small>
-                        </article>
-                    </div> <!-- col.// -->
-                    <div class="col-md">
-                        <article class="box mb-3 bg-light">
-                            <button class="btn float-end btn-outline-danger btn-sm" >Excluir</button>
-                            <h6>Remover conta</h6>
-                            <small class="text-muted d-block" style="width:70%">Cuidado, exclusão permanente.</small>
-                        </article>
-                    </div>
-                </div>
