@@ -19,7 +19,63 @@ class Usuarios extends AdminBaseController
 
     public function index()
     {
-        $usuarios = $this->usuarioModel->findAll();
+        $options_perpage = [10, 20, 40];
+        $filtro_status = $this->request->getPost('filtro_status');
+
+        $status_options = [
+            'Todos' => [
+                'value' => 'todos',
+                'nome' => 'Todos'
+            ],
+            'Ativo' => [
+                'value' => 'ativo',
+                'nome' => 'Ativo'
+            ],
+            'Inativo' => [
+                'value' => 'inativo',
+                'nome' => 'Inativo'
+            ],
+            
+        ];
+
+
+        if (!is_null($filtro_status)) {
+            $this->session->set('filtro_status', $filtro_status);
+        }
+        if (is_null($filtro_status)) {
+            $filtro_status = $this->session->get('filtro_status');
+            if (!$filtro_status) {
+                $filtro_status = 'todos';
+            }
+        }
+
+        foreach ($status_options as $key => $status) {
+            $result_status[$key]['status_nome'] = $status_options[$key]['nome'];
+            $result_status[$key]['status_value'] = $status_options[$key]['value'];
+            if ($filtro_status == $status_options[$key]['value']) {
+                $result_status[$key]['status_selected'] = 'selected';
+            } else {
+                $result_status[$key]['status_selected'] = '';
+            }
+        }
+
+
+        $results_perpage = null;
+        if ($this->request->getPost('per_page')) {
+            $results_perpage = $this->request->getPost('per_page');
+        }
+
+
+        foreach ($options_perpage as $key => $option) {
+            if ($option == $results_perpage) {
+                $options_perpage[$key] = [$option, 'selected'];
+                break;
+            }
+        }
+
+        $usuarios = $this->usuarioModel->addStatus($filtro_status)->paginate($results_perpage ?: 10);
+        $pager = $this->usuarioModel->pager;
+        $pager_links = $pager->links('default', 'bootstrap_pager');
         foreach ($usuarios as $key => $usuario) {
             $usuarios[$key]['ativo'] = $usuario['ativo'] == 1 ? 'Ativo' : 'Inativo';
             $usuarios[$key]['ativo_class'] = $usuario['ativo'] == 1 ? 'alert-success' : 'alert-danger';
@@ -27,6 +83,13 @@ class Usuarios extends AdminBaseController
 
         $this->data['title'] = 'Lista de usuários';
         $this->data['usuarios'] = $usuarios;
+        $this->data['pager'] = $pager;
+        $this->data['pager_links'] = $pager_links;
+        $this->data['results_perpage'] = $results_perpage;
+        $this->data['perpage_options'] = $options_perpage;
+        $this->data['filtro_status'] = $filtro_status;
+        $this->data['status_options'] = $result_status;
+
 
         return $this->render($this->data, 'Admin/Usuarios/index');
     }
@@ -122,7 +185,7 @@ class Usuarios extends AdminBaseController
                 if (empty($id)) {
                     $id = $this->usuarioModel->getInsertID();
                 }
-                return redirect()->to("admin/usuarios/show/".$id);
+                return redirect()->to("admin/usuarios/show/" . $id);
             } else {
                 $this->data['msg'] = $this->usuarioModel->errors();
                 $this->data['msg_type'] = 'alert-danger';
@@ -139,7 +202,7 @@ class Usuarios extends AdminBaseController
         $this->session->setFlashdata('msg_type', 'danger');
         return redirect()->to(base_url() . '/admin/usuarios');
     }
-    
+
     private function buscaUsuarioOu404(int $id = null)
     {
         if (!$id || !$usuario = $this->usuarioModel->where('id', $id)->first()) {

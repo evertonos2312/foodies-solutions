@@ -1023,3 +1023,51 @@ button.close {
 .label-form{
   margin-left: 5px;
 }
+
+ul.paginacao {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.paginacao li {
+  margin: 20px 10px 0px 10px;
+  background: #dbd5d5;
+  padding: 10px 18px;
+  border-radius: 50px;
+  color: #222;
+  font-weight: 600;
+  cursor: pointer;
+}
+.paginacao li.ativo {
+  background: #e9941a;
+}
+.paginacao li:hover {
+  background: #e9941a;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+}
+@media (max-width: 767px) {
+  .resultadoPesquisa h1{
+    font-size: 30px;
+  }
+  .resultadoPesquisa .resultados h2 {
+    font-size: 18px;
+  }
+  ul.paginacao {
+    padding: 0px;
+  }
+  .paginacao li {
+    font-size: 10px;
+    padding: 6px 12px;
+    margin: 20px 5px 0px 5px;
+  }
+}
+
+.client-pager{
+  color: #222;
+  font-weight: 600;
+}
+.client-pager:hover{
+  text-decoration: none;
+}
