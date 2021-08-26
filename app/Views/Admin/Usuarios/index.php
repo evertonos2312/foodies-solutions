@@ -20,23 +20,32 @@
 <div class="card mb-4">
     <header class="card-header">
         <div class="row gx-3">
-            <div class="ui-widget col-lg-4 col-md-6 me-auto">
+            <div class="ui-widget col-lg-9 col-md-6 me-auto">
                 <input id="pesquisa_query" placeholder="Pesquise aqui..." class="form-control bg-light" name="pesquisa_query" type="search">
             </div>
             <div class="col-lg-2 col-6 col-md-3">
-                <select class="form-select">
-                    <option>Status</option>
-                    <option>Ativo</option>
-                    <option>Inativo</option>
-                    <option>Todos</option>
+                {form_open('admin/usuarios/index')}
+                <select name="filtro_status" class="form-control">
+                    {foreach from=$status_options item=filtro}
+                        <option value="{$filtro.status_value}" {$filtro.status_selected}>{$filtro.status_nome}</option>
+                    {/foreach}
                 </select>
+                {form_close()}
             </div>
-            <div class="col-lg-2 col-6 col-md-3">
-                <select class="form-select">
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
+            <div class="col-lg-1 col-6 col-md-3">
+                {form_open('admin/usuarios/index')}
+                <input type="hidden" name="filtro_status" value="{$filtro_status}">
+                <select class="form-select" name="per_page">
+                    {foreach $perpage_options  as $page}
+                        {if (is_array($page))}
+                            {$results = $page[0]}
+                            <option value="{$page[0]}" {$page[1]}>{$page[0]}</option>
+                            {else}
+                            <option value="{$page}">{$page}</option>
+                        {/if}
+                    {/foreach}
                 </select>
+                {form_close()}
             </div>
         </div>
     </header> <!-- card-header end// -->
@@ -71,8 +80,34 @@
                 </tbody>
                 <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </table>
-        </div> <!-- table-responsive //end -->
-    </div> <!-- card-body end// -->
-</div> <!-- card end// -->
+        </div>
+        {if ($pager)}
+            {$pager_links}
+        {/if}
+    </div>
+</div>
+<script>
+    $(".pagination a").click(function() {
+        var url = $(this).attr("href");
+        var form = $(this).closest('form')[0];
+        $(form).attr("action", url);
+        $(form).submit();
+        return false;
+    });
+
+    $('select[name="per_page"]').change(function() {
+        var url = $(this).attr('action');
+        var form = $(this).closest('form')[0];
+        $(form).attr('action', url);
+        $(form).submit();
+    });
+
+    $('select[name="filtro_status"]').change(function() {
+        var url = $(this).attr('action');
+        var form = $(this).closest('form')[0];
+        $(form).attr('action', url);
+        $(form).submit();
+    });
+</script>
 <script src="{$app_url}assets/admin/vendors/auto-complete/jquery-ui.js" type="text/javascript"></script>
 <script src="{$app_url}assets/admin/js/usuarios/index.js" type="text/javascript"></script>

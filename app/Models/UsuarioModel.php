@@ -81,4 +81,21 @@ class UsuarioModel extends BaseModel
         unset($this->validationRules['password']);
         unset($this->validationRules['password_confirmation']);
     }
+
+    public function addStatus($status = null)
+    {
+        if (!is_null($status)) {
+            switch ($status) {
+                case 'ativo':
+                    $this->where('ativo', 1);
+                    break;
+                case 'inativo':
+                    $this->where('ativo', 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $this;
+    }
 }
