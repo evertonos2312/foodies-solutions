@@ -58,7 +58,7 @@ function excluirUsuario(usuario_id, usuario_nome)
                 success: function (response) {
                     $('.txt_csrfname').val(response.token)
                     Swal.close();
-                    if (response.status == 'success' && !!response.detail.id) {
+                    if (response.status === 'success' && !!response.detail.id) {
                         Swal.fire({
                             title: 'Sucesso!',
                             text: 'Usuário excluído com sucesso!',
@@ -69,6 +69,14 @@ function excluirUsuario(usuario_id, usuario_nome)
                                 location.reload();
                             }
                         })
+                    } else {
+                        Swal.fire({
+                            title: 'Ops! Aconteceu algo de errado',
+                            text: response.msg_error,
+                            icon: 'error',
+                            timer: 1800,
+                            timerProgressBar: true,
+                        });
                     }
                 },
                 error: function (response) {
@@ -79,9 +87,6 @@ function excluirUsuario(usuario_id, usuario_nome)
                         icon: 'error',
                         timer: 1800,
                         timerProgressBar: true,
-                        onClose: () => {
-                            location.reload();
-                        }
                     });
                 }
             });
