@@ -8,40 +8,40 @@ use CodeIgniter\Pager\PagerRenderer;
 $pager->setSurroundCount(2);
 ?>
 
-<nav aria-label="<?= lang('Pager.pageNavigation') ?>">
-	<ul class="pagination">
-		<?php if ($pager->hasPrevious()) : ?>
-			<li class="page-item">
-				<a class="page-link" href="<?= $pager->getFirst() ?>" aria-label="<?= lang('Pager.first') ?>">
-					<span aria-hidden="true">Primeiro</span>
-				</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="<?= $pager->getPrevious() ?>" aria-label="<?= lang('Pager.previous') ?>">
-					<span aria-hidden="true">Anterior</span>
-				</a>
-			</li>
-		<?php endif ?>
+<div class="col-12 text-center" aria-label="<?php echo lang('Pager.pageNavigation') ?>">
+    <ul style="margin: 0;" class="paginacao">
+        <?php if ($pager->hasPrevious()) : ?>
+            <a class="client-pager" href="<?php echo $pager->getFirst() ?>" aria-label="<?php echo lang('Pager.first') ?>">
+                <li>
+                    <i class="fas fa-angle-double-left fa-lg align-self-center"></i>
+                </li>
+            </a>
+            <a class="client-pager" href="<?php echo $pager->getPreviousPage() ?>" aria-label="<?php echo lang('Pager.previous') ?>">
+                <li>
+                    <i class="fas fa-chevron-left fa-lg align-self-center"></i>
+                </li>
+            </a>
+        <?php endif ?>
 
-		<?php foreach ($pager->links() as $link) : ?>
-			<li <?= $link['active'] ? 'class="active"' : '' ?>>
-				<a class="page-link" href="<?= $link['uri'] ?>">
-					<?= $link['title'] ?>
-				</a>
-			</li>
-		<?php endforeach ?>
+        <?php foreach ($pager->links() as $link) : ?>
+            <a class="client-pager" href="<?php echo $link['uri'] ?>">
+                <li <?php echo $link['active'] ? 'class="ativo"' : '' ?>>
+                    <?php echo $link['title'] ?>
+                </li>
+            </a>
+        <?php endforeach ?>
 
-		<?php if ($pager->hasNext()) : ?>
-			<li class="page-item">
-				<a class="page-link" href="<?= $pager->getNext() ?>" aria-label="<?= lang('Pager.next') ?>">
-					<span aria-hidden="true">Próxima</span>
-				</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="<?= $pager->getLast() ?>" aria-label="<?= lang('Pager.last') ?>">
-					<span aria-hidden="true">Última</span>
-				</a>
-			</li>
-		<?php endif ?>
-	</ul>
-</nav>
+        <?php if ($pager->hasNext()) : ?>
+            <a class="client-pager" href="<?php echo $pager->getNextPage() ?>" aria-label="<?php echo lang('Pager.next') ?>">
+                <li>
+                    <i class="fas fa-chevron-right"></i>
+                </li>
+            </a>
+            <a class="client-pager" href="<?php echo $pager->getLast() ?>" aria-label="<?php echo lang('Pager.last') ?>">
+                <li>
+                    <i class="fas fa-angle-double-right"></i>
+                </li>
+            </a>
+        <?php endif ?>
+    </ul>
+</div>
