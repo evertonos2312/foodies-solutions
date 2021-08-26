@@ -21,6 +21,22 @@ class Usuarios extends AdminBaseController
     {
         $options_perpage = [10, 20, 40];
         $filtro_status = $this->request->getPost('filtro_status');
+        $results_perpage = $this->request->getPost('per_page');
+
+        if ($this->request->getPost('per_page')) {
+            $results_perpage = $this->request->getPost('per_page');
+        }
+
+        if (!is_null($results_perpage)) {
+            $this->session->set('per_page', $results_perpage);
+        }
+        if (is_null($results_perpage)) {
+            $results_perpage = $this->session->get('per_page');
+        }
+
+        if ($results_perpage == '') {
+            $results_perpage = 10;
+        }
 
         $status_options = [
             'Todos' => [
@@ -73,7 +89,7 @@ class Usuarios extends AdminBaseController
             }
         }
 
-        $usuarios = $this->usuarioModel->addStatus($filtro_status)->paginate($results_perpage ?: 10);
+        $usuarios = $this->usuarioModel->addStatus($filtro_status)->paginate($results_perpage);
         $pager = $this->usuarioModel->pager;
         $pager_links = $pager->links('default', 'bootstrap_pager');
         foreach ($usuarios as $key => $usuario) {
