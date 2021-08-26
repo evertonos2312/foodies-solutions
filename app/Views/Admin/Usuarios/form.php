@@ -97,18 +97,15 @@
                                         <input class="form-control cpf" name="cpf" type="text"  value="{$cpf}">
                                     </div>
                                     {if (empty($id))}
-                                    <div class="row col-lg-6 mb-3" id="change_pass">
-                                        <div class="col-md-6">
-                                            <label for="senha_1">Senha
-                                                <span class="required">*</span>
-                                                <span class="required" id="pass_match" style="display: none"> Senhas não conferem</span>
-                                            </label>
-                                            <input class="form-control" autocomplete="off" required id="password" type="password" name="password">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="senha_2">Confirmar Senha <span class="required">*</span></label>
-                                            <input class="form-control" autocomplete="off" required id="password_confirmation" type="password" name="password_confirmation">
-                                        </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="password">Senha
+                                            <span class="required">*</span>
+                                        </label>
+                                        <input class="form-control" autocomplete="off" required id="password" type="password" name="password">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="password_confirmation">Confirmar Senha <span class="required">*</span></label>
+                                        <input class="form-control" autocomplete="off" required id="password_confirmation" type="password" name="password_confirmation">
                                     </div>
                                     {/if}
                             </div>

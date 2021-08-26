@@ -104,16 +104,15 @@ class Usuarios extends AdminBaseController
                 'cpf' => $this->request->getPost('cpf'),
                 'telefone' => $this->request->getPost('telefone'),
                 'is_admin' => $this->request->getPost('is_admin'),
+                'ativo' => $this->request->getPost('ativo'),
             ];
             if ($id) {
                 $usuario = $this->buscaUsuarioOu404($id);
                 $newUser['id'] = $id;
                 $this->usuarioModel->unsetPassword();
-                $newUser['ativo'] = $this->request->getPost('ativo');
             } else {
-                $newUser['password'] = $this->request->getPost('is_admin');
+                $newUser['password'] = $this->request->getPost('password');
                 $newUser['password_confirmation'] = $this->request->getPost('password_confirmation');
-                $newUser['ativo'] = 0;
             }
 
             $saved = $this->usuarioModel->protect(false)->save($newUser);
@@ -156,14 +155,25 @@ class Usuarios extends AdminBaseController
             $user_id = $this->request->getPost('user_id');
             $data['token'] = csrf_hash();
             if (!empty($user_id)) {
-                if ($this->usuarioModel->delete($user_id)) {
-                    $data['code'] = 200;
-                    $data['status'] = 'success';
-                    $data['detail'] = ['id' => $user_id];
+                $usuario = $this->buscaUsuarioOu404($user_id);
+                if ($usuario['is_admin'] != 1) {
+                    if ($this->usuarioModel->delete($user_id)) {
+                        $data['code'] = 200;
+                        $data['status'] = 'success';
+                        $data['detail'] = ['id' => $user_id];
+                        $data['msg_error'] = '';
+                    } else {
+                        $data['code'] = 503;
+                        $data['status'] = 'error';
+                        $data['detail'] = '';
+                        $data['msg_error'] = 'Erro ao excluir registro, verifique os dados enviados.';
+                    }
                 } else {
-                    $data['code'] = 503;
+                    $data['code'] = 403;
                     $data['status'] = 'error';
-                    $data['detail'] = 'Database error';
+                    $data['detail'] = '';
+                    $data['msg_error'] = 'Não é possível excluir um usuário Administrador';
+                    return $this->response->setJSON($data);
                 }
                 return $this->response->setJSON($data);
             }
