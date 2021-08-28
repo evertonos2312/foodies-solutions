@@ -59,7 +59,7 @@
                     </li>
                     {if ($isLoggedIn)}
                         <li class="nav-item">
-                            <a href="{$app_url}login/signout" class="nav-link">Sair</a>
+                            <a href="{$app_url}login/logout" class="nav-link">Sair</a>
                         </li>
                     {/if}
                 </ul>
