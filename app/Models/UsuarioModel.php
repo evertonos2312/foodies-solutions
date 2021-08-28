@@ -98,4 +98,26 @@ class UsuarioModel extends BaseModel
         }
         return $this;
     }
+
+    public function addTipo($tipo = null)
+    {
+        if (!is_null($tipo)) {
+            switch ($tipo) {
+                case 'adm':
+                    $this->where('is_admin', 1);
+                    break;
+                case 'cli':
+                    $this->where('is_admin', 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $this;
+    }
+
+    public function buscaUsuarioPorEmail(string $email)
+    {
+        return $this->where('email', $email)->first();
+    }
 }

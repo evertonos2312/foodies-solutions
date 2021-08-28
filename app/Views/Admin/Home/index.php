@@ -1,3 +1,13 @@
+{if ($msg)}
+<div class="alert {if ($msg_type)}{$msg_type}{else}alert-danger{/if} alert-dismissible fade show" role="alert">
+    <i class="far fa-lightbulb mr-5"></i>
+    <span>&nbsp;</span>
+    {$msg}
+    <button type="button" class="{if ($msg_type)}{$msg_type}{else}alert-danger{/if} close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
 <div class="content-header">
     <h2 class="content-title"> Dashboard </h2>
 </div>
@@ -27,7 +37,7 @@
 </div>
 
 
-<div class="row">
+<div class="row d-none d-md-block d-lg-block ">
     <div class="col-xl-12 col-lg-12">
         <div class="card mb-4">
             <article class="card-body">

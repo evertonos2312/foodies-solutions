@@ -104,12 +104,7 @@ class BaseController extends Controller
     public function SetInitialData()
     {
         //Initial data for view, assuming this it's gonna be used in all pages
-        $msg_type = '';
-        if ($this->session->getFlashdata('msg_type') == 'success') {
-            $msg_type = 'alert-success';
-        } elseif ($this->session->getFlashdata('msg_type') == 'alert') {
-            $msg_type = 'alert-danger';
-        }
+        $msg_type = ($this->session->getFlashdata('msg_type')) ? $this->session->getFlashdata('msg_type') : '';
         $dataArr = array(
             'app_url' => base_url() . '/',
             'msg' => $this->session->getFlashdata('msg'),
@@ -120,7 +115,7 @@ class BaseController extends Controller
             'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
             'isLoggedIn' => $this->session->get('isLoggedIn'),
             'isLoggedAdmin' => $this->session->get('isLoggedAdmin'),
-            'auth_part' => ($this->session->get('auth_part')) ? $this->session->get('auth_part') : null,
+            'auth_user' => ($this->session->get('auth_user')) ? $this->session->get('auth_user') : null,
         );
         $this->smarty->setData($dataArr);
     }

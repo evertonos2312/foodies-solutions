@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="pt_br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -117,13 +117,17 @@
                 <li class="nav-item">
                     <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
                 </li>
+                {if ($isLoggedAdmin)}
                 <li class="dropdown nav-item">
-                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"> <img class="img-xs rounded-circle" src="{$app_url}assets/admin/images/people/avatar1.jpg" alt="User"></a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="#">Meu perfil</a>
-                        <a class="dropdown-item text-danger" href="#">Sair</a>
+                    <a id="dropdownPerfil" class="dropdown-toggle dropdown-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {strtok($auth_user['nome'], " ")}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
+                        <a class="dropdown-item" href="{$app_url}admin/usuarios/show/{$auth_user['id']}">Meu perfil</a>
+                        <a class="dropdown-item text-danger" href="{$app_url}login/logout">Sair</a>
                     </div>
                 </li>
+                {/if}
             </ul>
         </div>
     </header>

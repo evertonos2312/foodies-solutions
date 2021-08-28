@@ -20,11 +20,23 @@
 <div class="card mb-4">
     <header class="card-header">
         <div class="row gx-3">
-            <div class="ui-widget col-lg-9 col-md-6 me-auto">
+            <div class="ui-widget col-lg-7 col-md-6 me-auto">
                 <input id="pesquisa_query" placeholder="Pesquise aqui..." class="form-control bg-light" name="pesquisa_query" type="search">
             </div>
             <div class="col-lg-2 col-6 col-md-3">
                 {form_open('admin/usuarios/index')}
+                <input type="hidden" name="per_page" value="{$results_perpage}">
+                <input type="hidden" name="filtro_status" value="{$filtro_status}">
+                <select name="filtro_tipo" class="form-control">
+                    {foreach $tipos_options as $filtro_tipo}
+                        <option value="{$filtro_tipo.tipos_value}" {$filtro_tipo.tipos_selected}>{$filtro_tipo.tipos_nome}</option>
+                    {/foreach}
+                </select>
+                {form_close()}
+            </div>
+            <div class="col-lg-2 col-6 col-md-3">
+                {form_open('admin/usuarios/index')}
+                <input type="hidden" name="per_page" value="{$results_perpage}">
                 <select name="filtro_status" class="form-control">
                     {foreach from=$status_options item=filtro}
                         <option value="{$filtro.status_value}" {$filtro.status_selected}>{$filtro.status_nome}</option>
@@ -51,6 +63,7 @@
     </header> <!-- card-header end// -->
     <div class="card-body">
         <div class="table-responsive">
+            {if (!empty($usuarios))}
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -59,25 +72,32 @@
                     <th scope="col">E-mail</th>
                     <th scope="col">CPF</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Perfil</th>
                     <th scope="col" class="text-center"> Ações </th>
                 </tr>
                 </thead>
                 <tbody>
-                {foreach $usuarios as $usuario}
-                <tr>
-                    <td>{$usuario['id']}</td>
-                    <td><b><a class="" href="{$app_url}admin/usuarios/show/{$usuario['id']}">{$usuario['nome']}</a></b></td>
-                    <td>{$usuario['email']}</td>
-                    <td>{$usuario['cpf']}</td>
-                    <td><span class="badge rounded-pill {$usuario['ativo_class']}">{$usuario['ativo']}</span></td>
-                    <td class="text-center">
-                        <a class="btn btn-light" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
-                        <button class="btn btn-light text-danger" onclick="excluirUsuario('{$usuario.id}', '{$usuario.nome}')">Excluir</button>
-                    </td>
-                </tr>
-                {/foreach}
+                    {foreach $usuarios as $usuario}
+                    <tr>
+                        <td>{$usuario['id']}</td>
+                        <td><b><a class="" href="{$app_url}admin/usuarios/show/{$usuario['id']}">{$usuario['nome']}</a></b></td>
+                        <td>{$usuario['email']}</td>
+                        <td>{$usuario['cpf']}</td>
+                        <td><span class="badge rounded-pill {$usuario['ativo_class']}">{$usuario['ativo']}</span></td>
+                        <td><span class="badge rounded-pill {$usuario['tipo_class']}">{$usuario['tipo']}</span></td>
+                        <td class="text-center">
+                            <a class="btn btn-light" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
+                            <button class="btn btn-light text-danger" onclick="excluirUsuario('{$usuario.id}', '{$usuario.nome}')">Excluir</button>
+                        </td>
+                    </tr>
+                    {/foreach}
 
                 </tbody>
+                    {else}
+                        <tr>
+                            <td colspan="6">Nenhum usuário encontrado</td>
+                        </tr>
+                    {/if}
                 <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </table>
         </div>
@@ -103,6 +123,13 @@
     });
 
     $('select[name="filtro_status"]').change(function() {
+        var url = $(this).attr('action');
+        var form = $(this).closest('form')[0];
+        $(form).attr('action', url);
+        $(form).submit();
+    });
+
+    $('select[name="filtro_tipo"]').change(function() {
         var url = $(this).attr('action');
         var form = $(this).closest('form')[0];
         $(form).attr('action', url);
