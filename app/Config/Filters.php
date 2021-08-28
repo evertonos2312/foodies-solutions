@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
+use App\Filters\LoginFilter;
+use App\Filters\VisitanteFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -19,6 +22,9 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
+        'login' => LoginFilter::class,
+        'admin' => AdminFilter::class,
+        'visitante' => VisitanteFilter::class,
 	];
 
 	/**
@@ -58,5 +64,16 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [];
+	public $filters = [
+        'login' => [
+            'before' => [
+                'admin/*',
+            ]
+        ],
+        'admin' => [
+            'before' => [
+                'admin/*',
+            ]
+        ]
+    ];
 }

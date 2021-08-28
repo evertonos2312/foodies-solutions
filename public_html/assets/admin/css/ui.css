@@ -1071,3 +1071,15 @@ ul.paginacao {
 .client-pager:hover{
   text-decoration: none;
 }
+
+.dropdown-perfil{
+  font-weight: 600;
+  color: #0a0a18 !important;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.dropdown-perfil:hover {
+  margin-left: 10px;
+  transform: scale(1.1);
+}

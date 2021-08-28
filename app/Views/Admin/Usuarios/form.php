@@ -34,7 +34,7 @@
                                         {else}
                                             {$nome = set_value('nome')}
                                         {/if}
-                                        <input class="form-control"  name="nome" type="text" value="{$nome}">
+                                        <input class="form-control"  autocomplete="off" name="nome" type="text" value="{$nome}">
                                     </div>
                                     {if (!empty($usuario) || !empty(set_value('id')))}
                                     <div class="col-2  mb-3">
@@ -55,7 +55,7 @@
                                         {else}
                                             {$email = set_value('email')}
                                         {/if}
-                                        <input class="form-control" name="email"  type="email" value="{$email}">
+                                        <input class="form-control" autocomplete="off" name="email"  type="email" value="{$email}">
                                     </div>
                                     <div class="col-lg-6  mb-3">
                                         <label class="form-label">Telefone</label>
@@ -64,7 +64,7 @@
                                         {else}
                                             {$telefone = set_value('telefone')}
                                         {/if}
-                                        <input class="form-control sp_celphones" name="telefone" type="tel"  value="{$telefone}">
+                                        <input class="form-control sp_celphones" autocomplete="off" name="telefone" type="tel"  value="{$telefone}">
                                     </div>
                                     <div class="col-lg-3  mb-3">
                                         <label class="form-label">Perfil</label>
@@ -94,7 +94,7 @@
                                         {else}
                                             {$cpf = set_value('cpf')}
                                         {/if}
-                                        <input class="form-control cpf" name="cpf" type="text"  value="{$cpf}">
+                                        <input class="form-control cpf" autocomplete="off" name="cpf" type="text"  value="{$cpf}">
                                     </div>
                                     {if (empty($id))}
                                     <div class="col-lg-6 mb-3">
