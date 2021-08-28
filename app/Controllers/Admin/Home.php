@@ -18,6 +18,5 @@ class Home extends AdminBaseController
 
 
         return $this->render($this->data, 'Admin/Home/index');
-//        return view('errors/construct_admin');
     }
 }

@@ -21,6 +21,7 @@ class Usuarios extends AdminBaseController
     {
         $options_perpage = [10, 20, 40];
         $filtro_status = $this->request->getPost('filtro_status');
+        $filtro_tipo = $this->request->getPost('filtro_tipo');
         $results_perpage = $this->request->getPost('per_page');
 
         if ($this->request->getPost('per_page')) {
@@ -53,6 +54,21 @@ class Usuarios extends AdminBaseController
             ],
             
         ];
+        $tipos_options = [
+            'Todos' => [
+                'value' => 'todos',
+                'nome' => 'Todos'
+            ],
+            'Administrador' => [
+                'value' => 'adm',
+                'nome' => 'Administrador'
+            ],
+            'Cliente' => [
+                'value' => 'cli',
+                'nome' => 'Cliente'
+            ],
+
+        ];
 
 
         if (!is_null($filtro_status)) {
@@ -65,6 +81,16 @@ class Usuarios extends AdminBaseController
             }
         }
 
+        if (!is_null($filtro_tipo)) {
+            $this->session->set('filtro_tipo', $filtro_tipo);
+        }
+        if (is_null($filtro_tipo)) {
+            $filtro_tipo = $this->session->get('filtro_tipo');
+            if (!$filtro_tipo) {
+                $filtro_tipo = 'todos';
+            }
+        }
+
         foreach ($status_options as $key => $status) {
             $result_status[$key]['status_nome'] = $status_options[$key]['nome'];
             $result_status[$key]['status_value'] = $status_options[$key]['value'];
@@ -72,6 +98,16 @@ class Usuarios extends AdminBaseController
                 $result_status[$key]['status_selected'] = 'selected';
             } else {
                 $result_status[$key]['status_selected'] = '';
+            }
+        }
+
+        foreach ($tipos_options as $key => $status) {
+            $result_tipo[$key]['tipos_nome'] = $tipos_options[$key]['nome'];
+            $result_tipo[$key]['tipos_value'] = $tipos_options[$key]['value'];
+            if ($filtro_tipo == $tipos_options[$key]['value']) {
+                $result_tipo[$key]['tipos_selected'] = 'selected';
+            } else {
+                $result_tipo[$key]['tipos_selected'] = '';
             }
         }
 
@@ -89,12 +125,14 @@ class Usuarios extends AdminBaseController
             }
         }
 
-        $usuarios = $this->usuarioModel->addStatus($filtro_status)->paginate($results_perpage);
+        $usuarios = $this->usuarioModel->addTipo($filtro_tipo)->addStatus($filtro_status)->paginate($results_perpage);
         $pager = $this->usuarioModel->pager;
         $pager_links = $pager->links('default', 'bootstrap_pager');
         foreach ($usuarios as $key => $usuario) {
             $usuarios[$key]['ativo'] = $usuario['ativo'] == 1 ? 'Ativo' : 'Inativo';
+            $usuarios[$key]['tipo'] = $usuario['is_admin'] == 1 ? 'Administrador' : 'Cliente';
             $usuarios[$key]['ativo_class'] = $usuario['ativo'] == 1 ? 'alert-success' : 'alert-danger';
+            $usuarios[$key]['tipo_class'] = $usuario['is_admin'] == 1 ? 'alert-warning' : 'alert-info';
         }
 
         $this->data['title'] = 'Lista de usuários';
@@ -104,6 +142,8 @@ class Usuarios extends AdminBaseController
         $this->data['results_perpage'] = $results_perpage;
         $this->data['perpage_options'] = $options_perpage;
         $this->data['filtro_status'] = $filtro_status;
+        $this->data['filtro_tipo'] = $filtro_tipo;
+        $this->data['tipos_options'] = $result_tipo;
         $this->data['status_options'] = $result_status;
 
 
@@ -197,7 +237,7 @@ class Usuarios extends AdminBaseController
             $saved = $this->usuarioModel->protect(false)->save($newUser);
             if ($saved) {
                 $this->session->setFlashdata('msg', 'Usuário salvo com sucesso');
-                $this->session->setFlashdata('msg_type', 'success');
+                $this->session->setFlashdata('msg_type', 'alert-success');
                 if (empty($id)) {
                     $id = $this->usuarioModel->getInsertID();
                 }
@@ -215,7 +255,7 @@ class Usuarios extends AdminBaseController
             }
         }
         $this->session->setFlashdata('msg', 'A ação que você requisitou não é permitida.');
-        $this->session->setFlashdata('msg_type', 'danger');
+        $this->session->setFlashdata('msg_type', 'alert-danger');
         return redirect()->to(base_url() . '/admin/usuarios');
     }
 
