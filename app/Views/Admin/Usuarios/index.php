@@ -86,8 +86,20 @@
                         <td><span class="badge rounded-pill {$usuario['ativo_class']}">{$usuario['ativo']}</span></td>
                         <td><span class="badge rounded-pill {$usuario['tipo_class']}">{$usuario['tipo']}</span></td>
                         <td class="text-center">
-                            <a class="btn btn-light" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
+                            {if ($usuario['is_master'] AND !$auth_user['is_master'])}
+                            <span class="d-inline-block" style="cursor: not-allowed" tabindex="0" data-toggle="tooltip" title="Não é possível editar este usuário">
+                                <a class="btn btn-light disabled" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
+                            </span>
+                            {else}
+                                <a class="btn btn-light" id="editar_anchor_{$usuario['id']}" href="{$app_url}admin/usuarios/editar/{$usuario['id']}">Editar</a>
+                            {/if}
+                            {if ($usuario['is_admin'] AND !$auth_user['is_master'])}
+                            <span class="d-inline-block" style="cursor: not-allowed" tabindex="0" data-toggle="tooltip" title="Não é possível excluir este usuário">
+                                <button class="btn btn-light text-danger disabled" onclick="excluirUsuario('{$usuario.id}', '{$usuario.nome}')">Excluir</button>
+                            </span>
+                            {else}
                             <button class="btn btn-light text-danger" onclick="excluirUsuario('{$usuario.id}', '{$usuario.nome}')">Excluir</button>
+                            {/if}
                         </td>
                     </tr>
                     {/foreach}
@@ -135,6 +147,8 @@
         $(form).attr('action', url);
         $(form).submit();
     });
+
+
 </script>
 <script src="{$app_url}assets/admin/vendors/auto-complete/jquery-ui.js" type="text/javascript"></script>
 <script src="{$app_url}assets/admin/js/usuarios/index.js" type="text/javascript"></script>
