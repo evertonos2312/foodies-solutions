@@ -30,6 +30,9 @@
 
     <script type="text/javascript">
         const app_url = '{$app_url}';
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 
 </head>

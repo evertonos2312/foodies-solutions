@@ -133,6 +133,10 @@ class Usuarios extends AdminBaseController
             $usuarios[$key]['tipo'] = $usuario['is_admin'] == 1 ? 'Administrador' : 'Cliente';
             $usuarios[$key]['ativo_class'] = $usuario['ativo'] == 1 ? 'alert-success' : 'alert-danger';
             $usuarios[$key]['tipo_class'] = $usuario['is_admin'] == 1 ? 'alert-warning' : 'alert-info';
+            if ($usuario['is_master'] == 1) {
+                $usuarios[$key]['tipo'] = 'Master';
+                $usuarios[$key]['tipo_class'] = 'alert-dark';
+            }
         }
 
         $this->data['title'] = 'Lista de usuários';
@@ -187,9 +191,21 @@ class Usuarios extends AdminBaseController
 
     public function editar($id = null)
     {
-
+        $session = session()->get('auth_user');
         if (!is_null($id)) {
             $usuario = $this->buscaUsuarioOu404($id);
+            if ($usuario['is_admin']) {
+                if ($session['id'] != $id && !$session['is_master']) {
+                    $this->session->setFlashdata('msg', "Não é possível editar outro Administrador.");
+                    $this->session->setFlashdata('msg_type', 'alert-danger');
+                    return redirect()->to(site_url('/admin/usuarios/index'));
+                }
+            }
+            if ($usuario['is_master'] && !$session['is_master']) {
+                $this->session->setFlashdata('msg', "Não é possível editar este usuário.");
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->to(site_url('/admin/usuarios/index'));
+            }
 
             $usuario['tipo'] = $usuario['is_admin'] == 1 ? 'Administrador' : 'Cliente';
             $usuario['ativo_name'] = $usuario['ativo'] == 1 ? 'Ativo' : 'Inativo';
@@ -273,8 +289,23 @@ class Usuarios extends AdminBaseController
             $data = array();
             $user_id = $this->request->getPost('user_id');
             $data['token'] = csrf_hash();
+            $session = session()->get('auth_user');
             if (!empty($user_id)) {
                 $usuario = $this->buscaUsuarioOu404($user_id);
+                if ($session['is_master'] == 1) {
+                    if ($this->usuarioModel->delete($user_id)) {
+                        $data['code'] = 200;
+                        $data['status'] = 'success';
+                        $data['detail'] = ['id' => $user_id];
+                        $data['msg_error'] = '';
+                    } else {
+                        $data['code'] = 503;
+                        $data['status'] = 'error';
+                        $data['detail'] = '';
+                        $data['msg_error'] = 'Erro ao excluir registro, verifique os dados enviados.';
+                    }
+                    return $this->response->setJSON($data);
+                }
                 if ($usuario['is_admin'] != 1) {
                     if ($this->usuarioModel->delete($user_id)) {
                         $data['code'] = 200;
