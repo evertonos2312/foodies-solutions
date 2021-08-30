@@ -8,7 +8,7 @@ class UsuarioModel extends BaseModel
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'email', 'telefone'];
+    protected $allowedFields = ['nome', 'email', 'telefone', 'cpf', 'is_admin', 'ativo', 'password_hash','ativacao_hash','reset_hash', 'reset_expira_em'];
 
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
