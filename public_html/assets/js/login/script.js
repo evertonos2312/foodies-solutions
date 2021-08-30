@@ -19,6 +19,7 @@ async function recoverEmail()
 
     if (isEmail(user_mail)) {
         $('#recoverModal').modal('hide');
+        let delay = 1000;
         $.ajax({
             url: app_url + 'password/recover',
             method: 'post',
@@ -27,18 +28,26 @@ async function recoverEmail()
                 'recaptcha': grecaptcha.getResponse(),
                 [csrfName]: csrfHash
             },
+            beforeSend() {
+                $("div.spanner").addClass("show");
+                $("div.overlay").addClass("show");
+            },
             success: function (response) {
                 $('.txt_csrfname').val(response.token)
                 Swal.close();
                 grecaptcha.reset();
                 $("#user_email").val('');
-                if (response.status === 'success') {
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        text: 'Caso esse seja um email valido, te ajudaremos a recuperar sua senha.',
-                        icon: 'success',
-                    })
-                }
+                setTimeout(function () {
+                    $("div.spanner").removeClass("show");
+                    $("div.overlay").removeClass("show");
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: 'Caso esse seja um email valido, te ajudaremos a recuperar sua senha.',
+                            icon: 'success',
+                        })
+                    }
+                }, delay);
             },
             error: function () {
                 $('.txt_csrfname').val(response.token)

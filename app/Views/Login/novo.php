@@ -77,6 +77,7 @@
                 <p class="text-center mb-4">Não é cadastrado?  <a href="{$app_url}registrar">Criar conta</a></p>
             </div>
             <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
+            <div class="overlay"></div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="recoverModal" tabindex="-1" role="dialog" aria-labelledby="recoverModalLabel" aria-hidden="true">
@@ -93,19 +94,21 @@
                         <input id="user_email" type="email" class="form-control">
                         <span id="span_error" style="color: red; display: none"> *Digite um email valido.</span>
                     </div>
-                    <div class="modal-footer">
-                        <div class="row col-12">
-                            <div class="col-6 g-recaptcha" data-callback="recaptchaCallback" data-sitekey="{$site_key}"></div>
-                            <div class="text-right col-6 custom-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button  type="button" onclick="recoverEmail()" disabled id="enviar" class="btn btn-primary" style="cursor: not-allowed">Enviar</button>
-                            </div>
+                    <div class="modal-footer d-lg-inline-flex justify-content-lg-between">
+                        <div class=" g-recaptcha" data-callback="recaptchaCallback" data-sitekey="{$site_key}"></div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button  type="button" onclick="recoverEmail()" disabled id="enviar" class="btn btn-primary" style="cursor: not-allowed">Enviar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="spanner">
+        <div class="loader"></div>
+        <p>Processando... por favor aguarde.</p>
+    </div>
 </main>
 <script src="{$app_url}assets/js/login/script.js"></script>
 </body>
