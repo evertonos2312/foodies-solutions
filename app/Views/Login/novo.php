@@ -9,6 +9,8 @@
     <link href="{$app_url}assets/admin/images/pizza_ico.png" rel="shortcut icon" type="image/x-icon">
 
     <link href="{$app_url}assets/admin/css/bootstrap.css?v=1.1" rel="stylesheet" type="text/css"/>
+    <link href="{$app_url}assets/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{$app_url}assets/sweetalert/css/sweetalert2.min.css">
 
     <!-- custom style -->
     <link href="{$app_url}assets/admin/css/ui.css?v=1.1" rel="stylesheet" type="text/css"/>
@@ -20,7 +22,9 @@
     <script src="{$app_url}assets/admin/js/bootstrap.min.js"></script>
     <script src="{$app_url}assets/admin/js/bootstrap.min.js.map"></script>
     <script src="{$app_url}assets/js/fontawesome.min.js"></script>
-
+    <script src="{$app_url}assets/sweetalert/js/sweetalert2.all.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="{$app_url}assets/js/utils.js"></script>
     <script type="text/javascript">
         const app_url = '{$app_url}';
     </script>
@@ -63,8 +67,8 @@
                         <input class="form-control" name="password" placeholder="Digite a sua senha" type="password">
                     </div>
 
-                    <div class="mb-3">
-                        <a href="#" class="float-end">Forgot password?</a>
+                    <div class="mb-5">
+                        <span  data-toggle="modal" data-target="#recoverModal" class="float-end anchor-link link-line">Esqueci a minha senha</span>
                     </div>
                     <div class="mb-4">
                         <button type="submit" class="btn btn-primary w-100"> Entrar  </button>
@@ -72,8 +76,37 @@
                 {form_close()}
                 <p class="text-center mb-4">Não é cadastrado?  <a href="{$app_url}registrar">Criar conta</a></p>
             </div>
+            <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="recoverModal" tabindex="-1" role="dialog" aria-labelledby="recoverModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Recuperação de conta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span>Informe seu email que te ajudaremos a recuperar sua senha.</span>
+                        <input id="user_email" type="email" class="form-control">
+                        <span id="span_error" style="color: red; display: none"> *Digite um email valido.</span>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row col-12">
+                            <div class="col-6 g-recaptcha" data-callback="recaptchaCallback" data-sitekey="{$site_key}"></div>
+                            <div class="text-right col-6 custom-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button  type="button" onclick="recoverEmail()" disabled id="enviar" class="btn btn-primary" style="cursor: not-allowed">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </main>
+<script src="{$app_url}assets/js/login/script.js"></script>
 </body>
 </html>
