@@ -9,12 +9,12 @@ class Login extends BaseController
     public function __construct()
     {
         parent::__construct();
+        $this->data['site_key'] = '6LfcUHkbAAAAAPQZpcz1ZtkFmfclnbtA8inTnJil';
         $this->authentication = service('authentication');
     }
     public function novo()
     {
         $this->data['title'] = 'Realize o Login';
-        $this->data['site_key'] = '6LfcUHkbAAAAAPQZpcz1ZtkFmfclnbtA8inTnJil';
         return $this->display($this->smarty->setData($this->data)->view('Login/novo'));
     }
 

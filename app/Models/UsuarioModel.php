@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Libraries\Token;
+
 class UsuarioModel extends BaseModel
 {
     protected $table = 'usuarios';
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'email', 'telefone', 'cpf', 'is_admin', 'ativo', 'password_hash','ativacao_hash','reset_hash', 'reset_expira_em'];
+    protected $allowedFields = ['nome', 'email', 'telefone', 'cpf', 'password','reset_hash', 'reset_expira_em'];
 
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
@@ -119,5 +121,18 @@ class UsuarioModel extends BaseModel
     public function buscaUsuarioPorEmail(string $email)
     {
         return $this->where('email', $email)->first();
+    }
+
+    public function buscaUsuarioToken(string $token_email)
+    {
+        $token = new Token($token_email);
+        $tokenHash = $token->getHash();
+        $usuario = $this->where('reset_hash', $tokenHash)->first();
+        if ($usuario) {
+            if ($usuario['reset_expira_em'] < date('Y-m-d H:i:s')) {
+                $usuario = null;
+            }
+            return $usuario;
+        }
     }
 }

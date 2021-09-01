@@ -61,6 +61,54 @@ class Password extends BaseController
         return view('errors/404_admin');
     }
 
+    public function reset($token = null)
+    {
+        if (!is_null($token)) {
+            $usuario = $this->usuarioModel->buscaUsuarioToken($token);
+
+            if (!is_null($usuario)) {
+                $this->data['title'] = 'Redefina sua senha';
+                $this->data['token'] = $token;
+                return $this->display($this->smarty->setData($this->data)->view('Password/reset'));
+            }
+        }
+        $this->session->setFlashdata('msg', "Link inválido ou expirado.");
+        $this->session->setFlashdata('msg_type', 'alert-info');
+        return redirect()->to(site_url('login'));
+    }
+
+    public function processar()
+    {
+        $token = $this->request->getPost('token');
+        if (!empty($token)) {
+            $usuario = $this->usuarioModel->buscaUsuarioToken($token);
+            if ($usuario) {
+                $usuario['password'] = $this->request->getPost('password');
+                $usuario['password_confirmation'] = $this->request->getPost('password_confirmation');
+                $saved = $this->usuarioModel->save($usuario);
+
+                if ($saved) {
+                    $usuario['reset_hash'] = null;
+                    $usuario['reset_expira_em'] = null;
+                    $this->usuarioModel->save($usuario);
+                    $this->session->setFlashdata('msg', "Nova senha cadastrada com sucesso.");
+                    $this->session->setFlashdata('msg_type', 'alert-success');
+                    return redirect()->to(site_url('login'));
+                } else {
+                    $this->data['msg'] = $this->usuarioModel->errors();
+                    $this->data['msg_type'] = 'alert-danger';
+                    $this->data['title'] = 'Redefina sua senha';
+                    $this->data['token'] = $token;
+                    return $this->display($this->smarty->setData($this->data)->view('Password/reset'));
+
+                }
+            }
+        }
+        $this->session->setFlashdata('msg', "Link inválido ou expirado.");
+        $this->session->setFlashdata('msg_type', 'alert-info');
+        return redirect()->to(site_url('login'));
+    }
+
     private function passwordReset($usuario)
     {
         $token = new Token();
