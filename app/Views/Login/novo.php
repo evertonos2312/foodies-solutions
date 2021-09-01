@@ -63,8 +63,11 @@
                     <div class="mb-3">
                         <input class="form-control" name="email" value="{old('email')}" placeholder="Digite o seu e-mail" type="email">
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control" name="password" placeholder="Digite a sua senha" type="password">
+                    <div id="show_hide_password" class="mb-3 input-group custom-group">
+                        <input class="form-control" required autocomplete="off" id="password" name="password" type="password">
+                        <div class="input-group-addon">
+                            <span class="show-hide"><i id="show_span" class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                        </div>
                     </div>
 
                     <div class="mb-5">
@@ -113,3 +116,15 @@
 <script src="{$app_url}assets/js/login/script.js"></script>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $("#show_hide_password span").on('click', function (event) {
+            $("#show_span").toggleClass("fa-eye fa-eye-slash");
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+            }
+        });
+    });
+</script>
