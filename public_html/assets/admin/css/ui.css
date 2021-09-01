@@ -1095,6 +1095,15 @@ ul.paginacao {
   gap: 15px;
 }
 
+.custom-group{
+  align-items: center;
+}
+.show-hide{
+  padding:10px 10px;
+  background-color:#efefef;
+  color:#333
+}
+
 
 .spanner{
   position:absolute;
