@@ -55,7 +55,7 @@
                                         {else}
                                             {$email = set_value('email')}
                                         {/if}
-                                        <input class="form-control" autocomplete="off" name="email"  type="email" value="{$email}">
+                                        <input id="user_email" class="form-control" autocomplete="off" name="email"  type="email" value="{$email}">
                                     </div>
                                     <div class="col-lg-6  mb-3">
                                         <label class="form-label">Telefone</label>
@@ -120,15 +120,26 @@
                     {/if}
                     <hr class="my-5">
                 {form_close()}
+                {if (!empty($id) AND ($auth_user['id'] == $id))}
                 <div class="row" style="max-width:920px">
-<!--                    <div class="col-md">-->
-<!--                        <article class="box mb-3 bg-light">-->
-<!--                            <a class="btn float-end btn-light btn-sm" href="#">Reiniciar</a>-->
-<!--                            <h6>Senha</h6>-->
-<!--                            <small class="text-muted d-block" style="width:70%">Você pode reiniciar a senha do usuário aqui.</small>-->
-<!--                        </article>-->
-<!--                    </div>-->
+                    <div class="col-md">
+                        <article id="article_pass" class="box mb-3 bg-light">
+                        <div id="send_pass">
+                            <button class="btn float-end btn-light btn-sm" onclick="redefinirAdmin()" >Redefinir</button>
+                            <h6>Senha</h6>
+                            <small class="text-muted d-block" style="width:70%">Você receberá um email com instruções para alterar sua senha.</small>
+                        </div>
+                        <div id="send_msg" style="display: none">
+                            <h6 id="response_msg"></h6>
+                            <small id="response_small_txt" class="text-muted d-block" style="width:70%">Você receberá um email com instruções para alterar sua senha.</small>
+                        </div>
+
+                        </article>
+                        <div class="loader">Carregando...</div>
+                    </div>
                 </div>
+                {/if}
+                <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </section>
 
         </div>

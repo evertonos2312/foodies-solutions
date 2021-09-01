@@ -11,12 +11,14 @@ class Password extends BaseController
 {
     private $usuarioModel;
     private $recaptcha;
+    public $authentication;
 
     public function __construct()
     {
         parent::__construct();
         $this->usuarioModel = new UsuarioModel();
         $this->recaptcha = new Recaptcha();
+        $this->authentication = service('authentication');
     }
 
     public function recover()
@@ -35,6 +37,37 @@ class Password extends BaseController
                 $data['msg_error'] = 'Recaptcha inválido';
                 return $this->response->setJSON($data);
             }
+
+            $email = $this->request->getPost('email');
+            if (!empty($email)) {
+                $usuario = $this->usuarioModel->buscaUsuarioPorEmail($email);
+
+                if (!empty($usuario)) {
+                    $usuario = $this->passwordReset($usuario);
+                    $this->enviaRedefinicaoSenha($usuario);
+                    $this->usuarioModel->save($usuario);
+                }
+
+                $data['code'] = 200;
+                $data['status'] = 'success';
+                $data['detail'] = 'Solicitação recebida com sucesso';
+                $data['msg_error'] = '';
+            } else {
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = 'Campo email não enviado';
+            }
+            return $this->response->setJSON($data);
+        }
+        return view('errors/404');
+    }
+
+    public function recoverAdmin()
+    {
+        if ($this->request->isAJAX()) {
+            $data = array();
+            $data['token'] = csrf_hash();
 
             $email = $this->request->getPost('email');
             if (!empty($email)) {
@@ -91,6 +124,7 @@ class Password extends BaseController
                     $usuario['reset_hash'] = null;
                     $usuario['reset_expira_em'] = null;
                     $this->usuarioModel->save($usuario);
+                    $this->authentication->logout();
                     $this->session->setFlashdata('msg', "Nova senha cadastrada com sucesso.");
                     $this->session->setFlashdata('msg_type', 'alert-success');
                     return redirect()->to(site_url('login'));
