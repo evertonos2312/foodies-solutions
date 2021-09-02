@@ -80,6 +80,11 @@
                     <span class="text">Usuários</span>
                 </a>
             </li>
+            <li id="li_categorias" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/categorias"> <i class="icon material-icons md-subject"></i>
+                    <span class="text">Categorias</span>
+                </a>
+            </li>
             <li id="li_entregadores" class="menu-item has-submenu">
                 <a class="menu-link" href=""> <i class="icon material-icons md-store"></i>
                     <span class="text">Entregadores</span>
