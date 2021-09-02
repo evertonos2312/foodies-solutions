@@ -36,19 +36,6 @@
     </div>
 </div>
 
-
-<div class="row d-none d-md-block d-lg-block ">
-    <div class="col-xl-12 col-lg-12">
-        <div class="card mb-4">
-            <article class="card-body">
-                <h5 class="card-title">Resumo</h5>
-                <canvas height="80" id="myChart"></canvas>
-            </article>
-        </div>
-    </div>
-</div>
-
-
 <div class="card mb-4">
     <div class="card-body">
         <h5 class="card-title">Últimos pedidos</h5>
