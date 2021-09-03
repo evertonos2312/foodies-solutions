@@ -295,6 +295,10 @@ body.aside-mini .menu-aside .menu-item.has-submenu .menu-link:after {
 .menu-aside .menu-item.active .menu-link {
   background-color: #ebf0fd;
 }
+.sub_active {
+  font-weight: bold;
+}
+
 .menu-aside .menu-link {
   padding: 10px;
   color: #29335d;
