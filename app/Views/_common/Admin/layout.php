@@ -63,7 +63,7 @@
                 </a>
                 <div class="submenu">
                     <a href="#">Lista de produtos</a>
-                    <a href="#">Categorias</a>
+                    <a id="a_categorias" class="" href="{$app_url}admin/categorias">Categorias</a>
                 </div>
             </li>
             <li id="li_pedidos" class="menu-item has-submenu">
@@ -78,11 +78,6 @@
             <li id="li_usuarios" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/usuarios"> <i class="icon material-icons md-people"></i>
                     <span class="text">Usuários</span>
-                </a>
-            </li>
-            <li id="li_categorias" class="menu-item">
-                <a class="menu-link" href="{$app_url}admin/categorias"> <i class="icon material-icons md-subject"></i>
-                    <span class="text">Categorias</span>
                 </a>
             </li>
             <li id="li_entregadores" class="menu-item has-submenu">
@@ -152,6 +147,7 @@
         $("#nav-icon").attr("src",app_url+"assets/admin/images/pizza-planet.png");
     }
     $('#li_'+"{$active}").addClass("active");
+    $('#a_'+"{$sub_active}").addClass("sub_active");
 
 
 </script>
