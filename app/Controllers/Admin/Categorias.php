@@ -14,7 +14,8 @@ class Categorias extends AdminBaseController
     {
         parent::__construct();
         $this->categoriaModel = new CategoriaModel();
-        $this->data['active'] = 'categorias';
+        $this->data['active'] = 'produtos';
+        $this->data['sub_active'] = 'categorias';
         $this->breadcrumb->add('Categorias', '/admin/categorias');
     }
 
