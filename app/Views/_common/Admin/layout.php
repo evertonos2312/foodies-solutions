@@ -63,7 +63,8 @@
                 </a>
                 <div class="submenu">
                     <a href="#">Lista de produtos</a>
-                    <a id="a_categorias" class="" href="{$app_url}admin/categorias">Categorias</a>
+                    <a id="a_categorias" href="{$app_url}admin/categorias">Categorias</a>
+                    <a id="a_extras" href="{$app_url}admin/extras">Extras</a>
                 </div>
             </li>
             <li id="li_pedidos" class="menu-item has-submenu">

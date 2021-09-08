@@ -111,6 +111,7 @@ class BaseController extends Controller
             'msg_type' => $msg_type,
             'title' => '',
             'active' => '',
+            'sub_active' => '',
             'breadcrumbs' => '',
             'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
             'isLoggedIn' => $this->session->get('isLoggedIn'),
