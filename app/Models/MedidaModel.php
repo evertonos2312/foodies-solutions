@@ -2,26 +2,26 @@
 
 namespace App\Models;
 
-class CategoriaModel extends BaseModel
+class MedidaModel extends BaseModel
 {
-    protected $table = 'categorias';
+    protected $table = 'medidas';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
 
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'ativo', 'slug'];
+    protected $allowedFields = ['nome', 'ativo', 'descricao'];
 
     // Dates
     protected $createdField = 'criado_em';
     protected $updatedField = 'atualizado_em';
     protected $deletedField = 'deletado_em';
 
-    // Validation
 
     protected $validationRules = [
-        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome, id,{id}]',
+        'nome' => 'required|min_length[2]|max_length[128]|is_unique[medidas.nome, id,{id}]'
+        ,
     ];
 
     protected $validationMessages = [
@@ -29,10 +29,6 @@ class CategoriaModel extends BaseModel
             'required' => 'O campo Nome é obrigatório.'
         ],
     ];
-
-    protected $beforeInsert = ['criaSlug'];
-    protected $beforeUpdate = ['criaSlug'];
-
 
     public function addStatus($status = null)
     {
