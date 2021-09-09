@@ -22,41 +22,33 @@
                         <div class="row gx-3">
                             <div class="col-10  mb-3">
                                 <label class="form-label">Nome</label>
-                                <input class="form-control" readonly type="text" value="{$extra['nome']}">
+                                <input class="form-control" readonly type="text" value="{$medida['nome']}">
                             </div>
                             <div class="col-2  mb-3">
                                 <label class="form-label">ID</label>
-                                <input class="form-control" readonly type="text" value="{$extra['id']}">
-                            </div>
-                            <div class="col-6  mb-3">
-                                <label class="form-label">Slug</label>
-                                <input class="form-control" readonly type="text" value="{$extra['slug']}">
-                            </div>
-                            <div class="col-6  mb-3">
-                                <label class="form-label">Preço</label>
-                                <input class="form-control" readonly type="text" value="R$ {number_format($extra['preco'], 2, ',', '.')}">
+                                <input class="form-control" readonly type="text" value="{$medida['id']}">
                             </div>
                             <div class="col-lg-6  mb-3">
                                 <label class="form-label">Status</label>
-                                <input class="form-control" type="text" readonly value="{$extra['ativo']}">
+                                <input class="form-control" type="text" readonly value="{$medida['ativo']}">
                             </div>
                             <div class="col-lg-3  mb-3">
                                 <label class="form-label">Criado</label>
-                                <input class="form-control" type="text" readonly value="{toDataBR($extra['criado_em'], true)}">
+                                <input class="form-control" type="text" readonly value="{toDataBR($medida['criado_em'], true)}">
                             </div>
                             <div class="col-lg-3  mb-3">
                                 <label class="form-label">Atualizado</label>
-                                <input class="form-control" type="text" readonly value="{toDataBR($extra['atualizado_em'], true)}">
+                                <input class="form-control" type="text" readonly value="{toDataBR($medida['atualizado_em'], true)}">
                             </div>
                             <div class="col-lg-12  mb-3">
                                 <label class="form-label">Descrição</label>
-                                <textarea class="form-control" readonly rows="3">{$extra['descricao']}</textarea>
+                                <textarea class="form-control" readonly rows="3">{$medida['descricao']}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <br>
-                <a class="btn btn-primary" href="{$app_url}admin/extras/editar/{$extra['id']}" >Editar</a>
-                <a class="btn btn-primary" href="{$app_url}admin/extras" >Voltar</a>
+                <a class="btn btn-primary" href="{$app_url}admin/medidas/editar/{$medida['id']}" >Editar</a>
+                <a class="btn btn-primary" href="{$app_url}admin/medidas" >Voltar</a>
 
                 <hr class="my-5">
