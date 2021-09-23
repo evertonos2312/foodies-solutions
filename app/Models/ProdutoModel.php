@@ -2,37 +2,39 @@
 
 namespace App\Models;
 
-class CategoriaModel extends BaseModel
+class ProdutoModel  extends BaseModel
 {
-    protected $table = 'categorias';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
+    protected $table = 'produtos';
     protected $returnType = 'array';
 
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'ativo', 'slug'];
+    protected $allowedFields = ['categoria_id', 'nome', 'slug','ingredientes', 'ativo', 'imagem' ];
 
     // Dates
     protected $createdField = 'criado_em';
     protected $updatedField = 'atualizado_em';
     protected $deletedField = 'deletado_em';
 
-    // Validation
+    protected $beforeInsert = ['criaSlug'];
+    protected $beforeUpdate = ['criaSlug'];
+
 
     protected $validationRules = [
-        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome, id,{id}]',
+        'nome' => 'required|min_length[2]|max_length[128]|is_unique[produtos.nome, id,{id}]',
+        'ingredientes' => 'required|min_length[5]|max_length[1000]|is_unique[produtos.ingredientes, id,{id}]',
+        'categoria_id' => 'required|integer',
     ];
 
     protected $validationMessages = [
         'nome' => [
-            'required' => 'O campo Nome é obrigatório.'
+            'required' => 'O campo Nome é obrigatório.',
+            'is_unique' => 'Esse produto já existe'
+        ],
+        'categoria_id' => [
+            'required' => 'O campo Categoria é obrigatório.',
         ],
     ];
-
-    protected $beforeInsert = ['criaSlug'];
-    protected $beforeUpdate = ['criaSlug'];
-
 
     public function addStatus($status = null)
     {
@@ -59,20 +61,10 @@ class CategoriaModel extends BaseModel
         return $this->select('id, nome')->like('nome', $term)->findAll();
     }
 
-    public function formDropDown()
+    public function getProdutos()
     {
-        $this->select('id, nome');
-        $this->where('ativo', 1);
-        $categoriasArray = $this->findAll();
-
-        $optionCategorias = array_column($categoriasArray, 'nome', 'id');
-
-        $optionSelecione = [
-            0 => 'Selecione...'
-        ];
-
-        $selectConteudo = $optionSelecione + $optionCategorias;
-
-        return $selectConteudo;
+        $this->select('produtos.*, categorias.nome as categoria');
+        $this->join('categorias', 'categorias.id = produtos.categoria_id');
+        return $this;
     }
 }

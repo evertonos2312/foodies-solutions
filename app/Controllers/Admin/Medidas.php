@@ -109,7 +109,7 @@ class Medidas extends AdminBaseController
         $this->data['status_options'] = $result_status;
 
 
-        return $this->render($this->data, 'Admin/medidas/index');
+        return $this->render($this->data, 'Admin/Medidas/index');
     }
 
     public function procurar()
@@ -136,7 +136,7 @@ class Medidas extends AdminBaseController
         $this->data['title'] = 'Criando uma medida para um produto';
 
         $this->breadcrumb->add('Criar Medida', '/admin/medidas/criar/');
-        return $this->render($this->data, 'Admin/medidas/form');
+        return $this->render($this->data, 'Admin/Medidas/form');
     }
 
     public function editar($id = null)
@@ -147,7 +147,7 @@ class Medidas extends AdminBaseController
             $this->data['title'] = $medida['nome'];
             $this->data['medida'] = $medida;
             $this->breadcrumb->add($medida['nome'], '/admin/medidas/editar/');
-            return $this->render($this->data, 'Admin/medidas/form');
+            return $this->render($this->data, 'Admin/Medidas/form');
         }
         return view('errors/404_admin');
     }
@@ -162,7 +162,7 @@ class Medidas extends AdminBaseController
             $this->data['medida'] = $medida;
 
             $this->breadcrumb->add($medida['nome'], '/admin/medidas/show/');
-            return $this->render($this->data, 'Admin/medidas/show');
+            return $this->render($this->data, 'Admin/Medidas/show');
         }
         return view('errors/404_admin');
     }
