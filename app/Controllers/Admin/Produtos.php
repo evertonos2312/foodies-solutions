@@ -124,7 +124,7 @@ class Produtos extends AdminBaseController
             $this->data['produto'] = $produto;
             $this->data['categorias'] = $this->categoriaModel->formDropDown();
             $this->breadcrumb->add($produto['nome'], '/admin/produtos/editar/');
-            return $this->render($this->data, 'Admin/produtos/form');
+            return $this->render($this->data, 'Admin/Produtos/form');
         }
         return view('errors/404_admin');
     }
@@ -153,7 +153,7 @@ class Produtos extends AdminBaseController
         $this->data['title'] = 'Criando novo produto';
         $this->data['categorias'] = $this->categoriaModel->formDropDown();
         $this->breadcrumb->add('Criar Produto', '/admin/produtos/criar/');
-        return $this->render($this->data, 'Admin/produtos/form');
+        return $this->render($this->data, 'Admin/Produtos/form');
     }
 
     public function show($id = null)
@@ -168,7 +168,7 @@ class Produtos extends AdminBaseController
 
 
             $this->breadcrumb->add($produto['nome'], '/admin/produtos/show/');
-            return $this->render($this->data, 'Admin/produtos/show');
+            return $this->render($this->data, 'Admin/Produtos/show');
         }
         return view('errors/404_admin');
     }
@@ -208,7 +208,7 @@ class Produtos extends AdminBaseController
                     } else {
                         $this->breadcrumb->add('Criar produto', '/admin/produtos/criar/');
                     }
-                    return $this->render($this->data, 'Admin/produtos/form');
+                    return $this->render($this->data, 'Admin/Produtos/form');
                 }
             }
             $imagemProduto = $this->request->getFile('imagem');
@@ -249,7 +249,7 @@ class Produtos extends AdminBaseController
                 } else {
                     $this->breadcrumb->add('Criar produto', '/admin/produtos/criar/');
                 }
-                return $this->render($this->data, 'Admin/produtos/form');
+                return $this->render($this->data, 'Admin/Produtos/form');
             }
         }
         $this->session->setFlashdata('msg', 'A ação que você requisitou não é permitida.');
