@@ -1192,3 +1192,22 @@ ul.paginacao {
 .spanner.show, .overlay.show {
   opacity: 1
 }
+
+.custom-body {
+  display: flex;
+}
+
+.custom-card {
+  margin-left: 30px;
+}
+
+.form-group .file-upload-default {
+  visibility: hidden;
+  position: absolute;
+}
+
+
+
+.form-group .file-upload-info {
+  background: transparent;
+}

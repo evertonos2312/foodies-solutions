@@ -62,7 +62,7 @@
                     <span class="text">Produtos</span>
                 </a>
                 <div class="submenu">
-                    <a href="#">Lista de produtos</a>
+                    <a id="a_produtos" href="{$app_url}admin/produtos">Lista de produtos</a>
                     <a id="a_categorias" href="{$app_url}admin/categorias">Categorias</a>
                     <a id="a_extras" href="{$app_url}admin/extras">Extras</a>
                     <a id="a_medidas" href="{$app_url}admin/medidas">Medidas</a>
