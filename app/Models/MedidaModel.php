@@ -54,4 +54,21 @@ class MedidaModel extends BaseModel
         }
         return $this->select('id, nome')->like('nome', $term)->findAll();
     }
+
+    public function formDropDown()
+    {
+        $this->select('*');
+        $this->where('ativo', true);
+        $extrasArray = $this->findAll();
+
+        $optionExtras = array_column($extrasArray, 'nome', 'id');
+
+        $optionSelecione = [
+            '' => 'Selecione...'
+        ];
+
+        $selectConteudo = $optionSelecione + $optionExtras;
+
+        return $selectConteudo;
+    }
 }

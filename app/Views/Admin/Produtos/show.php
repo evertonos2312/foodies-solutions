@@ -61,6 +61,8 @@
                 </div>
                 <br>
                 <a class="btn btn-primary" href="{$app_url}admin/produtos/editar/{$produto['id']}" >Editar</a>
+                <a class="btn btn-primary" href="{$app_url}admin/produtos/extras/{$produto['id']}" >Extras</a>
+                <a class="btn btn-primary" href="{$app_url}admin/produtos/especificacoes/{$produto['id']}" >Especificações</a>
                 <a class="btn btn-primary" href="{$app_url}admin/produtos" >Voltar</a>
 
                 <hr class="my-5">

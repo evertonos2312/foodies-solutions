@@ -107,10 +107,7 @@
     <header class="main-header navbar">
         <div class="col-search">
             <form class="searchform">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquise aqui...">
-                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-                </div>
+                <div class="input-group"></div>
             </form>
         </div>
         <div class="col-nav">
