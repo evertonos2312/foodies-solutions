@@ -66,6 +66,7 @@
                     <a id="a_categorias" href="{$app_url}admin/categorias">Categorias</a>
                     <a id="a_extras" href="{$app_url}admin/extras">Extras</a>
                     <a id="a_medidas" href="{$app_url}admin/medidas">Medidas</a>
+                    <a id="a_formas" href="{$app_url}admin/formas">Formas de Pagamento</a>
                 </div>
             </li>
             <li id="li_pedidos" class="menu-item has-submenu">
