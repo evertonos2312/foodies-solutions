@@ -27,4 +27,37 @@ class FormaPagamentoModel extends Model
         ],
     ];
 
+    public function addStatus($status = null)
+    {
+        if (!is_null($status)) {
+            $this->where('ativo', $status);
+        }
+        return $this;
+    }
+
+    public function procurar($term)
+    {
+        if (is_null($term)) {
+            return [];
+        }
+        return $this->select('id, nome')->like('nome', $term)->findAll();
+    }
+
+    public function formDropDown()
+    {
+        $this->select('*');
+        $this->where('ativo', true);
+        $extrasArray = $this->findAll();
+
+        $optionExtras = array_column($extrasArray, 'nome', 'id');
+
+        $optionSelecione = [
+            '' => 'Selecione...'
+        ];
+
+        $selectConteudo = $optionSelecione + $optionExtras;
+
+        return $selectConteudo;
+    }
+
 }
