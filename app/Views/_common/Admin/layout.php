@@ -66,6 +66,7 @@
                     <a id="a_categorias" href="{$app_url}admin/categorias">Categorias</a>
                     <a id="a_extras" href="{$app_url}admin/extras">Extras</a>
                     <a id="a_medidas" href="{$app_url}admin/medidas">Medidas</a>
+                    <a id="a_formas" href="{$app_url}admin/formas">Formas de Pagamento</a>
                 </div>
             </li>
             <li id="li_pedidos" class="menu-item has-submenu">
@@ -107,10 +108,7 @@
     <header class="main-header navbar">
         <div class="col-search">
             <form class="searchform">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquise aqui...">
-                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i> </button>
-                </div>
+                <div class="input-group"></div>
             </form>
         </div>
         <div class="col-nav">

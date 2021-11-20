@@ -2,8 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
+use App\Models\ExtraModel;
+use App\Models\MedidaModel;
+use App\Models\ProdutoEspecificacaoModel;
+use App\Models\ProdutoExtraModel;
 use App\Models\ProdutoModel;
 use Config\Services;
 
@@ -12,12 +15,20 @@ class Produtos extends AdminBaseController
     public $data = array();
     private $produtoModel;
     private $categoriaModel;
+    private $extraModel;
+    private $produtoExtraModel;
+    private $medidaModel;
+    private $produtoEspecificacaoModel;
 
     public function __construct()
     {
         parent::__construct();
         $this->produtoModel = new ProdutoModel();
         $this->categoriaModel = new CategoriaModel();
+        $this->extraModel = new ExtraModel();
+        $this->produtoExtraModel = new ProdutoExtraModel();
+        $this->medidaModel = new MedidaModel();
+        $this->produtoEspecificacaoModel = new ProdutoEspecificacaoModel();
         $this->data['active'] = 'produtos';
         $this->data['sub_active'] = 'produtos';
         $this->breadcrumb->add('Produtos', '/admin/produtos');
@@ -270,21 +281,138 @@ class Produtos extends AdminBaseController
         if ($this->request->isAJAX()) {
             $data = array();
             $produto_id = $this->request->getPost('produto_id');
+            $extra_id = $this->request->getPost('id_produto_extra');
+            $especificacao_id = $this->request->getPost('id_produto_especificacao');
             $data['token'] = csrf_hash();
+            $produtoDelete = false;
             if (!empty($produto_id)) {
-                if ($this->produtoModel->delete($produto_id)) {
-                    $data['code'] = 200;
-                    $data['status'] = 'success';
-                    $data['detail'] = ['id' => $produto_id];
-                    $data['msg_error'] = '';
-                } else {
-                    $data['code'] = 503;
-                    $data['status'] = 'error';
-                    $data['detail'] = '';
-                    $data['msg_error'] = 'Erro ao excluir registro, verifique os dados enviados.';
-                }
-                return $this->response->setJSON($data);
+                $produtoDelete = $this->produtoModel->delete($produto_id);
+            } else if (!empty($extra_id)) {
+                $produtoDelete = $this->produtoExtraModel->delete($extra_id);
+            } else if (!empty($especificacao_id)) {
+                $produtoDelete = $this->produtoEspecificacaoModel->delete($especificacao_id);
             }
+            if ($produtoDelete) {
+                $data['code'] = 200;
+                $data['status'] = 'success';
+                $data['detail'] = ['id' => $produto_id || $extra_id];
+                $data['msg_error'] = '';
+            } else {
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = 'Erro ao excluir registro, verifique os dados enviados.';
+            }
+            return $this->response->setJSON($data);
+        }
+        return view('errors/404_admin');
+    }
+
+    public function extras($id = null)
+    {
+        if (!is_null($id)) {
+            $produto = $this->buscaProdutoOu404($id);
+
+            $produto['ativo'] = $produto['ativo'] == 1 ? 'Ativo' : 'Inativo';
+            $this->data['title'] = 'Gerenciar os extras do produto ' .$produto['nome'];
+            $this->data['produto'] = $produto;
+            $this->data['extras'] = $this->extraModel->formDropDown();
+            $this->data['produtosExtras'] = $this->produtoExtraModel->buscaExtrasDoProduto($produto['id'], 10);
+            $pager = $this->produtoExtraModel->pager;
+            $pager_links = $pager->links('default', 'bootstrap_pager');
+
+            $this->data['pager'] = $pager;
+            $this->data['pager_links'] = $pager_links;
+
+            $this->breadcrumb->add($produto['nome'], '/admin/produtos/extras/');
+            return $this->render($this->data, 'Admin/Produtos/extras');
+        }
+        return view('errors/404_admin');
+    }
+
+    public function cadastar_extras($id = null)
+    {
+        if ($this->request->getPost()) {
+            $produto = $this->buscaProdutoOu404($id);
+            $extraProduto['extra_id'] = $this->request->getPost('extra_id');
+            $extraProduto['produto_id'] = $produto['id'];
+
+            $extraExistente = $this->produtoExtraModel
+                ->where('produto_id', $produto['id'])
+                ->where('extra_id', $extraProduto['extra_id'])
+                ->first();
+            if ($extraExistente) {
+                $this->session->setFlashdata('msg', 'Esse extra já existe para esse produto.');
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->to("admin/produtos/extras/" . $produto['id']);
+            }
+            $saved = $this->produtoExtraModel->protect(false)->save($extraProduto);
+            if ($saved) {
+                $this->session->setFlashdata('msg', 'Extra salvo com sucesso');
+                $this->session->setFlashdata('msg_type', 'alert-success');
+            } else {
+                $this->session->setFlashdata('msg', 'Erro ao salvar, tente novamente mais tarde.');
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+            }
+            return redirect()->to("admin/produtos/extras/" . $produto['id']);
+        }
+        return view('errors/404_admin');
+    }
+
+    public function especificacoes($id = null)
+    {
+        if (!is_null($id)) {
+            $produto = $this->buscaProdutoOu404($id);
+
+            $produto['ativo'] = $produto['ativo'] == 1 ? 'Ativo' : 'Inativo';
+            $produtosEspeficacoes = $this->produtoEspecificacaoModel->buscaEspecificacaoDoProduto($produto['id'], 10);
+            foreach ($produtosEspeficacoes as $key => $especificacoes) {
+                $produtosEspeficacoes[$key]['customizavel'] = $produtosEspeficacoes[$key]['customizavel'] == 1 ? 'Sim' : 'Não';
+            }
+            $this->data['title'] = 'Gerenciar os especificações do produto ' .$produto['nome'];
+            $this->data['produto'] = $produto;
+            $this->data['medidas'] = $this->medidaModel->formDropDown();
+
+            $this->data['produtosEspeficacoes'] = $produtosEspeficacoes;
+            $pager = $this->produtoEspecificacaoModel->pager;
+            $pager_links = $pager->links('default', 'bootstrap_pager');
+
+            $this->data['pager'] = $pager;
+            $this->data['pager_links'] = $pager_links;
+
+            $this->breadcrumb->add($produto['nome'], '/admin/produtos/especificacoes/');
+            return $this->render($this->data, 'Admin/Produtos/especificacoes');
+        }
+        return view('errors/404_admin');
+    }
+
+    public function cadastar_especificacoes($id = null)
+    {
+        if ($this->request->getPost()) {
+            $produto = $this->buscaProdutoOu404($id);
+            $especificacaoProduto['medida_id'] = $this->request->getPost('medida_id');
+            $especificacaoProduto['preco'] = str_replace(",", "", $this->request->getPost('preco'));
+            $especificacaoProduto['customizavel'] = $this->request->getPost('customizavel');
+            $especificacaoProduto['produto_id'] = $produto['id'];
+
+            $especificacaoExistente = $this->produtoEspecificacaoModel
+                ->where('produto_id', $produto['id'])
+                ->where('medida_id', $especificacaoProduto['medida_id'])
+                ->first();
+            if ($especificacaoExistente) {
+                $this->session->setFlashdata('msg', 'Essa especificação  já existe para esse produto.');
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->to("admin/produtos/especificacoes/" . $produto['id']);
+            }
+            $saved = $this->produtoEspecificacaoModel->protect(false)->save($especificacaoProduto);
+            if ($saved) {
+                $this->session->setFlashdata('msg', 'Especificação salva com sucesso');
+                $this->session->setFlashdata('msg_type', 'alert-success');
+            } else {
+                $this->session->setFlashdata('msg', 'Erro ao salvar, tente novamente mais tarde.');
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+            }
+            return redirect()->to("admin/produtos/especificacoes/" . $produto['id']);
         }
         return view('errors/404_admin');
     }

@@ -118,6 +118,8 @@
 
 <script src="{$app_url}assets/admin/js/produtos/form.js" type="text/javascript"></script>
 <script>
+
+    function
     (function($) {
         'use strict';
         $(function() {

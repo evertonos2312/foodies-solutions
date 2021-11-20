@@ -2,27 +2,22 @@
 
 namespace App\Models;
 
-class ExtraModel extends BaseModel
-{
-    protected $table = 'extras';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
+use CodeIgniter\Model;
 
+class FormaPagamentoModel extends Model
+{
+    protected $DBGroup              = 'default';
+    protected $table                = 'formas_pagamento';
+    protected $allowedFields        = ['nome', 'ativo'];
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'ativo', 'slug', 'preco', 'descricao'];
 
-    // Dates
     protected $createdField = 'criado_em';
     protected $updatedField = 'atualizado_em';
     protected $deletedField = 'deletado_em';
 
-    protected $beforeInsert = ['criaSlug', 'corrigeValor'];
-    protected $beforeUpdate = ['criaSlug', 'corrigeValor'];
-
     protected $validationRules = [
-        'nome' => 'required|min_length[2]|max_length[128]|is_unique[extras.nome, id,{id}]'
+        'nome' => 'required|min_length[2]|max_length[128]|is_unique[formas_pagamento.nome, id,{id}]'
         ,
     ];
 
@@ -35,16 +30,7 @@ class ExtraModel extends BaseModel
     public function addStatus($status = null)
     {
         if (!is_null($status)) {
-            switch ($status) {
-                case 'ativo':
-                    $this->where('ativo', 1);
-                    break;
-                case 'inativo':
-                    $this->where('ativo', 0);
-                    break;
-                default:
-                    break;
-            }
+            $this->where('ativo', $status);
         }
         return $this;
     }
@@ -73,4 +59,5 @@ class ExtraModel extends BaseModel
 
         return $selectConteudo;
     }
+
 }
