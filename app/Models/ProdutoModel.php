@@ -23,7 +23,7 @@ class ProdutoModel  extends BaseModel
     protected $validationRules = [
         'nome' => 'required|min_length[2]|max_length[128]|is_unique[produtos.nome, id,{id}]',
         'ingredientes' => 'required|min_length[5]|max_length[1000]|is_unique[produtos.ingredientes, id,{id}]',
-        'categoria_id' => 'required|integer',
+        'categoria_id' => 'required|integer|is_natural_no_zero',
     ];
 
     protected $validationMessages = [
@@ -33,6 +33,7 @@ class ProdutoModel  extends BaseModel
         ],
         'categoria_id' => [
             'required' => 'O campo Categoria é obrigatório.',
+            'is_natural_no_zero' => 'O campo Categoria é obrigatório.'
         ],
     ];
 
@@ -41,10 +42,10 @@ class ProdutoModel  extends BaseModel
         if (!is_null($status)) {
             switch ($status) {
                 case 'ativo':
-                    $this->where('ativo', 1);
+                    $this->where('produtos.ativo', 1);
                     break;
                 case 'inativo':
-                    $this->where('ativo', 0);
+                    $this->where('produtos.ativo', 0);
                     break;
                 default:
                     break;
@@ -66,5 +67,26 @@ class ProdutoModel  extends BaseModel
         $this->select('produtos.*, categorias.nome as categoria');
         $this->join('categorias', 'categorias.id = produtos.categoria_id');
         return $this;
+    }
+
+    public function buscaProdutosHome()
+    {
+        return $this->select([
+            'produtos.id',
+            'produtos.nome',
+            'produtos.slug',
+            'produtos.ingredientes',
+            'produtos.imagem',
+            'categorias.id as categoria_id',
+            'categorias.nome as categoria',
+            'categorias.slug categoria_slug'
+        ])->selectMin('produtos_especificacoes.preco')
+            ->join('categorias', 'categorias.id = produtos.categoria_id')
+            ->join('produtos_especificacoes', 'produtos_especificacoes.produto_id = produtos.id')
+            ->where('produtos.ativo', true)
+            ->where("produtos.imagem != ''")
+            ->groupBy('produtos.nome')
+            ->orderBy('categorias.nome', 'ASC')
+            ->findAll();
     }
 }

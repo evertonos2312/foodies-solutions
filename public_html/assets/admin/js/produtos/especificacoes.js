@@ -22,7 +22,7 @@ function excluirEspecificacao(produto_especificacao_id, produto_especificacao_no
                 success: function (response) {
                     $('.txt_csrfname').val(response.token)
                     Swal.close();
-                    if (response.status === 'success' && !!response.detail.id) {
+                    if (response.status === 'success') {
                         Swal.fire({
                             title: 'Sucesso!',
                             text: 'Especificação excluído com sucesso!',
@@ -33,14 +33,6 @@ function excluirEspecificacao(produto_especificacao_id, produto_especificacao_no
                                 location.reload();
                             }
                         })
-                    } else {
-                        Swal.fire({
-                            title: 'Ops! Aconteceu algo de errado',
-                            text: response.msg_error,
-                            icon: 'error',
-                            timer: 1800,
-                            timerProgressBar: true,
-                        });
                     }
                 },
                 error: function (response) {

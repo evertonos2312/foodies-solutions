@@ -1,0 +1,148 @@
+/* Responsive */
+
+@media screen and (min-width: 768px) {
+    .navbar-collapse.collapse { display: none!important; }
+    .carousel-caption { right: 7%; left: 3%; }
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    .navbar-nav>li>a {
+        padding: 15px 8px;
+        font-size: 13px;
+    }
+    .search-block {
+        margin-left: 25px;
+    }
+    .section-title {
+        font-size: 45px;
+    }
+    .section-title:before,
+    .section-title:after
+    {
+        width: 50px;
+    }
+    #about_us .short {
+        font-size: 15px;
+        line-height: 1.3;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .cd-nav-container,
+    .cd-overlay {
+        display: none;
+    }
+    .navbar-collapse.collapse { display: flex!important; }
+}
+
+@media only screen and (max-width: 767px) {
+    .right_menu_icon {margin-top: 0;}
+    .navbar-collapse.collapse {display: none!important;}
+	.item_badge { width: 90px!important; height: 90px!important; } 
+	.badge_btext { font-size: 28px; }
+	.badge_stext { font-size: 18px; margin-top: -5px; }
+	.item_name { font-size: 30px; line-height: 48px; }
+    #footer > .section { margin-top: 20px; }
+    #footer .copy_text { margin-bottom: 20px; }
+	#footer .footer_content { padding: 0 20px; }
+    .carousel .container { padding-bottom: 50px!important; }
+	.carousel-caption { padding-top: 40px!important; right: 0; left: 0; }
+    .navbar-brand { height: auto; margin-top: 0!important; }
+    .navbar { padding: 0; border: none; margin: 10px 0 0; }
+    #photo_gallery>div>div { width: 50%; float: left; }
+    #photo_gallery>div>div:nth-child(2n+1) { clear: both; }
+    #photo_gallery img { width: 100%; height: auto; }
+    .fixed_layer { height: auto; display: block; }
+    .filter_item_img .fa { right: 0; left: 0; }
+    .filter_item_img:after { content: none; }
+    #menu_items { padding-bottom: 40px; }
+    #menu_items .content { text-align: center; }
+    #menu_items .info .short { width: 80%; margin: 8px auto; white-space: unset; }
+    .menu_filter { margin-bottom: 40px; }
+    .menu_filter .item a { font-size: 14px; padding: 2px 20px; }
+    #menu_items .image { margin-bottom: 10px; }
+    .filter_item_img { float: none; margin-right: 0; }
+    .about_img { height: auto; }
+    .border_on:before { content: none; }
+    .item_img { float: none; margin: 0; padding-right: 20px; }
+    .flex-xs-column { flex-direction: column; }
+    .mb-xs-5 { margin-bottom: 5px; }
+    .btn-border{ font-size: 20px; padding: 2px 35px; }
+    .navbar-container.affix .navbar { padding: 2px 0 0px; margin-bottom: 0; }
+    .search-block #search { margin: 0px 0 17px; }
+    #navbar_search { top: 20px; }
+    #navbar_search input { font-size: 15px; }
+    .navbar-toggle .icon-bar { background-color: white; }
+    .navbar-collapse { background-color: rgba(0, 0, 0, 0.8); }
+    .navbar-toggle { margin-right: 0; padding-right: 0; padding-left: 0; }
+    .carousel-inner:before,
+    .carousel-inner:after { border-top-width: 50px; }
+    .carousel-caption h1 { font-size: 30px; padding: 10px; margin-top: 0; }
+    .carousel-caption p { font-size: 14px; }
+    .section-title { font-size: 30px; }
+    #menu_items .info .name { font-size: 19px; }
+    #about_us .content { padding: 20px 30px 40px; }
+    #about_us .short { font-size: 12px; }
+    #about_us .border:after { width: calc(100% - 10px); left: 5px; border-width: 1px; }
+    .section-title:before,
+    .section-title:after { width: 25px; }
+    .section { padding-top: 30px; }
+    .section .title-block { margin-bottom: 30px; }
+    .section-short { font-size: 13px; }
+    .services-item .icon i { font-size: 50px; }
+    .services-item .short { font-size: 12px; }
+    .services-item .item { margin-bottom: 25px; }
+    #footer .icon { font-size: 22px; width: 40px; height: 40px; margin-bottom: 10px; }
+    #footer .contact-links { font-size: 19px; }
+    #footer .item { margin-bottom: 5px; }
+    #footer { padding-top: 30px; }
+    #footer .triangle { border-width: 0 67vw 145px 69vw; }
+    #footer .social-links { bottom: 10px; width: 100%; }
+}
+
+
+@media only screen and (max-width: 767px) and (min-width: 600px) {
+	#footer .social-links { float: left; margin-top: 15px; }
+}
+
+
+@media only screen and (max-width: 767px) and (min-width: 660px) {
+	.border_on:before { right: 80px; left: 80px !important; }
+}
+ 
+@media only screen and (max-width: 992px) {
+	.right_menu_addr i.fa { color: #990100; }
+	.right_menu_addr { padding: 0 15px 15px; }
+	.right_menu_addr span + span { padding-left: 0; border: none; }
+	.right_menu_addr span { display: block; margin-right: 0; margin-bottom: 10px; }
+    .navbar-brand{margin-top: 8px;}
+	.search_icon { position: absolute; right: 0; bottom: 0; background: none; border: none; padding: 5px; color: #fff; }
+	.search_input { background: none; box-shadow: none; border-width: 0 0 1px 0; padding: 6px 24px 6px 0; color: #fff; border-color: #fff; border-radius: 0; }
+	.search_input::-webkit-input-placeholder { color: #fff; }
+	.search_input::-moz-placeholder { color: #fff; }
+	.search_input:-ms-input-placeholder { color: #fff; }
+	.search_input:-moz-placeholder { color: #fff;}
+	.right_menu_search form { position: relative; }
+	.right_menu_search { padding: 15px; }
+    #googleMap { margin-bottom: 0; height: 300px; }
+    .footer_pos { top: 20px; position: relative; padding-bottom: 20px; }
+    #footer .footer_border { border: none; padding-left: 0; }
+    #footer .footer_ttl_padd, #footer .footer_txt { padding-left: 0; }
+}
+@media only screen and (max-width: 1199px) {
+	.item_img { margin: 0 0 -70px; padding-right: 0; }
+    .item_details { clear: both; text-align: center; }
+    .carousel-caption { padding-top: 120px; display: flex; align-items: center; flex-wrap: wrap; flex-direction: column;}
+    .item_name, .carousel-caption p, .item_link_box { text-align: center; }
+    .item_name:after { left: 50%; transform: translateX(-50%); }
+    .item_link { margin-top: 10px; }
+    .carousel-indicators { bottom: 10px; }
+    .carousel .container { padding-bottom: 30px; }
+    .item_badge { width: 100px; height: 100px; right: 0; bottom: 15%; transform: translate(-15%, -15%); }
+    .badge_btext { font-size: 26px; }
+    .badge_stext { font-size: 18px; }
+}
+@media only screen and (max-width: 1200px) {
+    .border_on:before { content: none; } 
+    .item_name { font-size: 40px; }
+}
