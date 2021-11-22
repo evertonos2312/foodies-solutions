@@ -21,13 +21,9 @@ class Home extends BaseController
 
     public function index()
     {
-
-
         $this->data['title'] = 'Pizza Planet | Seja bem vindo!';
         $this->data['categorias'] = $this->categoriaModel->buscaCategoriasHome();
         $this->data['produtos'] = $this->produtoModel->buscaProdutosHome();
-
-
         return $this->display_template($this->smarty->setData($this->data)->view('home/index'));
     }
 }

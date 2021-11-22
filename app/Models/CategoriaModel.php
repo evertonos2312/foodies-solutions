@@ -21,7 +21,7 @@ class CategoriaModel extends BaseModel
     // Validation
 
     protected $validationRules = [
-        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome, id,{id}]',
+        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome,id,{id}]',
     ];
 
     protected $validationMessages = [
