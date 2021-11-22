@@ -178,7 +178,7 @@ class Categorias extends AdminBaseController
                 'nome' => $this->request->getPost('nome'),
                 'ativo' => $this->request->getPost('ativo'),
             ];
-            if ($id) {
+            if (!empty($id)) {
                 $categoria = $this->buscaCategoriaOu404($id);
                 $newCategoria['id'] = $id;
             }
