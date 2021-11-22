@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'Raleway-Black';
+    src: url('../fonts/Raleway-Black/Raleway-Blackd41d.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Black/Raleway-Black.woff') format('woff'),
+    url('../fonts/Raleway-Black/Raleway-Black.ttf')  format('truetype'),
+    url('../fonts/Raleway-Black/Raleway-Black.svg#Raleway-Black') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway-Bold';
+    src: url('../fonts/Raleway-Bold/Raleway-Boldd41d.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Bold/Raleway-Bold.woff') format('woff'),
+    url('../fonts/Raleway-Bold/Raleway-Bold.ttf')  format('truetype'),
+    url('../fonts/Raleway-Bold/Raleway-Bold.svg#Raleway-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway-Regular';
+    src: url('../fonts/Raleway-Regular/Raleway-Regulard41d.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Raleway-Regular/Raleway-Regular.woff') format('woff'),
+    url('../fonts/Raleway-Regular/Raleway-Regular.ttf')  format('truetype'),
+    url('../fonts/Raleway-Regular/Raleway-Regular.svg#Raleway-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ChunkFiveEx';
+    src: url('../fonts/ChunkFiveEx/ChunkFiveEx.eot');
+    src: url('../fonts/ChunkFiveEx/ChunkFiveExd41d.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChunkFiveEx/ChunkFiveEx.woff') format('woff'),
+        url('../fonts/ChunkFiveEx/ChunkFiveEx.ttf') format('truetype'),
+        url('../fonts/ChunkFiveEx/ChunkFiveEx.svg#ChunkFiveEx') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../fonts/Montserrat-Regular/Montserrat-Regular.eot');
+    src: url('../fonts/Montserrat-Regular/Montserrat-Regulard41d.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Montserrat-Regular/Montserrat-Regular.woff') format('woff'),
+        url('../fonts/Montserrat-Regular/Montserrat-Regular.ttf') format('truetype'),
+        url('../fonts/Montserrat-Regular/Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat-Light';
+    src: url('../fonts/Montserrat-Light/Montserrat-Light.eot');
+    src: url('../fonts/Montserrat-Light/Montserrat-Lightd41d.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Montserrat-Light/Montserrat-Light.woff') format('woff'),
+        url('../fonts/Montserrat-Light/Montserrat-Light.ttf') format('truetype'),
+        url('../fonts/Montserrat-Light/Montserrat-Light.svg#Montserrat-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../fonts/Montserrat-Bold/Montserrat-Bold.eot');
+    src: url('../fonts/Montserrat-Bold/Montserrat-Boldd41d.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Montserrat-Bold/Montserrat-Bold.woff') format('woff'),
+        url('../fonts/Montserrat-Bold/Montserrat-Bold.ttf') format('truetype'),
+        url('../fonts/Montserrat-Bold/Montserrat-Bold.svg#Montserrat-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
