@@ -25,28 +25,26 @@
             </div>
 
             <div class="col-lg-2 col-6 col-md-3">
-                {form_open('admin/produtos/index')}
-                <input type="hidden" name="per_page" value="{$results_perpage}">
-                <select name="filtro_status" class="form-control">
-                    {foreach from=$status_options item=filtro}
-                        <option value="{$filtro.status_value}" {$filtro.status_selected}>{$filtro.status_nome}</option>
-                    {/foreach}
-                </select>
+                {form_open('admin/produtos/index', ['id' => 'form_status'])}
+                {$options_status = ['todos'=> 'Todos', 'ativo' => 'Ativo', 'inativo' => 'Inativo']}
+                {if (!empty($filtro['status']))}
+                {$filtro_status = $filtro['status']}
+                {else}
+                {$filtro_status = 'todos'}
+                {/if}
+                {form_dropdown('status', $options_status, $filtro_status, ['class' => 'form-control'])}
                 {form_close()}
             </div>
             <div class="col-lg-1 col-6 col-md-3">
-                {form_open('admin/produtos/index')}
+                {form_open('admin/produtos/index', ['id' => 'form_perpage'])}
                 <input type="hidden" name="filtro_status" value="{$filtro_status}">
-                <select class="form-select" name="per_page">
-                    {foreach $perpage_options  as $page}
-                        {if (is_array($page))}
-                            {$results = $page[0]}
-                            <option value="{$page[0]}" {$page[1]}>{$page[0]}</option>
-                            {else}
-                            <option value="{$page}">{$page}</option>
-                        {/if}
-                    {/foreach}
-                </select>
+                {$options_page = ['10'=> '10', '20' => '20', '40' => '40']}
+                {if (!empty($filtro['per_page']))}
+                {$filtro_page = $filtro['per_page']}
+                {else}
+                {$filtro_page = '10'}
+                {/if}
+                {form_dropdown('per_page', $options_page, $filtro_page, ['class' => 'form-select'])}
                 {form_close()}
             </div>
         </div>
@@ -95,22 +93,31 @@
 <script>
     $(".pagination a").click(function() {
         var url = $(this).attr("href");
-        var form = $(this).closest('form')[0];
+        var form = $("#form_perpage");
+        var form_status = $("#form_status");
         $(form).attr("action", url);
+        $(form_status).attr("action", url);
         $(form).submit();
+        $(form_status).submit();
         return false;
     });
 
     $('select[name="per_page"]').change(function() {
         var url = $(this).attr('action');
         var form = $(this).closest('form')[0];
+        var form_status = $("#form_status");
+        $(form_status).attr("action", url)
+        $(form_status).submit();
         $(form).attr('action', url);
         $(form).submit();
     });
 
-    $('select[name="filtro_status"]').change(function() {
+    $('select[name="status"]').change(function() {
         var url = $(this).attr('action');
         var form = $(this).closest('form')[0];
+        var form_perpage = $("#form_perpage");
+        $(form_perpage).attr("action", url)
+        $(form_perpage).submit();
         $(form).attr('action', url);
         $(form).submit();
     });

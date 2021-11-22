@@ -43,7 +43,7 @@
                                     {/if}
                                     <label  class="form-label" for="categoria_id">Categoria</label>
                                     {form_dropdown('categoria_id', $categorias, $categoria_id,
-                                        ['id' => 'categoria_id', 'class' => 'form-control']
+                                        ['id' => 'categoria_id', 'required' => 'true', 'class' => 'form-control']
                                     )}
                                 </div>
                                 <div class="col-lg-2 ">
@@ -119,7 +119,6 @@
 <script src="{$app_url}assets/admin/js/produtos/form.js" type="text/javascript"></script>
 <script>
 
-    function
     (function($) {
         'use strict';
         $(function() {

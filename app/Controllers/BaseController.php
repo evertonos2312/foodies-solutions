@@ -27,7 +27,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['html', 'form', 'url', 'funcoes', 'filesystem'];
+    protected $helpers = ['html', 'form', 'url', 'funcoes', 'filesystem', 'text'];
     public $smarty;
     public $breadcrumb;
     /*

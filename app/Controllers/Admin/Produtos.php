@@ -36,74 +36,12 @@ class Produtos extends AdminBaseController
 
     public function index()
     {
-        $options_perpage = [10, 20, 40];
-        $filtro_status = $this->request->getPost('filtro_status');
-        $results_perpage = $this->request->getPost('per_page');
-
-        if ($this->request->getPost('per_page')) {
-            $results_perpage = $this->request->getPost('per_page');
-        }
-
-        if (!is_null($results_perpage)) {
-            $this->session->set('per_page', $results_perpage);
-        }
-        if (is_null($results_perpage)) {
-            $results_perpage = $this->session->get('per_page');
-        }
-
-        if ($results_perpage == '') {
-            $results_perpage = 10;
-        }
-
-        if (!is_null($filtro_status)) {
-            $this->session->set('filtro_status', $filtro_status);
-        }
-        if (is_null($filtro_status)) {
-            $filtro_status = $this->session->get('filtro_status');
-            if (!$filtro_status) {
-                $filtro_status = 'todos';
-            }
-        }
-        $status_options = [
-            'Todos' => [
-                'value' => 'todos',
-                'nome' => 'Todos'
-            ],
-            'Ativo' => [
-                'value' => 'ativo',
-                'nome' => 'Ativo'
-            ],
-            'Inativo' => [
-                'value' => 'inativo',
-                'nome' => 'Inativo'
-            ],
-
+        $filtro = [
+            'per_page' => !empty($this->request->getPost('per_page')) ? $this->request->getPost('per_page'): 10,
+            'status' => !empty($this->request->getPost('status'))? $this->request->getPost('status'): 'ativo'
         ];
 
-        foreach ($status_options as $key => $status) {
-            $result_status[$key]['status_nome'] = $status_options[$key]['nome'];
-            $result_status[$key]['status_value'] = $status_options[$key]['value'];
-            if ($filtro_status == $status_options[$key]['value']) {
-                $result_status[$key]['status_selected'] = 'selected';
-            } else {
-                $result_status[$key]['status_selected'] = '';
-            }
-        }
-
-        $results_perpage = null;
-        if ($this->request->getPost('per_page')) {
-            $results_perpage = $this->request->getPost('per_page');
-        }
-
-        foreach ($options_perpage as $key => $option) {
-            if ($option == $results_perpage) {
-                $options_perpage[$key] = [$option, 'selected'];
-                break;
-            }
-        }
-
-
-        $produtos = $this->produtoModel->addStatus($filtro_status)->getProdutos()->paginate($results_perpage);
+        $produtos = $this->produtoModel->addStatus($filtro['status'])->getProdutos()->paginate($filtro['per_page']);
         $pager = $this->produtoModel->pager;
         $pager_links = $pager->links('default', 'bootstrap_pager');
 
@@ -117,12 +55,7 @@ class Produtos extends AdminBaseController
         $this->data['produtos'] = $produtos;
         $this->data['pager'] = $pager;
         $this->data['pager_links'] = $pager_links;
-        $this->data['results_perpage'] = $results_perpage;
-        $this->data['perpage_options'] = $options_perpage;
-        $this->data['filtro_status'] = $filtro_status;
-        $this->data['status_options'] = $result_status;
-
-
+        $this->data['filtro'] = $filtro;
         return $this->render($this->data, 'Admin/Produtos/index');
     }
 
@@ -260,6 +193,9 @@ class Produtos extends AdminBaseController
                 } else {
                     $this->breadcrumb->add('Criar produto', '/admin/produtos/criar/');
                 }
+
+                $this->data['title'] = 'Criando novo produto';
+                $this->data['categorias'] = $this->categoriaModel->formDropDown();
                 return $this->render($this->data, 'Admin/Produtos/form');
             }
         }
@@ -391,9 +327,12 @@ class Produtos extends AdminBaseController
         if ($this->request->getPost()) {
             $produto = $this->buscaProdutoOu404($id);
             $especificacaoProduto['medida_id'] = $this->request->getPost('medida_id');
-            $especificacaoProduto['preco'] = str_replace(",", "", $this->request->getPost('preco'));
+            $especificacaoProduto['preco'] = $this->request->getPost('preco');
             $especificacaoProduto['customizavel'] = $this->request->getPost('customizavel');
             $especificacaoProduto['produto_id'] = $produto['id'];
+
+            $especificacaoProduto['preco'] = str_replace('.', '', $especificacaoProduto['preco']);
+            $especificacaoProduto['preco'] = str_replace(',', '.', $especificacaoProduto['preco']);
 
             $especificacaoExistente = $this->produtoEspecificacaoModel
                 ->where('produto_id', $produto['id'])
@@ -404,6 +343,7 @@ class Produtos extends AdminBaseController
                 $this->session->setFlashdata('msg_type', 'alert-danger');
                 return redirect()->to("admin/produtos/especificacoes/" . $produto['id']);
             }
+
             $saved = $this->produtoEspecificacaoModel->protect(false)->save($especificacaoProduto);
             if ($saved) {
                 $this->session->setFlashdata('msg', 'Especificação salva com sucesso');

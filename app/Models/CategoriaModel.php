@@ -21,7 +21,7 @@ class CategoriaModel extends BaseModel
     // Validation
 
     protected $validationRules = [
-        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome, id,{id}]',
+        'nome' => 'required|min_length[2]|max_length[50]|is_unique[categorias.nome,id,{id}]',
     ];
 
     protected $validationMessages = [
@@ -74,5 +74,13 @@ class CategoriaModel extends BaseModel
         $selectConteudo = $optionSelecione + $optionCategorias;
 
         return $selectConteudo;
+    }
+
+    public function buscaCategoriasHome()
+    {
+        return $this->select('categorias.id, categorias.nome, categorias.slug')
+            ->join('produtos', 'produtos.categoria_id = categorias.id')
+            ->groupBy('categorias.id')
+            ->findAll();
     }
 }
