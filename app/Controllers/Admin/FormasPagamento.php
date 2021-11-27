@@ -12,8 +12,8 @@ class FormasPagamento extends AdminBaseController
     {
         parent::__construct();
         $this->formaPagamentoModel = new FormaPagamentoModel();
-        $this->data['active'] = 'produtos';
-        $this->data['sub_active'] = 'formas';
+        $this->data['active'] = 'formas';
+        $this->breadcrumb->add('Formas de Pagamento', '/admin/formas');
     }
 
     public function index()
