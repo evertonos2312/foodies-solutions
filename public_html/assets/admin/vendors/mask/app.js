@@ -1,10 +1,11 @@
+// github.com/igorescobar/jQuery-Mask-Plugin
 $(function () {
     $('.money').mask('#.##0,00', {reverse: true});
     $('.cep').mask('00000-000');
     $('.cnh').mask('00000000000'); // Criado quando trabalhamos no módulo Entregadores
     $('.cpf').mask('000.000.000-00', {reverse: true});
     $('.pis').mask('000.00000.00-0', {reverse: true});
-    $('.phone_with_ddd').mask('(00) 0000-0000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
     $('.uf').mask('AA');
     $('.selectonfocus').mask("00000000", {selectOnFocus: true});
 

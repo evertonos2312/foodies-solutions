@@ -24,6 +24,9 @@
     <script src="{$app_url}assets/js/fontawesome.min.js"></script>
     <script src="{$app_url}assets/sweetalert/js/sweetalert2.all.min.js"></script>
 
+    <script src="{$app_url}assets/admin/vendors/mask/jquery.mask.min.js"></script>
+    <script src="{$app_url}assets/admin/vendors/mask/app.js"></script>
+
 
 
 
@@ -66,30 +69,31 @@
                     <a id="a_categorias" href="{$app_url}admin/categorias">Categorias</a>
                     <a id="a_extras" href="{$app_url}admin/extras">Extras</a>
                     <a id="a_medidas" href="{$app_url}admin/medidas">Medidas</a>
-                    <a id="a_formas" href="{$app_url}admin/formas">Formas de Pagamento</a>
                 </div>
             </li>
-            <li id="li_pedidos" class="menu-item has-submenu">
-                <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
-                    <span class="text">Pedidos</span>
+            <li id="li_formas" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/formas"> <i class="icon material-icons md-credit_card"></i>
+                    <span class="text">Formas de Pagamento</span>
                 </a>
-                <div class="submenu">
-                    <a href="">Lista de pedidos</a>
-                    <a href="">Detalhes de pedidos</a>
-                </div>
             </li>
+            <li id="li_entregadores" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/entregadores"> <i class="icon material-icons md-motorcycle"></i>
+                    <span class="text">Entregadores</span>
+                </a>
+            </li>
+<!--            <li id="li_pedidos" class="menu-item has-submenu">-->
+<!--                <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>-->
+<!--                    <span class="text">Pedidos</span>-->
+<!--                </a>-->
+<!--                <div class="submenu">-->
+<!--                    <a href="">Lista de pedidos</a>-->
+<!--                    <a href="">Detalhes de pedidos</a>-->
+<!--                </div>-->
+<!--            </li>-->
             <li id="li_usuarios" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/usuarios"> <i class="icon material-icons md-people"></i>
                     <span class="text">Usuários</span>
                 </a>
-            </li>
-            <li id="li_entregadores" class="menu-item has-submenu">
-                <a class="menu-link" href=""> <i class="icon material-icons md-store"></i>
-                    <span class="text">Entregadores</span>
-                </a>
-                <div class="submenu">
-                    <a href="">Lista de entregadores</a>
-                </div>
             </li>
 
             <li id="li_conta" class="menu-item has-submenu">
