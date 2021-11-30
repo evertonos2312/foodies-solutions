@@ -22,7 +22,7 @@ class Bairros extends AdminBaseController
             'per_page' => !empty($this->request->getPost('per_page')) ? $this->request->getPost('per_page'): 10,
             'status' => !empty($this->request->getPost('status'))? $this->request->getPost('status'): 'ativo'
         ];
-        $bairros = $this->bairroModel->addStatus($filtro['status'])->paginate($filtro['per_page']);
+        $bairros = $this->bairroModel->addStatus($filtro['status'])->orderBy('nome')->paginate($filtro['per_page']);
         $pager = $this->bairroModel->pager;
         $pager_links = $pager->links('default', 'bootstrap_pager');
 
