@@ -23,7 +23,7 @@
     <div class="card-body">
         <div class="col-lg-12">
             <section class="content-body p-xl-4">
-                {form_open("admin/bairros/salvar")}
+                {form_open("admin/bairros/salvar", ['csrf_id' => 'txt_csrfname'])}
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="row gx-3">
@@ -93,13 +93,16 @@
                                         {else}
                                             {$situacao = set_value('ativo')}
                                         {/if}
+                                        {if empty($situacao)}
+                                        {$situacao = '1'}
+                                        {/if}
                                         {form_dropdown('ativo', $options, $situacao, ['id' => 'ativo', 'class' => 'form-control'])}
                                     </div>
                             </div>
                         </div>
                     </div>
                     <br>
-                    <button class="btn btn-primary" type="submit" >Salvar</button>
+                    <button class="btn btn-primary" id="btn-salvar" type="submit" >Salvar</button>
                     {if (!empty($id))}
                     <a class="btn btn-primary" href="{$app_url}admin/bairros/show/{$id}" >Voltar</a>
                     {else}
@@ -107,7 +110,6 @@
                     {/if}
                     <hr class="my-5">
                 {form_close()}
-                <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </section>
         </div>
     </div>

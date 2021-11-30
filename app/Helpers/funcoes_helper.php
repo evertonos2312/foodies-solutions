@@ -98,3 +98,22 @@ if (!function_exists('mb_ucfirst')) {
         return $fc.mb_substr($str, 1);
     }
 }
+
+if(!function_exists('consultaCep')) {
+    function consultaCep(string $cep)
+    {
+        $urlViaCep = "https://viacep.com.br/ws/{$cep}/json/";
+
+        /* Abre a conexão */
+        $ch = curl_init();
+
+        /* Definindo a URL*/
+        curl_setopt($ch, CURLOPT_URL, $urlViaCep);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        /* Executando o POST*/
+        $json = curl_exec($ch);
+
+        return json_decode($json);
+    }
+}

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProdutoExtraModel extends Model
+class ProdutoExtraModel extends BaseModel
 {
     protected $table = 'produtos_extras';
     protected $primaryKey = 'id';

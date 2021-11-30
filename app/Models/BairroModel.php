@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class BairroModel extends Model
+class BairroModel extends BaseModel
 {
     protected $table                = 'bairros';
     protected $useSoftDeletes       = true;
@@ -27,7 +27,6 @@ class BairroModel extends Model
 
     protected $validationRules = [
         'nome' => 'required|min_length[2]|max_length[50]|is_unique[bairros.nome,id,{id}]',
-        'cep' => 'required|exact_length[9]',
         'valor_entrega' => 'required',
     ];
 

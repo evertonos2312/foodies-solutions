@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class FormaPagamentoModel extends Model
+class FormaPagamentoModel extends BaseModel
 {
     protected $DBGroup              = 'default';
     protected $table                = 'formas_pagamento';

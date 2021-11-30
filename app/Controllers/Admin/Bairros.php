@@ -162,6 +162,48 @@ class Bairros extends AdminBaseController
         return view('errors/404_admin');
     }
 
+    public function consultaCep()
+    {
+        if ($this->request->isAJAX()) {
+            $data = array();
+            $cep = $this->request->getPost('cep');
+            $data['token'] = csrf_hash();
+            $validation = service('validation');
+            $validation->setRule('cep', 'CEP', 'required|exact_length[9]');
+
+            if(!$validation->withRequest($this->request)->run()){
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = $validation->getError();
+                return $this->response->setJSON($data);
+            }
+            $cep = str_replace('-', '', $cep);
+
+            $consulta = consultaCep($cep);
+            if(!isset($consulta->erro) && isset($consulta->cep)) {
+                if($consulta->localidade !== 'São Paulo') {
+                    $data['code'] = 503;
+                    $data['status'] = 'error';
+                    $data['detail'] = '';
+                    $data['msg_error'] = 'Apenas bairros de São Paulo são permitidos';
+                    return $this->response->setJSON($data);
+                }
+                $data['code'] = 200;
+                $data['status'] = 'success';
+                $data['detail'] = ['endereco' => $consulta];
+                $data['msg_error'] = '';
+            } else {
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = 'Erro ao consultar cep, verifique os dados enviados.';
+            }
+            return $this->response->setJSON($data);
+        }
+        return view('errors/404_admin');
+    }
+
     private function buscaBairroOu404(int $id = null)
     {
         if (!$id || !$bairro = $this->bairroModel->where('id', $id)->first()) {
