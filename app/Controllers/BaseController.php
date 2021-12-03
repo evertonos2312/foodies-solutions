@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ExpedienteModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -29,6 +30,7 @@ class BaseController extends Controller
      */
     protected $helpers = ['html', 'form', 'url', 'funcoes', 'filesystem', 'text'];
     public $smarty;
+    public $check_expediente;
     public $breadcrumb;
     /*
     Session core service of CI
@@ -70,6 +72,7 @@ class BaseController extends Controller
     {
         $this->session = \Config\Services::session();
         $this->breadcrumb = new \App\Libraries\Breadcrumb();
+        $this->check_expediente = $this->checkAbertura();
     }
 
     /**
@@ -105,6 +108,7 @@ class BaseController extends Controller
     {
         //Initial data for view, assuming this it's gonna be used in all pages
         $msg_type = ($this->session->getFlashdata('msg_type')) ? $this->session->getFlashdata('msg_type') : '';
+        $expedienteModel = new ExpedienteModel();
         $dataArr = array(
             'app_url' => base_url() . '/',
             'msg' => $this->session->getFlashdata('msg'),
@@ -113,12 +117,30 @@ class BaseController extends Controller
             'active' => '',
             'sub_active' => '',
             'breadcrumbs' => '',
+            'expedientes' => $expedienteModel->findAll(),
+            'aberto_fechado' => ($this->checkAbertura()) ? 'estamos abertos' : 'estamos fechados',
+            'check_expediente' => $this->checkAbertura(),
             'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
             'isLoggedIn' => $this->session->get('isLoggedIn'),
             'isLoggedAdmin' => $this->session->get('isLoggedAdmin'),
             'auth_user' => ($this->session->get('auth_user')) ? $this->session->get('auth_user') : null,
         );
         $this->smarty->setData($dataArr);
+    }
+
+    public function checkAbertura()
+    {
+        $expedienteModel = new ExpedienteModel();
+        $today = date('w');
+        $expediente = $expedienteModel->where('dia', $today)->first();
+        $horaAtual = date('H:i:s');
+        if($expediente['situacao'] == 0) {
+            return false;
+        }
+        if($horaAtual >= $expediente['abertura'] && $horaAtual <= $expediente['fechamento']) {
+            return true;
+        }
+        return false;
     }
 
 

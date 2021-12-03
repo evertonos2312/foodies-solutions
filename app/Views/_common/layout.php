@@ -152,8 +152,8 @@
                     <div class="navbar_top hidden-xs">
                         <div class="top_addr">
                             <span><i class="fa fa-map-marker" aria-hidden="true"></i> São Paulo - Perdizes</span>
-                            <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 98658-6356</span>
-                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> 18:00 - 23:00</span>
+                            <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 99820-2033</span>
+                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
                         </div>
                     </div>
                     <!-- /.navbar_top -->
@@ -209,66 +209,27 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-4">
                                 <h4 class="footer_ttl footer_ttl_padd">sobre nós</h4>
-                                <p class="footer_txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries but also the leap into electronic typesetting. </p>
+                                <p class="footer_txt">
+                                    Está querendo saborear uma excelente Pizza? Conheça nossa pizzaria agora. Pizza Planet tem uma diversidade de Pizzas Deliciosas. Saiba Mais!
+                                </p>
                             </div>
                             <div class="col-sm-6 col-md-5">
                                 <h4 class="footer_ttl footer_ttl_padd">expediente</h4>
                                 <div class="footer_border">
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Segunda-feira</div>
-                                        <div class="week_time text-right">Fechado</div>
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Terça-feia</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">18h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
+                                    {foreach $expedientes as $expediente}
+                                        <div class="week_row clearfix">
+                                            <div class="week_day">{$expediente['dia_descricao']}</div>
+                                            {if $expediente['situacao'] == 1}
+                                            <div class="week_time">
+                                                <span class="week_time_start">{$expediente['abertura']|date_format:"%Hh%M"}</span>
+                                                <span class="week_time_node">-</span>
+                                                <span class="week_time_end">{$expediente['fechamento']|date_format:"%Hh%M"}</span>
+                                            </div>
+                                            {else}
+                                            <div class="week_time text-center">Fechado</div>
+                                            {/if}
                                         </div>
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Quarta-feira</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">18h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
-                                        </div>
-
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Quinta-feira</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">18h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
-                                        </div>
-
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Sexta-feira</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">18h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
-                                        </div>
-
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Sábado</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">17h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
-                                        </div>
-                                    </div>
-                                    <div class="week_row clearfix">
-                                        <div class="week_day">Domingo</div>
-                                        <div class="week_time">
-                                            <span class="week_time_start">17h</span>
-                                            <span class="week_time_node">-</span>
-                                            <span class="week_time_end">23h</span>
-                                        </div>
-                                    </div>
+                                    {/foreach}
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -280,7 +241,7 @@
                                     </div>
                                     <div class="footer_cnt">
                                         <i class="fa fa-phone"></i>
-                                        <span>(11) 98658-6356</span>
+                                        <span>(11) 99820-2033</span>
                                     </div>
                                     <div class="footer_cnt">
                                         <i class="fa fa-envelope"></i>
@@ -319,24 +280,15 @@
             <img src="{$app_url}src/assets/img/logo.png" alt="logo" />
         </a>
     </div>
-    <div class="right_menu_search">
-        <form method="post">
-            <input type="text" name="q" class="form-control search_input" value="" placeholder="Search anything">
-            <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
     <ul class="rmenu_list">
-        <li><a class="page-scroll" href="#header">Home</a></li>
-        <li><a class="page-scroll" href="#about_us">About</a></li>
-        <li><a class="page-scroll" href="#menu">Menus</a></li>
-        <li><a class="page-scroll" href="#gallery">Gallery</a></li>
-        <li><a class="page-scroll" href="#reservation">Reservation</a></li>
-        <li><a class="page-scroll" href="#footer">Contact</a></li>
+        <li><a class="page-scroll" href="#header">Página Inicial</a></li>
+        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+        <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
     </ul>
     <div class="right_menu_addr top_addr">
-        <span><i class="fa fa-map-marker" aria-hidden="true"></i> Your country, your city, 12345</span>
-        <span><i class="fa fa-phone" aria-hidden="true"></i> 123 456 789</span>
-        <span><i class="fa fa-clock-o" aria-hidden="true"></i> 11:00 - 21:00</span>
+        <span><i class="fa fa-map-marker" aria-hidden="true"></i>São Paulo - SP</span>
+        <span><i class="fa fa-phone" aria-hidden="true"></i>(11) 99820-2033</span>
+        <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
     </div>
 </nav>
 
