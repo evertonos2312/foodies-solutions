@@ -12,7 +12,7 @@
 <div class="content-header">
     <h2 class="content-title">{$title}</h2>
     <div>
-        <a href="{$app_url}admin/produtos/criar" class="btn btn-primary"><i class="material-icons md-plus"></i> Criar Novo</a>
+        <a href="{$app_url}admin/bairros/criar" class="btn btn-primary"><i class="material-icons md-plus"></i> Criar Novo</a>
     </div>
 </div>
 {$breadcrumbs}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-lg-2 col-6 col-md-3">
-                {form_open('admin/produtos/index', ['id' => 'form_status'])}
+                {form_open('admin/bairros/index', ['id' => 'form_status'])}
                 {$options_status = ['todos'=> 'Todos', 'ativo' => 'Ativo', 'inativo' => 'Inativo']}
                 {if (!empty($filtro['status']))}
                 {$filtro_status = $filtro['status']}
@@ -36,7 +36,7 @@
                 {form_close()}
             </div>
             <div class="col-lg-1 col-6 col-md-3">
-                {form_open('admin/produtos/index', ['id' => 'form_perpage'])}
+                {form_open('admin/bairros/index', ['id' => 'form_perpage'])}
                 <input type="hidden" name="filtro_status" value="{$filtro_status}">
                 {$options_page = ['10'=> '10', '20' => '20', '40' => '40']}
                 {if (!empty($filtro['per_page']))}
@@ -51,43 +51,25 @@
     </header> <!-- card-header end// -->
     <div class="card-body">
         <div class="table-responsive">
-            {if (!empty($produtos))}
+            {if (!empty($bairros))}
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Imagem</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Data de criação</th>
-                    <th scope="col">Especificações</th>
+                    <th scope="col">Valor de entrega</th>
                     <th scope="col">Status</th>
                     <th scope="col" class="text-center"> Ações </th>
                 </tr>
                 </thead>
                 <tbody>
-                    {foreach $produtos as $produto}
+                    {foreach $bairros as $bairro}
                     <tr>
-                        <td>
-                            {if !empty($produto['imagem'])}
-                            <img src="{$app_url}uploads/imagens/produtos/{$produto['imagem']}" class="img-sm img-avatar" alt="{$produto['nome']}">
-                            {else}
-                            <img src="{$app_url}assets/imagens/produto-sem-imagem.jpg" class="img-sm img-avatar" alt="Sem Imagem">
-                            {/if}
-                        </td>
-                        <td><b><a class="" href="{$app_url}admin/produtos/show/{$produto['id']}">{$produto['nome']}</a></b></td>
-                        <td>{toDataBR($produto['criado_em'], true)}</td>
-                        <td>
-                            {foreach $especificacoes as $especificacao}
-                                {if $produto['id'] == $especificacao['produto_id']}
-                                    <p>
-                                        {$especificacao['nome']}: R$&nbsp{$especificacao['preco']}
-                                    </p>
-                                {/if}
-                            {/foreach}
-                        </td>
-                        <td><span class="badge rounded-pill {$produto['ativo_class']}">{$produto['ativo']}</span></td>
+                        <td><b><a href="{$app_url}admin/bairros/show/{$bairro['id']}">{$bairro['nome']}</a></b></td>
+                        <td>R$ {number_format($bairro['valor_entrega'], 2, ',', '.')}</td>
+                        <td><span class="badge rounded-pill {$bairro['ativo_class']}">{$bairro['ativo']}</span></td>
                         <td class="text-center">
-                            <a class="btn btn-light" id="editar_anchor_{$produto['id']}" href="{$app_url}admin/produtos/editar/{$produto['id']}">Editar</a>
-                            <button class="btn btn-light text-danger" onclick="excluirProduto('{$produto.id}', '{$produto.nome}')">Excluir</button>
+                            <a class="btn btn-light" id="editar_anchor_{$bairro['id']}" href="{$app_url}admin/bairros/editar/{$bairro['id']}">Editar</a>
+                            <button class="btn btn-light text-danger" onclick="excluirBairro('{$bairro.id}', '{$bairro.nome}')">Excluir</button>
                         </td>
                     </tr>
                     {/foreach}
@@ -95,7 +77,7 @@
                 </tbody>
                     {else}
                         <tr>
-                            <td colspan="6">Nenhuma produto encontrado</td>
+                            <td colspan="6">Nenhum bairro encontrado</td>
                         </tr>
                     {/if}
                 <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
@@ -139,4 +121,4 @@
     });
 </script>
 <script src="{$app_url}assets/admin/vendors/auto-complete/jquery-ui.js" type="text/javascript"></script>
-<script src="{$app_url}assets/admin/js/produtos/index.js" type="text/javascript"></script>
+<script src="{$app_url}assets/admin/js/bairros/index.js" type="text/javascript"></script>

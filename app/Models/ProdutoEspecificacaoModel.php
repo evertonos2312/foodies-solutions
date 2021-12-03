@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProdutoEspecificacaoModel extends Model
+class ProdutoEspecificacaoModel extends BaseModel
 {
     protected $table                = 'produtos_especificacoes';
     protected $returnType           = 'array';

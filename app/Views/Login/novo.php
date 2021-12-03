@@ -37,10 +37,6 @@
 <main>
     <header class="main-header navbar">
         <div class="col-brand">
-            <a href="page-index-1.html" class="brand-wrap">
-<!--                <img src="" height="46" class="logo" alt="Ecommerce dashboard template">-->
-                Imagem pizza planet - Nav Bar
-            </a>
         </div>
     </header>
 

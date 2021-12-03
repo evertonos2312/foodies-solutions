@@ -30,4 +30,6 @@ class BaseModel extends Model
         $data['data']['preco'] = str_replace(',', '.', $data['data']['preco']);
         return $data;
     }
+
+
 }

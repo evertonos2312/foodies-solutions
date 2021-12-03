@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EntregadorModel extends Model
+class EntregadorModel extends BaseModel
 {
     protected $table                = 'entregadores';
     protected $useSoftDeletes       = true;
