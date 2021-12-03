@@ -53,6 +53,7 @@ class Produtos extends AdminBaseController
         
         $this->data['title'] = 'Lista de produtos';
         $this->data['produtos'] = $produtos;
+        $this->data['especificacoes'] = $this->produtoEspecificacaoModel->join('medidas', 'medidas.id = produtos_especificacoes.medida_id')->findAll();
         $this->data['pager'] = $pager;
         $this->data['pager_links'] = $pager_links;
         $this->data['filtro'] = $filtro;

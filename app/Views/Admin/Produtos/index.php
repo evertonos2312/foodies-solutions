@@ -58,6 +58,7 @@
                     <th scope="col">Imagem</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Data de criação</th>
+                    <th scope="col">Especificações</th>
                     <th scope="col">Status</th>
                     <th scope="col" class="text-center"> Ações </th>
                 </tr>
@@ -74,6 +75,15 @@
                         </td>
                         <td><b><a class="" href="{$app_url}admin/produtos/show/{$produto['id']}">{$produto['nome']}</a></b></td>
                         <td>{toDataBR($produto['criado_em'], true)}</td>
+                        <td>
+                            {foreach $especificacoes as $especificacao}
+                                {if $produto['id'] == $especificacao['produto_id']}
+                                    <p>
+                                        {$especificacao['nome']}: R$&nbsp{$especificacao['preco']}
+                                    </p>
+                                {/if}
+                            {/foreach}
+                        </td>
                         <td><span class="badge rounded-pill {$produto['ativo_class']}">{$produto['ativo']}</span></td>
                         <td class="text-center">
                             <a class="btn btn-light" id="editar_anchor_{$produto['id']}" href="{$app_url}admin/produtos/editar/{$produto['id']}">Editar</a>

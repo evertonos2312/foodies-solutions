@@ -44,6 +44,8 @@ $routes->group('admin', function ($routes) {
     $routes->add('formas/editar/(:num)', 'Admin\FormasPagamento::editar/$1');
     $routes->add('formas/criar', 'Admin\FormasPagamento::criar');
     $routes->add('formas/salvar', 'Admin\FormasPagamento::salvar');
+
+    $routes->match(['get', 'post'], 'expedientes', 'Admin\Expedientes::expedientes');
 });
 
 /*

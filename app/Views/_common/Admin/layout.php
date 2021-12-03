@@ -86,6 +86,11 @@
                     <span class="text">Bairros</span>
                 </a>
             </li>
+            <li id="li_expedientes" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/expedientes"> <i class="icon material-icons md-alarm"></i>
+                    <span class="text">Expedientes</span>
+                </a>
+            </li>
 <!--            <li id="li_pedidos" class="menu-item has-submenu">-->
 <!--                <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>-->
 <!--                    <span class="text">Pedidos</span>-->
