@@ -355,3 +355,10 @@ body{
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
 }
+
+@media only screen and (max-width:767px) {
+    .custom-flex {
+        margin-top: 20px;
+        align-self: center;
+    }
+}

@@ -66,6 +66,7 @@ class ProdutoModel  extends BaseModel
     {
         $this->select('produtos.*, categorias.nome as categoria');
         $this->join('categorias', 'categorias.id = produtos.categoria_id');
+        $this->orderBy('produtos.nome');
         return $this;
     }
 
