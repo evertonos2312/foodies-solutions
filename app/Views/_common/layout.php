@@ -34,6 +34,22 @@
     <!-- Favicon -->
     <link href="{$app_url}assets/admin/images/pizza_ico.png" rel="shortcut icon" type="image/x-icon">
 
+    <!-- JavaScript -->
+    <script src="{$app_url}src/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="{$app_url}src/assets/js/bootstrap.min.js"></script>
+    <script src="{$app_url}src/assets/js/jquery.mousewheel.min.js"></script>
+    <script src="{$app_url}src/assets/js/jquery.easing.min.js"></script>
+    <script src="{$app_url}src/assets/js/scrolling-nav.js"></script>
+    <script src="{$app_url}src/assets/js/aos.js"></script>
+    <script src="{$app_url}src/assets/js/slick.min.js"></script>
+    <script src="{$app_url}src/assets/js/jquery.touchSwipe.min.js"></script>
+    <script src="{$app_url}src/assets/js/moment.js"></script>
+    <script src="{$app_url}src/assets/js/bootstrap-datepicker.js"></script>
+    <script src="{$app_url}src/assets/js/bootstrap-datetimepicker.js"></script>
+    <script src="{$app_url}src/assets/js/jquery.fancybox.js"></script>
+    <script src="{$app_url}src/assets/js/loadMoreResults.js"></script>
+    <script src="{$app_url}src/assets/js/main.js"></script>
+
 </head>
 <!-- END head -->
 
@@ -175,7 +191,7 @@
                             <div class="collapse navbar-collapse" id="navbar">
                                 <div class="navbar-right">
                                     <ul class="nav navbar-nav">
-                                        <li><a class="page-scroll" href="#header">Página Inicial</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
                                         <li><a class="page-scroll" href="#menu">Cardápio</a></li>
                                         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
                                     </ul>
@@ -281,7 +297,7 @@
         </a>
     </div>
     <ul class="rmenu_list">
-        <li><a class="page-scroll" href="#header">Página Inicial</a></li>
+        <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
         <li><a class="page-scroll" href="#menu">Cardápio</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
     </ul>
@@ -298,21 +314,7 @@
 
 <!-- END mobile right burger menu -->
 
-<!-- JavaScript -->
-<script src="{$app_url}src/assets/js/jquery-2.1.1.min.js"></script>
-<script src="{$app_url}src/assets/js/bootstrap.min.js"></script>
-<script src="{$app_url}src/assets/js/jquery.mousewheel.min.js"></script>
-<script src="{$app_url}src/assets/js/jquery.easing.min.js"></script>
-<script src="{$app_url}src/assets/js/scrolling-nav.js"></script>
-<script src="{$app_url}src/assets/js/aos.js"></script>
-<script src="{$app_url}src/assets/js/slick.min.js"></script>
-<script src="{$app_url}src/assets/js/jquery.touchSwipe.min.js"></script>
-<script src="{$app_url}src/assets/js/moment.js"></script>
-<script src="{$app_url}src/assets/js/bootstrap-datepicker.js"></script>
-<script src="{$app_url}src/assets/js/bootstrap-datetimepicker.js"></script>
-<script src="{$app_url}src/assets/js/jquery.fancybox.js"></script>
-<script src="{$app_url}src/assets/js/loadMoreResults.js"></script>
-<script src="{$app_url}src/assets/js/main.js"></script>
+
 
 </body>
 

@@ -31,5 +31,14 @@ class ProdutoExtraModel extends BaseModel
             ->paginate($paginacao);
     }
 
+    public function buscaExtrasDoProdutoDetalhes(int $produto_id = null)
+    {
+        return $this->select('extras.id, extras.nome as extra, extras.preco, produtos_extras.id as id_principal')
+            ->join('extras', 'extras.id = produtos_extras.extra_id')
+            ->join('produtos', 'produtos.id = produtos_extras.produto_id')
+            ->where('produtos_extras.produto_id', $produto_id)
+            ->findAll();
+    }
+
 
 }
