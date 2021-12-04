@@ -66,10 +66,10 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4 custom-flex">
-                        <input type="submit" id="btn-adiciona" class="btn btn-success btn-lg mr-5" value="Adicionar ao carrinho">
                         {if $check_expediente}
-                        <span>Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
+                        <input type="submit" id="btn-adiciona" class="btn btn-success btn-lg mr-5" value="Adicionar ao carrinho">
                         {else}
+                        <span>Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
                         {/if}
                     </div>
                     <div class="col-sm-4 custom-flex">
