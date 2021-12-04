@@ -3,6 +3,20 @@
 <div class="container section" id="menu" data-aos="fade-up" style="margin-top: 3em">
     <!-- product -->
     <div class="product-content product-wrap clearfix product-deatil">
+        {if ($msg)}
+        <div class="alert {if ($msg_type)}{$msg_type}{else}alert-danger{/if} alert-dismissible" role="alert">
+            <button type="button" class="{if ($msg_type)}{$msg_type}{else}alert-danger{/if} close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <span>&nbsp;</span>
+            <ul>
+            {foreach $msg as $err}
+            <li>{$err}</li>
+            {/foreach}
+
+            </ul>
+        </div>
+        {/if}
         <div class="row">
             <div class="col-md-2 col-sm-12 col-xs-12">
                 <div class="card" style="width: 18rem">
@@ -46,6 +60,13 @@
                         {/foreach}
                     {/if}
                 </h3>
+
+                <div class="row" style="margin-top: 4rem">
+                    <div class="col-md-4">
+                        <label for="">Quantidade</label>
+                        <input type="number" class="form-control" placeholder="Quantidade" name="produto[quantidade]" value="1" min="1" max="10" step="1" required>
+                    </div>
+                </div>
                 <hr />
                 <div class="description description-tabs">
                     <div id="myTabContent" class="tab-content">
@@ -67,13 +88,21 @@
                 <div class="row">
                     <div class="col-sm-4 custom-flex">
                         {if $check_expediente}
-                        <input type="submit" id="btn-adiciona" class="btn btn-success btn-lg mr-5" value="Adicionar ao carrinho">
+                        <input type="submit" id="btn-adiciona" class="btn btn-success btn-block" value="Adicionar ao carrinho">
                         {else}
                         <span>Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
                         {/if}
                     </div>
+                    {foreach $especificacoes as $especificacao}
+                        {if $especificacao['customizavel']}
+                            <div class="col-sm-4 custom-flex">
+                                <a href="{$app_url}/produto/customizar/{$produto['slug']}" class="btn btn-primary btn-block">Customizar</a>
+                            </div>
+                            {break}
+                        {/if}
+                    {/foreach}
                     <div class="col-sm-4 custom-flex">
-                        <a href="{$app_url}" class="btn btn-info btn-lg">Mais delícias</a>
+                        <a href="{$app_url}" class="btn btn-info btn-block" >Mais delícias</a>
                     </div>
                 </div>
             </div>
@@ -90,6 +119,9 @@
        if(!especificacao_id) {
            $("#btn-adiciona").prop("disabled", true);
            $("#btn-adiciona").prop("value", 'Escolha algum produto');
+       } else {
+           $("#btn-adiciona").prop("disabled", false);
+           $("#btn-adiciona").prop("value", 'Adicionar ao carrinho');
        }
     });
 

@@ -33,10 +33,20 @@ class ProdutoEspecificacaoModel extends BaseModel
 
     public function getEspecificacoesProduto(int $produto_id)
     {
-        return $this->select('medidas.nome, produtos_especificacoes.id AS especificacao_id, produtos_especificacoes.preco')
+        return $this->select('medidas.nome, produtos_especificacoes.id AS especificacao_id, produtos_especificacoes.preco, produtos_especificacoes.customizavel')
             ->join('medidas', 'medidas.id = produtos_especificacoes.medida_id')
             ->where('produtos_especificacoes.produto_id', $produto_id)
             ->findAll();
+    }
+
+    public function getEspecificacoesProdutoSlug(string $produto_slug, $especificacao_id)
+    {
+        return $this->select('produtos_especificacoes.*, medidas.nome')
+            ->where('produtos_especificacoes.id', $especificacao_id)
+            ->where('produtos.slug', $produto_slug)
+            ->join('produtos', "produtos.id = produtos_especificacoes.produto_id")
+            ->join('medidas', 'medidas.id = produtos_especificacoes.medida_id')
+            ->first();
     }
 
 

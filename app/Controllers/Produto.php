@@ -21,7 +21,7 @@ class Produto extends BaseController
 
     public function detalhes(string $produto_slug = null)
     {
-        if(!$produto_slug || !$produto = $this->produtoModel->where('slug', $produto_slug)->first()) {
+        if(!$produto_slug || !$produto = $this->produtoModel->where('slug', $produto_slug)->where('ativo', 1)->first()) {
             return redirect()->to(site_url('/'));
         }
 
