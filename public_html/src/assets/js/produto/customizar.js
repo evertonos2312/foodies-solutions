@@ -59,7 +59,7 @@ $("#segunda_metade").on('change', function (){
     var csrfHash = $('#txt_csrfname').val();
     $("#div_tamanho").hide();
     $("#boxInfoExtras").hide();
-    $("#extras").html('');
+    $("#radio").html('');
 
     $("#imagemSegundoProduto").html('<img class="card-img-top" src="'+app_url+'src/assets/img/pizza_thinking.png" width="200" alt="Escolha o produto" />')
     if(primeiro_produto_id && segundo_produto_id) {
@@ -95,11 +95,14 @@ $("#segunda_metade").on('change', function (){
 
                     if(data.detail.extras) {
                         $("#boxInfoExtras").show();
+                        $("#radio").html('');
+                        var sem_extra = "<label><input type='radio' class='extra' name='extra' checked>Sem extra</label>"
+                        $("#radio").append(sem_extra);
                         $(data.detail.extras).each(function () {
-                            var input = "<div class='radio'><label><input type='radio' class='extra' name='extra' data-extra='"+this.id+"' value='"+this.preco+"'>"+this.nome+"</label></div>"
-                            $("#extras").append(input);
+                            var input = " <label><input type='radio' class='extra' name='extra' data-extra='"+this.id+"' value='"+this.preco+"'>"+this.nome+"</label>"
+                            $("#radio").append(input);
                         });
-                        $(".extra").on('click', function () {
+                        $(".extra_opt").on('click', function () {
                            var extra_id = $(this).attr('data-extra');
                            $("#extra_id").val(extra_id);
                         });

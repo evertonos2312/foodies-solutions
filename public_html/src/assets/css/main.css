@@ -1931,3 +1931,8 @@ a:focus {
 .footer-link, .footer-link:hover {
     color: #fff;
 }
+
+.radio {
+    display: flex;
+    flex-direction: column;
+}

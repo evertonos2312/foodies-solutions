@@ -57,8 +57,7 @@
             <div class="col-md-6">
                 <div id="boxInfoExtras" style="display: none">
                     <label for="">Extras</label>
-                    <div class="radio"><label><input id="sem_extra" type="radio" class="extra" name="extra" checked>Sem extra</label></div>
-                    <div id="extras">
+                    <div id="radio" class="radio">
 
                     </div>
                 </div>
