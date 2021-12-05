@@ -50,6 +50,10 @@
     <script src="{$app_url}src/assets/js/loadMoreResults.js"></script>
     <script src="{$app_url}src/assets/js/main.js"></script>
 
+    <script type="text/javascript">
+        const app_url = '{$app_url}';
+    </script>
+
 </head>
 <!-- END head -->
 
@@ -80,19 +84,9 @@
             <div class="container pos_rel" style="min-height: 1vh !important;">
 
                 <!-- Indicators -->
-                <ol class="carousel-indicators">
+                <ol class="">
                     <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#main-carousel" data-slide-to="1"></li>
-                    <li data-target="#main-carousel" data-slide-to="2"></li>
                 </ol>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                </a>
-                <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </a>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
@@ -102,52 +96,12 @@
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
                                 <img src="{$app_url}src/assets/img/photos/pizza.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">- 20%</span>
-                                </div>
                             </div>
                             <div class="fadeUp fade-slow item_details">
                                 <h4 class="item_name">Pizza saborosa</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p class="item_info">Nossas pizzas são feitas com ingredientes frescos e selecionados, isso garante a máxima qualidade e sabor incrível.</p>
                                 <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <div class="fadeUp item_img">
-                                <img src="{$app_url}src/assets/img/photos/burger.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">- 20%</span>
-                                </div>
-                            </div>
-                            <div class="fadeUp fade-slow item_details">
-                                <h4 class="item_name">Uma delícia</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <div class="fadeUp item_img">
-                                <img src="{$app_url}src/assets/img/photos/pizza.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">20%</span>
-                                    <span class="badge_stext">OFF</span>
-                                </div>
-                            </div>
-                            <div class="fadeUp fade-slow item_details">
-                                <h4 class="item_name">Pizza saborosa</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
+                                    <a href="{$app_url}#menu" class="item_link page-scroll">Peça agora</a>
                                 </div>
                             </div>
                         </div>
