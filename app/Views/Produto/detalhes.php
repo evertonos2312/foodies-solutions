@@ -102,7 +102,7 @@
                         {/if}
                     {/foreach}
                     <div class="col-sm-4 custom-flex">
-                        <a href="{$app_url}" class="btn btn-info btn-block" >Mais delícias</a>
+                        <a href="{$app_url}#menu" class="btn btn-info btn-block" >Mais delícias</a>
                     </div>
                 </div>
             </div>

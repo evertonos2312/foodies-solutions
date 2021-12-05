@@ -1927,3 +1927,7 @@ a:focus {
     color: #FFFFFF;
     align-self: center;
 }
+
+.footer-link, .footer-link:hover {
+    color: #fff;
+}

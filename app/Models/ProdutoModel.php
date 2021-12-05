@@ -90,4 +90,21 @@ class ProdutoModel  extends BaseModel
             ->orderBy('categorias.nome', 'ASC')
             ->findAll();
     }
+
+    /**
+     * Utilizado no controller Produto/customizar
+     * @param int $categoria_id
+     * @return array
+     */
+    public function exibeOpcoesProdutosParaCustomizar(int $categoria_id): array
+    {
+        return $this->select('produtos.id, produtos.nome')
+            ->join('produtos_especificacoes', 'produtos_especificacoes.produto_id = produtos.id')
+            ->join('medidas', 'produtos_especificacoes.medida_id = medidas.id')
+            ->where('produtos.categoria_id', $categoria_id)
+            ->where('produtos.ativo', true)
+            ->where('produtos_especificacoes.customizavel', true)
+            ->groupBy('produtos.nome')
+            ->findAll();
+    }
 }

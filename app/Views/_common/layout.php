@@ -167,8 +167,10 @@
 
                     <div class="navbar_top hidden-xs">
                         <div class="top_addr">
-                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> São Paulo - Perdizes</span>
-                            <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 99820-2033</span>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> São Paulo - Pirituba</span>
+                            {if $check_expediente}
+                            <a target="_blank" href="https://wa.link/73roec"> <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 99820-2033</span></a>
+                            {/if}
                             <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
                         </div>
                     </div>
@@ -192,7 +194,7 @@
                                 <div class="navbar-right">
                                     <ul class="nav navbar-nav">
                                         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
-                                        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
                                         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
                                     </ul>
                                 </div>
@@ -256,12 +258,18 @@
                                         <span>São Paulo - SP</span>
                                     </div>
                                     <div class="footer_cnt">
-                                        <i class="fa fa-phone"></i>
-                                        <span>(11) 99820-2033</span>
+                                        {if $check_expediente}
+                                        <a target="_blank" class="footer-link"  href="https://wa.link/73roec">
+                                            <i class="fa fa-phone"></i>
+                                            <span>(11) 99820-2033</span>
+                                        </a>
+                                        {/if}
                                     </div>
                                     <div class="footer_cnt">
-                                        <i class="fa fa-envelope"></i>
-                                        <span>everton.oliveirasilva@outlook.com</span>
+                                        <a class="footer-link" href="mailto: everton.oliveirasilva@outlook.com">
+                                            <i class="fa fa-envelope"></i>
+                                            <span>everton.oliveirasilva@outlook.com</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -298,12 +306,14 @@
     </div>
     <ul class="rmenu_list">
         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
-        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+        <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
     </ul>
     <div class="right_menu_addr top_addr">
         <span><i class="fa fa-map-marker" aria-hidden="true"></i>São Paulo - SP</span>
-        <span><i class="fa fa-phone" aria-hidden="true"></i>(11) 99820-2033</span>
+        {if $check_expediente}
+        <a target="_blank" href="https://wa.link/73roec"><span><i class="fa fa-phone" aria-hidden="true"></i>(11) 99820-2033</span></a>
+        {/if}
         <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
     </div>
 </nav>

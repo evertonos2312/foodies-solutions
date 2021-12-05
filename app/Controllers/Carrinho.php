@@ -14,6 +14,7 @@ class Carrinho extends BaseController
     private $produtoEspecificacaoModel;
     private $extraModel;
     private $produtoModel;
+    private $acao;
     public function __construct()
     {
         parent::__construct();
@@ -21,6 +22,7 @@ class Carrinho extends BaseController
         $this->produtoEspecificacaoModel = new ProdutoEspecificacaoModel();
         $this->extraModel = new ExtraModel();
         $this->produtoModel = new ProdutoModel();
+        $this->acao = service('router')->methodName();
     }
 
     public function index()
@@ -30,6 +32,11 @@ class Carrinho extends BaseController
 
     public function adicionar()
     {
+        if(!$this->checkAbertura()) {
+            $this->session->setFlashdata('msg', 'Estamos fechados no momento.');
+            $this->session->setFlashdata('msg_type', 'alert-warning');
+            return redirect()->back();
+        }
         if($this->request->getPost()) {
             $produtoPost = $this->request->getPost('produto');
             $this->validation->setRules([
@@ -60,7 +67,7 @@ class Carrinho extends BaseController
 
             }
 
-            $produto = $this->produtoModel->select('id, nome, slug, ativo')->where('slug', $produtoPost['slug'])->where('ativo', 1)->first();
+            $produto = $this->produtoModel->select('id, nome, slug')->where('slug', $produtoPost['slug'])->where('ativo', 1)->first();
             if(is_null($produto)) {
                 $this->session->setFlashdata('msg', 'Não conseguimos processar a sua solicitação. Entre em contato conosco e informe <strong>ERRO-ADD-PROD-3003</strong>');
                 $this->session->setFlashdata('msg_type', 'alert-warning');
@@ -73,8 +80,50 @@ class Carrinho extends BaseController
             $produto['quantidade'] = (int) $produtoPost['quantidade'];
             $produto['tamanho'] = $produtoEspecificacao['nome'];
 
-            
+            if(session()->has('carrinho')) {
+                $produtos = session()->get('carrinho');
+                $produtosSlugs = array_column($produtos, 'slug');
+
+                if(in_array($produto['slug'], $produtosSlugs)) {
+                    $produtos = $this->atualizaProduto($this->acao, $produto['slug'], $produto['quantidade'], $produtos);
+                    session()->set('carrinho', $produtos);
+                } else {
+                    session()->push('carrinho', [$produto]);
+                }
+            } else {
+                $produtos[] = $produto;
+                session()->set('carrinho', $produtos);
+            }
+
+            $this->session->setFlashdata('msg', 'Produto adicionado com sucesso');
+            $this->session->setFlashdata('msg_type', 'alert-success');
             return redirect()->back();
         }
+        return redirect()->back();
+    }
+
+
+    /**
+     * Atualiza os produtos do carrinho
+     * @param string $acao
+     * @param string $slug
+     * @param int $quantidade
+     * @param array $produtos
+     * @return array
+     */
+    private function atualizaProduto(string $acao, string $slug, int $quantidade, array $produtos)
+    {
+        $produtos = array_map(function ($linha) use($acao, $slug, $quantidade) {
+            if($linha['slug'] == $slug) {
+                if($acao === 'adicionar') {
+                    $linha['quantidade'] += $quantidade;
+                }
+                if($acao === 'atualizar') {
+                    $linha['quantidade'] = $quantidade;
+                }
+            }
+            return $linha;
+        }, $produtos);
+        return $produtos;
     }
 }
