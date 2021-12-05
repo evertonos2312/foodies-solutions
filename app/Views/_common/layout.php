@@ -50,6 +50,10 @@
     <script src="{$app_url}src/assets/js/loadMoreResults.js"></script>
     <script src="{$app_url}src/assets/js/main.js"></script>
 
+    <script type="text/javascript">
+        const app_url = '{$app_url}';
+    </script>
+
 </head>
 <!-- END head -->
 
@@ -80,19 +84,9 @@
             <div class="container pos_rel" style="min-height: 1vh !important;">
 
                 <!-- Indicators -->
-                <ol class="carousel-indicators">
+                <ol class="">
                     <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#main-carousel" data-slide-to="1"></li>
-                    <li data-target="#main-carousel" data-slide-to="2"></li>
                 </ol>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                </a>
-                <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </a>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
@@ -102,52 +96,12 @@
                         <div class="carousel-caption">
                             <div class="fadeUp item_img">
                                 <img src="{$app_url}src/assets/img/photos/pizza.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">- 20%</span>
-                                </div>
                             </div>
                             <div class="fadeUp fade-slow item_details">
                                 <h4 class="item_name">Pizza saborosa</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p class="item_info">Nossas pizzas são feitas com ingredientes frescos e selecionados, isso garante a máxima qualidade e sabor incrível.</p>
                                 <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <div class="fadeUp item_img">
-                                <img src="{$app_url}src/assets/img/photos/burger.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">- 20%</span>
-                                </div>
-                            </div>
-                            <div class="fadeUp fade-slow item_details">
-                                <h4 class="item_name">Uma delícia</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="carousel-caption">
-                            <div class="fadeUp item_img">
-                                <img src="{$app_url}src/assets/img/photos/pizza.png" alt="sample" />
-                                <div class="item_badge">
-                                    <span class="badge_btext">20%</span>
-                                    <span class="badge_stext">OFF</span>
-                                </div>
-                            </div>
-                            <div class="fadeUp fade-slow item_details">
-                                <h4 class="item_name">Pizza saborosa</h4>
-                                <p class="item_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <div class="item_link_box">
-                                    <a href="#reservation" class="item_link page-scroll">Peça agora</a>
+                                    <a href="{$app_url}#menu" class="item_link page-scroll">Peça agora</a>
                                 </div>
                             </div>
                         </div>
@@ -167,8 +121,10 @@
 
                     <div class="navbar_top hidden-xs">
                         <div class="top_addr">
-                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> São Paulo - Perdizes</span>
-                            <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 99820-2033</span>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i> São Paulo - Pirituba</span>
+                            {if $check_expediente}
+                            <a target="_blank" href="https://wa.link/73roec"> <span><i class="fa fa-phone" aria-hidden="true"></i> (11) 99820-2033</span></a>
+                            {/if}
                             <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
                         </div>
                     </div>
@@ -192,7 +148,7 @@
                                 <div class="navbar-right">
                                     <ul class="nav navbar-nav">
                                         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
-                                        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
                                         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
                                     </ul>
                                 </div>
@@ -256,12 +212,18 @@
                                         <span>São Paulo - SP</span>
                                     </div>
                                     <div class="footer_cnt">
-                                        <i class="fa fa-phone"></i>
-                                        <span>(11) 99820-2033</span>
+                                        {if $check_expediente}
+                                        <a target="_blank" class="footer-link"  href="https://wa.link/73roec">
+                                            <i class="fa fa-phone"></i>
+                                            <span>(11) 99820-2033</span>
+                                        </a>
+                                        {/if}
                                     </div>
                                     <div class="footer_cnt">
-                                        <i class="fa fa-envelope"></i>
-                                        <span>everton.oliveirasilva@outlook.com</span>
+                                        <a class="footer-link" href="mailto: everton.oliveirasilva@outlook.com">
+                                            <i class="fa fa-envelope"></i>
+                                            <span>everton.oliveirasilva@outlook.com</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -298,12 +260,14 @@
     </div>
     <ul class="rmenu_list">
         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
-        <li><a class="page-scroll" href="#menu">Cardápio</a></li>
+        <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
     </ul>
     <div class="right_menu_addr top_addr">
         <span><i class="fa fa-map-marker" aria-hidden="true"></i>São Paulo - SP</span>
-        <span><i class="fa fa-phone" aria-hidden="true"></i>(11) 99820-2033</span>
+        {if $check_expediente}
+        <a target="_blank" href="https://wa.link/73roec"><span><i class="fa fa-phone" aria-hidden="true"></i>(11) 99820-2033</span></a>
+        {/if}
         <span><i class="fa fa-clock-o" aria-hidden="true"></i>{$aberto_fechado}</span>
     </div>
 </nav>

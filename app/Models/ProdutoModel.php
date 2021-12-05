@@ -90,4 +90,41 @@ class ProdutoModel  extends BaseModel
             ->orderBy('categorias.nome', 'ASC')
             ->findAll();
     }
+
+    /**
+     * Utilizado no controller Produto/customizar
+     * @param int $categoria_id
+     * @return array
+     */
+    public function exibeOpcoesProdutosParaCustomizar(int $categoria_id): array
+    {
+        return $this->select('produtos.id, produtos.nome')
+            ->join('produtos_especificacoes', 'produtos_especificacoes.produto_id = produtos.id')
+            ->join('medidas', 'produtos_especificacoes.medida_id = medidas.id')
+            ->where('produtos.categoria_id', $categoria_id)
+            ->where('produtos.ativo', true)
+            ->where('produtos_especificacoes.customizavel', true)
+            ->groupBy('produtos.nome')
+            ->findAll();
+    }
+
+
+    /**
+     * Utilizado para buscar segunda metade dos produtos
+     * @param int $produto_id
+     * @param int $categoria_id
+     * @return array
+     */
+    public function exibeProdutosSegundaMetade(int $produto_id, int $categoria_id)
+    {
+        return $this->select('produtos.id, produtos.nome')
+            ->join('categorias', 'categorias.id = produtos.categoria_id')
+            ->join('produtos_especificacoes', 'produtos_especificacoes.produto_id = produtos.id')
+            ->where('produtos.id !=', $produto_id)
+            ->where('produtos.categoria_id', $categoria_id)
+            ->where('produtos.ativo', true)
+            ->where('produtos_especificacoes.customizavel', true)
+            ->groupBy('produtos.nome')
+            ->findAll();
+    }
 }
