@@ -105,14 +105,10 @@
                     <span class="text">Usuários</span>
                 </a>
             </li>
-
-            <li id="li_conta" class="menu-item has-submenu">
-                <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+            <li id="li_conta" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/usuarios/show/{$auth_user['id']}"> <i class="icon material-icons md-person"></i>
                     <span class="text">Minha Conta</span>
                 </a>
-                <div class="submenu">
-                    <a href="">Detalhes</a>
-                </div>
             </li>
         </ul>
     </nav>

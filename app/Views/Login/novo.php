@@ -73,7 +73,6 @@
                         <button type="submit" class="btn btn-primary w-100"> Entrar  </button>
                     </div>
                 {form_close()}
-                <p class="text-center mb-4">Não é cadastrado?  <a href="{$app_url}registrar">Criar conta</a></p>
             </div>
             <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             <div class="overlay"></div>

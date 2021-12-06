@@ -17,7 +17,7 @@
             </ul>
         </div>
         {/if}
-        <div class="row" style="min-height: 500px">
+        <div class="row">
 
             <h2 class="name" style="margin-bottom: 2em">
                 {$title}
@@ -47,6 +47,34 @@
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="valor_produto" id="valor_produto_customizado">
+
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 3em; margin-bottom: 3em;">
+            <div style="display: none;" id="div_tamanho" class="col-md-6">
+                <label for="tamanho">Tamanho do produto</label>
+                <select name="tamanho" id="tamanho" class="form-control">
+
+                </select>
+            </div>
+            <div class="col-md-6">
+                <div id="boxInfoExtras" style="display: none">
+                    <label for="">Extras</label>
+                    <div id="radio" class="radio">
+
+                    </div>
+                    <div class="loader">Carregando...</div>
+                </div>
+
+            </div>
+        </div>
+        <div>
+            <input type="hidden" name="extra_id" id="extra_id" value="">
+        </div>
         <div class="row" style="margin-top: 30px">
             <div class="col-sm-4 custom-flex">
                 {if $check_expediente}
@@ -63,93 +91,7 @@
     </div>
     <!-- end product -->
 </div>
-
 <script>
-    $(document).ready(function (){
-       $("#btn-adiciona").prop("disabled", true);
-       $("#btn-adiciona").prop("value", 'Selecione um tamanho');
-
-    });
-
-    $("#primeira_metade").on('change', function () {
-       var primeira_metade = $(this).val();
-       var categoria_id = '{$produto.categoria_id}';
-       $("#imagemPrimeiroProduto").html('<img class="card-img-top" src="{$app_url}src/assets/img/pizza_thinking.png" width="200" alt="Escolha o produto" />')
-
-       if(primeira_metade) {
-           var csrfName = $('#txt_csrfname').attr('name');
-           var csrfHash = $('#txt_csrfname').val();
-          $.ajax({
-              type: 'get',
-              url: app_url + 'produto/procurar',
-              dataType: 'json',
-              data: {
-                primeira_metade: primeira_metade,
-                categoria_id: categoria_id,
-                [csrfName]: csrfHash
-              },
-              beforeSend: function (data){
-                  $("#segunda_metade").html('');
-              },
-              success: function (data) {
-                  $('#txt_csrfname').val(data.token)
-                  if(data.status === 'success') {
-                      if(data.detail.imagemPrimeiroProduto) {
-                          $("#imagemPrimeiroProduto").html('<img class="card-img-top" width="200" src="{$app_url}uploads/imagens/produtos/'+data.detail.imagemPrimeiroProduto+'" alt="Escolha o produto" />')
-                      }
-                      if(data.detail.produtos) {
-                          $("#segunda_metade").html('<option>Escolha a segunda metade</option');
-                          $(data.detail.produtos).each(function () {
-                             var option = $('<option/>');
-                             option.attr('value', this.id).text(this.nome);
-                             $("#segunda_metade").append(option);
-                          });
-                      }
-                  } else {
-                      $("#segunda_metade").html('<option>Não encontramos outras opções de customização</option');
-                  }
-
-              },
-              error: function () {
-                  $("#btn-adiciona").prop('disabled', true);
-              },
-          });
-       } else {
-           $("#segunda_metade").html('<option>Escolha a primeira metade</option');
-       }
-    });
-    $("#segunda_metade").on('change', function (){
-        var primeiro_produto_id $("#primeira_metade").val();
-        var segundo_produto_id $(this).val();
-
-        if(primeiro_produto_id && segundo_produto_id) {
-            $.ajax({
-                type: 'get',
-                url: app_url + 'produto/exibetamanhos',
-                dataType: 'json',
-                data: {
-                    primeiro_produto_id: primeiro_produto_id,
-                    segundo_produto_id: segundo_produto_id,
-                    [csrfName]: csrfHash
-                },
-                success: function (data) {
-                    $('#txt_csrfname').val(data.token)
-                    if(data.status === 'success') {
-
-
-                    } else {
-
-                    }
-
-                },
-                error: function () {
-                    $("#btn-adiciona").prop('disabled', true);
-                },
-            });
-        }
-
-    });
-
-
+    let categoria_id = '{$produto.categoria_id}';
 </script>
-
+<script src="{$app_url}src/assets/js/produto/customizar.js"></script>

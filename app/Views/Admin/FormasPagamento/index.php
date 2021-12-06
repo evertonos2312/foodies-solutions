@@ -83,8 +83,8 @@
                             <td colspan="6">Nenhuma forma de pagamento encontrada</td>
                         </tr>
                     {/if}
-                <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             </table>
+            <input type="hidden" id="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
         </div>
         {if ($pager)}
             {$pager_links}

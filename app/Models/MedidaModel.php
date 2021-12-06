@@ -71,4 +71,21 @@ class MedidaModel extends BaseModel
 
         return $selectConteudo;
     }
+
+    /**
+     * Utilizado em Produto/Exibe valor para retornar o maior valor entre os dois produtos
+     * @param int $medida_id
+     * @param int $primeiro_produto
+     * @param int $segundo_produto
+     * @return array|object|null
+     */
+    public function exibeValor(int $medida_id, int $primeiro_produto, int $segundo_produto)
+    {
+        return $this->selectMax('produtos_especificacoes.preco')
+            ->join('produtos_especificacoes', 'produtos_especificacoes.medida_id = medidas.id')
+            ->where('medidas.id', $medida_id)
+            ->where('medidas.ativo', true)
+            ->whereIn('produtos_especificacoes.produto_id', [$primeiro_produto, $segundo_produto])
+            ->first();
+    }
 }
