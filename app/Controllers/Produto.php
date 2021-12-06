@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ExtraModel;
 use App\Models\MedidaModel;
 use App\Models\ProdutoEspecificacaoModel;
 use App\Models\ProdutoExtraModel;
@@ -13,6 +14,7 @@ class Produto extends BaseController
     private $especificacaoModel;
     private $produtoExtraModel;
     private $medidaModel;
+    private $extraModel;
     public function __construct()
     {
         parent::__construct();
@@ -20,6 +22,7 @@ class Produto extends BaseController
         $this->produtoModel = new ProdutoModel();
         $this->produtoExtraModel = new ProdutoExtraModel();
         $this->medidaModel = new MedidaModel();
+        $this->extraModel = new ExtraModel();
     }
 
     public function detalhes(string $produto_slug = null)
@@ -161,6 +164,50 @@ class Produto extends BaseController
         return redirect()->back();
     }
 
+    public function exibeValor()
+    {
+        if ($this->request->isAJAX()) {
+            $data = array();
+            $get = $this->request->getGet();
+            $medida_id = $get['medida_id'];
+            $primeira_metade = $get['primeira_metade'];
+            $segunda_metade = $get['segunda_metade'];
+            $extra_id = $get['extra_id'];
+            $data['token'] = csrf_hash();
+            if (!empty($medida_id && !empty($primeira_metade) && !empty($segunda_metade))){
+                $medida = $this->medidaModel->exibeValor($medida_id, $primeira_metade, $segunda_metade);
+                if(!$medida) {
+                    $data['code'] = 403;
+                    $data['status'] = 'error';
+                    $data['detail'] = '';
+                    $data['msg_error'] = 'Forbidden';
+                    return $this->response->setJSON($data);
+                }
+                if(!empty($extra_id)) {
+                    $extra = $this->extraModel->select('preco')->find($extra_id);
+                }
+
+                if(isset($extra) &&!is_null($extra)){
+                    $medida['preco'] =  number_format($medida['preco'] + $extra['preco'], 2, ',', '.');
+                } else {
+                    $medida['preco'] = number_format($medida['preco'], 2, ',', '.');
+                }
+
+                $data['detail']['medida'] = $medida;
+                $data['code'] = 200;
+                $data['status'] = 'success';
+                $data['msg_error'] = '';
+                return $this->response->setJSON($data);
+            }
+            $data['code'] = 403;
+            $data['status'] = 'error';
+            $data['detail'] = '';
+            $data['msg_error'] = 'Forbidden';
+            return $this->response->setJSON($data);
+        }
+        return redirect()->back();
+    }
+
     private function combinaExtrasProdutos(array $extrasPrimeiroProduto, array $extrasSegundoProduto)
     {
         $extrasUnicos = [];
@@ -171,7 +218,7 @@ class Produto extends BaseController
                 $extrasUnicos[] = [
                     'id' => $extra['id'],
                     'nome' => $extra['extra'],
-                    'preco' => $extra['preco'],
+                    'preco' => number_format($extra['preco'], 2, ',', '.'),
                 ];
             }
         }

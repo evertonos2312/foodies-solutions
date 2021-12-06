@@ -47,6 +47,13 @@
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="valor_produto" id="valor_produto_customizado">
+
+                </div>
+            </div>
+        </div>
         <div class="row" style="margin-top: 3em; margin-bottom: 3em;">
             <div style="display: none;" id="div_tamanho" class="col-md-6">
                 <label for="tamanho">Tamanho do produto</label>
@@ -60,12 +67,13 @@
                     <div id="radio" class="radio">
 
                     </div>
+                    <div class="loader">Carregando...</div>
                 </div>
 
             </div>
         </div>
         <div>
-            <input type="hidden" name="extra_id" id="extra_id">
+            <input type="hidden" name="extra_id" id="extra_id" value="">
         </div>
         <div class="row" style="margin-top: 30px">
             <div class="col-sm-4 custom-flex">

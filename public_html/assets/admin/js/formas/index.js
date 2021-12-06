@@ -36,8 +36,8 @@ $(function () {
 
 function excluirFormas(forma_id, forma_nome)
 {
-    var csrfName = $('.txt_csrfname').attr('name');
-    var csrfHash = $('.txt_csrfname').val();
+    var csrfName = $('#txt_csrfname').attr('name');
+    var csrfHash = $('#txt_csrfname').val();
     let id_forma = forma_id;
     Swal.fire({
         title: 'Deletar forma de pagamento - ' + forma_nome + '?',
@@ -49,14 +49,14 @@ function excluirFormas(forma_id, forma_nome)
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: app_url + 'admin/formaspagamento/excluir',
+                url: app_url + 'admin/FormasPagamento/excluir',
                 method: 'post',
                 data: {
                     'id_forma': id_forma,
                     [csrfName]: csrfHash
                 },
                 success: function (response) {
-                    $('.txt_csrfname').val(response.token)
+                    $('#txt_csrfname').val(response.token)
                     Swal.close();
                     if (response.status === 'success' && !!response.detail.id) {
                         Swal.fire({
