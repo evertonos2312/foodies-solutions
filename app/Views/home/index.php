@@ -29,7 +29,7 @@
             <div class="row">
             {foreach $produtos as $produto}
                 <div class="col-sm-6 filter burger active {$produto.categoria_slug}">
-                    <a href="{$app_url}produto/detalhes/{$produto['slug']}" class="block fancybox" data-fancybox-group="fancybox">
+                    <a href="{$app_url}produto/detalhes/{$produto['slug']}/#produto" class="block fancybox" data-fancybox-group="fancybox">
                         <div class="content">
                             <div class="filter_item_img">
                                 <i class="fa fa-search-plus"></i>

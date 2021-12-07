@@ -142,7 +142,7 @@ $("#segunda_metade").on('change', function (){
                                        if(data.status === 'success') {
                                            $(".loader").css('display', 'none');
                                            $("#radio").show();
-                                           if(data.detail.medida) {
+                                           if(data.detail.medida.preco) {
                                                $("#valor_produto_customizado").show();
                                                $("#valor_produto_customizado").html('R$ ' + data.detail.medida.preco);
                                                $("#btn-adiciona").prop('disabled', false);

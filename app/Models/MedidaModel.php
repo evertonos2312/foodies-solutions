@@ -81,7 +81,8 @@ class MedidaModel extends BaseModel
      */
     public function exibeValor(int $medida_id, int $primeiro_produto, int $segundo_produto)
     {
-        return $this->selectMax('produtos_especificacoes.preco')
+        return $this->select('medidas.nome')
+            ->selectMax('produtos_especificacoes.preco')
             ->join('produtos_especificacoes', 'produtos_especificacoes.medida_id = medidas.id')
             ->where('medidas.id', $medida_id)
             ->where('medidas.ativo', true)

@@ -20,6 +20,7 @@
     <link href="{$app_url}src/assets/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" media="all" />
     <link href="{$app_url}src/assets/css/fonts.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="{$app_url}src/assets/fonts/FontAwesome/css/all.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/slick.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/slick-theme.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/aos.css" type="text/css" rel="stylesheet" />
