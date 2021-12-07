@@ -35,6 +35,12 @@
     <!-- Favicon -->
     <link href="{$app_url}assets/admin/images/pizza_ico.png" rel="shortcut icon" type="image/x-icon">
 
+    <style>
+        .navbar-nav > li > a {
+            line-height: 30px;
+        }
+    </style>
+
     <!-- JavaScript -->
     <script src="{$app_url}src/assets/js/jquery-2.1.1.min.js"></script>
     <script src="{$app_url}src/assets/js/bootstrap.min.js"></script>
@@ -151,6 +157,13 @@
                                         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
                                         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
                                         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
+                                        {if $carrinho_exists}
+                                        <li><a class="page-scroll" href="{$app_url}carrinho">
+                                                <i class="fa fa-shopping-cart fa-2x"></i>
+                                                <span style="font-size: 25px!important;">{$carrinho_count}</span>
+                                            </a>
+                                        </li>
+                                        {/if}
                                     </ul>
                                 </div>
                             </div>
@@ -263,6 +276,12 @@
         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
+        {if $carrinho_exists}
+        <li><a class="page-scroll" href="{$app_url}carrinho">
+                Carrinho
+            </a>
+        </li>
+        {/if}
     </ul>
     <div class="right_menu_addr top_addr">
         <span><i class="fa fa-map-marker" aria-hidden="true"></i>São Paulo - SP</span>

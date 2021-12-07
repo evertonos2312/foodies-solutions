@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BairroModel;
 use App\Models\ExtraModel;
 use App\Models\MedidaModel;
 use App\Models\ProdutoEspecificacaoModel;
@@ -16,6 +17,7 @@ class Carrinho extends BaseController
     private $extraModel;
     private $produtoModel;
     private $medidaModel;
+    private $bairroModel;
     private $acao;
     public function __construct()
     {
@@ -25,6 +27,7 @@ class Carrinho extends BaseController
         $this->extraModel = new ExtraModel();
         $this->produtoModel = new ProdutoModel();
         $this->medidaModel = new MedidaModel();
+        $this->bairroModel = new BairroModel();
         $this->acao = service('router')->methodName();
     }
 
@@ -115,11 +118,10 @@ class Carrinho extends BaseController
 
             $this->session->setFlashdata('msg', 'Produto adicionado com sucesso');
             $this->session->setFlashdata('msg_type', 'alert-success');
-            return redirect()->back();
+            return redirect()->to(site_url('carrinho'));
         }
         return redirect()->back();
     }
-
 
     public function especial()
     {
@@ -191,15 +193,146 @@ class Carrinho extends BaseController
 
             $this->session->setFlashdata('msg', 'Produto adicionado com sucesso');
             $this->session->setFlashdata('msg_type', 'alert-success');
-            return redirect()->back();
+            return redirect()->to(site_url('carrinho'));
 
 
 
         }
         return redirect()->back();
     }
-    
-    
+
+    public function atualizar()
+    {
+        if($this->request->getPost()) {
+            $produtoPost = $this->request->getPost('produto');
+            $this->validation->setRules([
+                'produto.slug' => ['label' => 'Produto', 'rules' => 'required|string'],
+                'produto.quantidade' => ['label' => 'Quantidade', 'rules' => 'required|greater_than[0]'],
+            ]);
+            if(!$this->validation->withRequest($this->request)->run()) {
+                $this->session->setFlashdata('msg', $this->validation->getErrors());
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->back()->withInput();
+            }
+
+
+            $produtos = session()->get('carrinho');
+            $produtosSlugs = array_column($produtos, 'slug');
+
+            if(!in_array($produtoPost['slug'], $produtosSlugs)) {
+                $this->session->setFlashdata('msg', 'Não conseguimos processar a sua solicitação. Entre em contato conosco e informe <strong>ERRO-ADD-UP-7007</strong>');
+                $this->session->setFlashdata('msg_type', 'alert-warning');
+                return redirect()->back();
+            } else {
+                $produtos = $this->atualizaProduto($this->acao, $produtoPost['slug'], $produtoPost['quantidade'], $produtos);
+                session()->set('carrinho', $produtos);
+                $this->session->setFlashdata('msg', 'Quantidade atualizada com sucesso');
+                $this->session->setFlashdata('msg_type', 'alert-success');
+                return redirect()->back();
+
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function remover()
+    {
+        if($this->request->getPost()) {
+            $produtoPost = $this->request->getPost('produto');
+            $this->validation->setRules([
+                'produto.slug' => ['label' => 'Produto', 'rules' => 'required|string'],
+            ]);
+            if(!$this->validation->withRequest($this->request)->run()) {
+                $this->session->setFlashdata('msg', $this->validation->getErrors());
+                $this->session->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->back()->withInput();
+            }
+
+
+            $produtos = session()->get('carrinho');
+            $produtosSlugs = array_column($produtos, 'slug');
+
+            if(!in_array($produtoPost['slug'], $produtosSlugs)) {
+                $this->session->setFlashdata('msg', 'Não conseguimos processar a sua solicitação. Entre em contato conosco e informe <strong>ERRO-ADD-UP-7007</strong>');
+                $this->session->setFlashdata('msg_type', 'alert-warning');
+                return redirect()->back();
+            } else {
+
+                $produtos = $this->removeProduto($produtos, $produtoPost['slug']);
+                session()->set('carrinho', $produtos);
+                $this->session->setFlashdata('msg', 'Produto removido com sucesso');
+                $this->session->setFlashdata('msg_type', 'alert-success');
+                return redirect()->back();
+
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function limpar()
+    {
+        session()->remove('carrinho');
+        return redirect()->to(site_url('carrinho'));
+    }
+
+    public function consultaCep()
+    {
+        if ($this->request->isAJAX()) {
+            $data = array();
+            $cep = $this->request->getPost('cep');
+            $data['token'] = csrf_hash();
+            $validation = service('validation');
+            $validation->setRule('cep', 'CEP', 'required|exact_length[9]');
+
+            if(!$validation->withRequest($this->request)->run()){
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = $validation->getError();
+                return $this->response->setJSON($data);
+            }
+            $cep = str_replace('-', '', $cep);
+
+            $consulta = consultaCep($cep);
+            if(!isset($consulta->erro) && isset($consulta->cep)) {
+                $bairroRetornoSlug = mb_url_title($consulta->bairro, '-', true);
+
+                $bairro = $this->bairroModel->select('nome, valor_entrega')->where('slug', $bairroRetornoSlug)->where('ativo', true)->first();
+                if(is_null($bairro)) {
+                    $data['code'] = 503;
+                    $data['status'] = 'error';
+                    $data['detail'] = '';
+                    $data['msg_error'] = 'Não atendemos o bairro: '.$consulta->bairro. ' - '. $consulta->localidade. ' - CEP '. $consulta->cep.' - '. $consulta->uf;
+                    return $this->response->setJSON($data);
+                }
+                $valor_entrega = number_format($bairro['valor_entrega'], 2, ',', '.');
+                $data['code'] = 200;
+                $data['status'] = 'success';
+                $data['detail'] = [
+                    'valor_entrega' => 'R$ '.$valor_entrega,
+                    'bairro' => 'Valor de entrega para o bairro: '.$consulta->bairro. ' - '. $consulta->localidade. ' - CEP '.$consulta->cep. ' - '. $consulta->uf. ' - R$ '. $valor_entrega,
+                ];
+                $data['msg_error'] = '';
+
+                $carrinho = session()->get('carrinho');
+                $total = 0;
+                foreach ($carrinho as $produto) {
+                    $preco = str_replace (',', '.', str_replace ('.', '', $produto['preco']));
+                    $quantidade = str_replace (',', '.', str_replace ('.', '', $produto['quantidade']));
+                    $total += ($preco * $quantidade);
+                }
+                $total += $bairro['valor_entrega'];
+                $data['detail']['total'] = 'R$ '.number_format($total, 2, ',', '.');
+            } else {
+                $data['code'] = 503;
+                $data['status'] = 'error';
+                $data['detail'] = '';
+                $data['msg_error'] = 'Erro ao consultar cep, verifique os dados enviados.';
+            }
+            return $this->response->setJSON($data);
+        }
+        return redirect()->back();
+    }
 
 
     /**
@@ -227,5 +360,12 @@ class Carrinho extends BaseController
             return $linha;
         }, $produtos);
         return $produtos;
+    }
+
+    private function removeProduto(array $produtos, string $slug)
+    {
+        return array_filter($produtos, function ($linha) use($slug) {
+            return $linha['slug'] != $slug;
+        });
     }
 }
