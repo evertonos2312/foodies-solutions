@@ -39,6 +39,12 @@
         .navbar-nav > li > a {
             line-height: 30px;
         }
+
+        .btn-food {
+            background-color: #990100;
+            color: #fff!important;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
     </style>
 
     <!-- JavaScript -->
@@ -164,6 +170,13 @@
                                             </a>
                                         </li>
                                         {/if}
+                                        {if $auth_user}
+                                        <li><a class="page-scroll" href="{$app_url}conta">Minha conta</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}login/logout">Sair</a></li>
+                                        {else}
+                                        <li><a class="page-scroll" href="{$app_url}login">Entrar</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}registrar">Registrar-se</a></li>
+                                        {/if}
                                     </ul>
                                 </div>
                             </div>
@@ -281,6 +294,13 @@
                 Carrinho
             </a>
         </li>
+        {/if}
+        {if $auth_user}
+        <li><a class="page-scroll" href="{$app_url}conta">Minha conta</a></li>
+        <li><a class="page-scroll" href="{$app_url}login/logout">Sair</a></li>
+        {else}
+        <li><a class="page-scroll" href="{$app_url}login">Entrar</a></li>
+        <li><a class="page-scroll" href="{$app_url}registrar">Registrar-se</a></li>
         {/if}
     </ul>
     <div class="right_menu_addr top_addr">

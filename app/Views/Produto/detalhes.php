@@ -114,6 +114,11 @@
 
 <script>
     $(document).ready(function (){
+        window.location.hash = '#produto';
+    });
+</script>
+<script>
+    $(document).ready(function (){
        var especificacao_id ;
 
        if(!especificacao_id) {

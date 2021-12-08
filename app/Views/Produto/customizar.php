@@ -92,6 +92,11 @@
     <!-- end product -->
 </div>
 <script>
+    $(document).ready(function (){
+        window.location.hash = '#produto';
+    });
+</script>
+<script>
     let categoria_id = '{$produto.categoria_id}';
 </script>
 <script src="{$app_url}src/assets/js/produto/customizar.js"></script>

@@ -27,6 +27,9 @@ class Login extends BaseController
             if ($this->authentication->login($email, $password)) {
                 $usuario = $this->authentication->getUserLogged();
 
+                if(!$usuario['is_admin']) {
+                    return redirect()->to(site_url('/'));
+                }
                 $this->session->setFlashdata('msg', "Olá {$usuario['nome']}, que bom que está de volta.");
                 $this->session->setFlashdata('msg_type', 'alert-success');
                 return redirect()->to(site_url('admin/home'));
@@ -42,10 +45,15 @@ class Login extends BaseController
 
     public function logout()
     {
-        $this->authentication->logout();
-
-        $this->session->setFlashdata('msg', "Esperamos ver você novamente");
-        $this->session->setFlashdata('msg_type', 'alert-info');
-        return redirect()->to(site_url('/login'));
+        $usuario = $this->authentication->getUserLogged();
+        if($usuario['is_admin']){
+            $this->authentication->logout();
+            $this->session->setFlashdata('msg', "Esperamos ver você novamente");
+            $this->session->setFlashdata('msg_type', 'alert-info');
+            return redirect()->to(site_url('/login'));
+        } else {
+            $this->authentication->logout();
+            return redirect()->to(site_url('/'));
+        }
     }
 }

@@ -10,7 +10,7 @@ class UsuarioModel extends BaseModel
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $allowedFields = ['nome', 'email', 'telefone', 'cpf', 'password','reset_hash', 'reset_expira_em'];
+    protected $allowedFields = ['nome', 'email', 'telefone', 'cpf', 'password','reset_hash', 'reset_expira_em', 'ativacao_hash', 'is_admin'];
 
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
@@ -134,5 +134,27 @@ class UsuarioModel extends BaseModel
             }
             return $usuario;
         }
+    }
+
+    public function iniciaAtivacao($newUser)
+    {
+        $token = new Token();
+        $newUser['token'] = $token->getValue();
+        $newUser['ativacao_hash'] = $token->getHash();
+        return $newUser;
+    }
+
+    public function ativarContaToken(string $token_email)
+    {
+        $token = new Token($token_email);
+        $tokenHash = $token->getHash();
+        $usuario = $this->where('ativacao_hash', $tokenHash)->first();
+        if ($usuario) {
+            $usuario['ativo'] = 1;
+            $usuario['ativacao_hash'] = null;
+            $this->protect(false)->save($usuario);
+            return true;
+        }
+        return false;
     }
 }

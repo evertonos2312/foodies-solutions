@@ -37,6 +37,7 @@ $routes->set404Override(function() {
 $routes->get('/', 'Home::index');
 $routes->get('/admin', 'Admin/Home::index', ['filter' => 'login']);
 $routes->get('login', 'Login::novo', ['filter' => 'visitante']);
+$routes->get('registrar', 'Registrar::novo', ['filter' => 'visitante']);
 
 $routes->group('admin', function ($routes) {
     $routes->add('formas', 'Admin\FormasPagamento::index');

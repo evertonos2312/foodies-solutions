@@ -29,14 +29,28 @@
         const app_url = '{$app_url}';
     </script>
 
+    <style>
+        .navbar-nav > li > a {
+            line-height: 30px;
+        }
+
+        .btn-link, .btn-link:hover {
+            text-decoration: none;
+            color: #fff!important;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+    </style>
+
 </head>
 <body>
 
 <b class="screen-overlay"></b>
 
 <main>
-    <header class="main-header navbar">
+    <header class="main-header navbar" style="background-color: #990100">
         <div class="col-brand">
+            <a class="page-scroll btn-link" href="{$app_url}">Página Inicial</a>
+            <a class="page-scroll btn-link" href="{$app_url}#menu">Cardápio</a>
         </div>
     </header>
 
@@ -73,6 +87,7 @@
                         <button type="submit" class="btn btn-primary w-100"> Entrar  </button>
                     </div>
                 {form_close()}
+                <p class="text-center mb-4">Não é cadastrado?  <a href="{$app_url}registrar">Criar conta</a></p>
             </div>
             <input type="hidden" class="txt_csrfname" name="{csrf_token()}" value="{csrf_hash()}" />
             <div class="overlay"></div>
