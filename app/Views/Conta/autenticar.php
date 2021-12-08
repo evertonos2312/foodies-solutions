@@ -23,31 +23,22 @@
                 <h2 class="section-title">{$title}</h2>
             </div>
             <div class="col-md-6 col-md-offset-3">
+                {form_open('conta/processar')}
                 <div class="panel panel-info">
                     <div class="panel-body">
-                        <dl>
-                            <dt>Nome completo</dt>
-                            <dd>{$usuario['nome']}</dd>
-                            <hr>
-                            <dt>E-mail de acesso</dt>
-                            <dd>{$usuario['email']}</dd>
-                            <hr>
-                            <dt>Telefone</dt>
-                            <dd>{$usuario['telefone']}</dd>
-                            <hr>
-                            <dt>CPF</dt>
-                            <dd>{$usuario['cpf']}</dd>
-                            <hr>
-                            <dt>Cliente desde</dt>
-                            <dd>{$usuario.criado_em|date_format:"%d/%m/%Y"}</dd>
+                        <div>
+                            <label for="">Sua senha atual</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
 
-                        </dl>
+
                     </div>
                     <div class="panel-footer">
-                        <a class="btn btn-primary" href="{$app_url}conta/editar">Editar</a>
-                        <a class="btn btn-danger" href="{$app_url}conta/editarsenha">Alterar senha</a>
+                        <button type="submit" class="btn btn-primary">Autenticar</button>
+                        <a class="btn btn-default" href="{$app_url}conta/show">Cancelar</a>
                     </div>
                 </div>
+                {form_close()}
             </div>
         </div>
     </div>
@@ -59,4 +50,6 @@
         window.location.hash = '#conta';
     });
 </script>
+<script src="{$app_url}assets/admin/vendors/mask/jquery.mask.min.js"></script>
+<script src="{$app_url}assets/admin/vendors/mask/app.js"></script>
 

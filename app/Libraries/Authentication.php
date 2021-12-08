@@ -29,12 +29,15 @@ class Authentication
         return true;
     }
 
+    public function verificaPassword(string $password)
+    {
+        $usuario = $this->getUserLogged();
+        return password_verify($password, $usuario['password_hash']);
+    }
+
     public function logout()
     {
-        session()->remove('auth_user');
-        session()->remove('usuario_id');
-        session()->remove('isLoggedAdmin');
-        session()->remove('isLoggedIn');
+        session()->destroy();
     }
 
     public function getUserLogged()
@@ -56,6 +59,7 @@ class Authentication
             if ($usuario['is_admin']) {
                 session()->set('isLoggedAdmin', true);
             } else {
+                session()->set('pode_editar_ate', time() + 300);
                 session()->set('isLoggedIn', true);
             }
             session()->set('auth_user', ['id' => $usuario['id'], 'nome' => $usuario['nome'], 'is_admin' => $usuario['is_admin'], 'is_master' => $usuario['is_master']]);
