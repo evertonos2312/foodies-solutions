@@ -15,7 +15,7 @@ class Conta extends BaseController
 
     public function index()
     {
-        dd($this->usuario);
+        return redirect()->to('Conta/show');
     }
 
     public function show()
