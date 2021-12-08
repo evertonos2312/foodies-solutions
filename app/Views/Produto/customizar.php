@@ -17,7 +17,7 @@
             </ul>
         </div>
         {/if}
-        <div class="row">
+        <div class="row" id="produto">
 
             <h2 class="name" style="margin-bottom: 2em">
                 {$title}
@@ -91,6 +91,11 @@
     </div>
     <!-- end product -->
 </div>
+<script>
+    $(document).ready(function (){
+        window.location.hash = '#produto';
+    });
+</script>
 <script>
     let categoria_id = '{$produto.categoria_id}';
 </script>

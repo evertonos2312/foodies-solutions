@@ -17,7 +17,7 @@
             </ul>
         </div>
         {/if}
-        <div class="row">
+        <div class="row" id="produto">
             <div class="col-md-2 col-sm-12 col-xs-12">
                 <div class="card" style="width: 18rem">
                     <img class="card-img-top" src="{$app_url}uploads/imagens/produtos/{$produto.imagem}" alt="sample" />
@@ -96,7 +96,7 @@
                     {foreach $especificacoes as $especificacao}
                         {if $especificacao['customizavel']}
                             <div class="col-sm-4 custom-flex">
-                                <a href="{$app_url}/produto/customizar/{$produto['slug']}" class="btn btn-primary btn-block">Customizar</a>
+                                <a href="{$app_url}/produto/customizar/{$produto['slug']}/#produto" class="btn btn-primary btn-block">Customizar</a>
                             </div>
                             {break}
                         {/if}
@@ -112,6 +112,11 @@
     <!-- end product -->
 </div>
 
+<script>
+    $(document).ready(function (){
+        window.location.hash = '#produto';
+    });
+</script>
 <script>
     $(document).ready(function (){
        var especificacao_id ;

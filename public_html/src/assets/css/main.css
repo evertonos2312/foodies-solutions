@@ -1945,6 +1945,17 @@ a:focus {
     font-family: 'Montserrat-Bold', sans-serif;
 }
 
+.btn-custom {
+    background-color: #990100;
+    color: #fff;
+    font-family: 'Montserrat-Bold', sans-serif;
+}
+.btn-custom:hover {
+    background-color: #990100;
+    color: #fff;
+    transform: scale(1.1);
+}
+
 /* Spinner */
 .loader,
 .loader:after {

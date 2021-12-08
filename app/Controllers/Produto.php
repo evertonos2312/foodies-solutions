@@ -176,7 +176,7 @@ class Produto extends BaseController
             $data['token'] = csrf_hash();
             if (!empty($medida_id && !empty($primeira_metade) && !empty($segunda_metade))){
                 $medida = $this->medidaModel->exibeValor($medida_id, $primeira_metade, $segunda_metade);
-                if(!$medida) {
+                if(is_null($medida['preco'])) {
                     $data['code'] = 403;
                     $data['status'] = 'error';
                     $data['detail'] = '';

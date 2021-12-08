@@ -35,8 +35,9 @@ $routes->set404Override(function() {
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/admin', 'Admin/Home::index', ['filter' => 'login']);
+$routes->get('/admin', 'Admin/Home::index', ['filter' => 'admin', ]);
 $routes->get('login', 'Login::novo', ['filter' => 'visitante']);
+$routes->get('registrar', 'Registrar::novo', ['filter' => 'visitante']);
 
 $routes->group('admin', function ($routes) {
     $routes->add('formas', 'Admin\FormasPagamento::index');

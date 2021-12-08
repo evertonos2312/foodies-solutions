@@ -109,6 +109,14 @@ class BaseController extends Controller
         //Initial data for view, assuming this it's gonna be used in all pages
         $msg_type = ($this->session->getFlashdata('msg_type')) ? $this->session->getFlashdata('msg_type') : '';
         $expedienteModel = new ExpedienteModel();
+        $carrinho_count = 0;
+        if ($this->session->has('carrinho') && count($this->session->get('carrinho')) > 0) {
+            $carrinho_exists = true;
+            $carrinho_count = count($this->session->get('carrinho'));
+        } else {
+            $carrinho_exists = false;
+        }
+
         $dataArr = array(
             'app_url' => base_url() . '/',
             'msg' => $this->session->getFlashdata('msg'),
@@ -121,6 +129,8 @@ class BaseController extends Controller
             'aberto_fechado' => ($this->checkAbertura()) ? 'estamos abertos' : 'estamos fechados',
             'check_expediente' => $this->checkAbertura(),
             'save_data_errors' => $this->session->getFlashdata('save_data_errors'),
+            'carrinho_exists' => $carrinho_exists,
+            'carrinho_count' => $carrinho_count,
             'isLoggedIn' => $this->session->get('isLoggedIn'),
             'isLoggedAdmin' => $this->session->get('isLoggedAdmin'),
             'auth_user' => ($this->session->get('auth_user')) ? $this->session->get('auth_user') : null,

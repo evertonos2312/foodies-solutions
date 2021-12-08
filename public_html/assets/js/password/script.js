@@ -14,6 +14,7 @@ function validation()
     }
     if (passOk) {
         $("#formReset").submit();
+        $("#formNovo").submit();
     }
 }
 

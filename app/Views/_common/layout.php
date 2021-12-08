@@ -20,6 +20,7 @@
     <link href="{$app_url}src/assets/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" media="all" />
     <link href="{$app_url}src/assets/css/fonts.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="{$app_url}src/assets/fonts/FontAwesome/css/all.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/slick.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/slick-theme.css" type="text/css" rel="stylesheet" />
     <link href="{$app_url}src/assets/css/aos.css" type="text/css" rel="stylesheet" />
@@ -33,6 +34,18 @@
 
     <!-- Favicon -->
     <link href="{$app_url}assets/admin/images/pizza_ico.png" rel="shortcut icon" type="image/x-icon">
+
+    <style>
+        .navbar-nav > li > a {
+            line-height: 30px;
+        }
+
+        .btn-food {
+            background-color: #990100;
+            color: #fff!important;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+    </style>
 
     <!-- JavaScript -->
     <script src="{$app_url}src/assets/js/jquery-2.1.1.min.js"></script>
@@ -150,6 +163,20 @@
                                         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
                                         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
                                         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
+                                        {if $carrinho_exists}
+                                        <li><a class="page-scroll" href="{$app_url}carrinho">
+                                                <i class="fa fa-shopping-cart fa-2x"></i>
+                                                <span style="font-size: 25px!important;">{$carrinho_count}</span>
+                                            </a>
+                                        </li>
+                                        {/if}
+                                        {if $auth_user}
+                                        <li><a class="page-scroll" href="{$app_url}conta">Minha conta</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}login/logout">Sair</a></li>
+                                        {else}
+                                        <li><a class="page-scroll" href="{$app_url}login">Entrar</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}registrar">Registrar-se</a></li>
+                                        {/if}
                                     </ul>
                                 </div>
                             </div>
@@ -262,6 +289,19 @@
         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
+        {if $carrinho_exists}
+        <li><a class="page-scroll" href="{$app_url}carrinho">
+                Carrinho
+            </a>
+        </li>
+        {/if}
+        {if $auth_user}
+        <li><a class="page-scroll" href="{$app_url}conta">Minha conta</a></li>
+        <li><a class="page-scroll" href="{$app_url}login/logout">Sair</a></li>
+        {else}
+        <li><a class="page-scroll" href="{$app_url}login">Entrar</a></li>
+        <li><a class="page-scroll" href="{$app_url}registrar">Registrar-se</a></li>
+        {/if}
     </ul>
     <div class="right_menu_addr top_addr">
         <span><i class="fa fa-map-marker" aria-hidden="true"></i>São Paulo - SP</span>
