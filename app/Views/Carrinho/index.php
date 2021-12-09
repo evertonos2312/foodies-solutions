@@ -107,6 +107,11 @@
 <script src="{$app_url}assets/admin/vendors/mask/jquery.mask.min.js"></script>
 <script src="{$app_url}assets/admin/vendors/mask/app.js"></script>
 <script>
+    {if !empty($total)}
+    let total = "{number_format($total, 2, ',', '.')}"
+    {else}
+    total = '';
+    {/if}
     $("#cep_buscar").on('click', function () {
         var cep = $("#cep_input").val()
         if(cep.length === 9) {
@@ -134,7 +139,6 @@
                         $("#cep").html(response.detail.bairro);
 
                     } else {
-                        var total = "{number_format($total, 2, ',', '.')}"
                         $("#valor_entrega").html('Não calculado');
                         $("#cep").html('* '+response.msg_error);
                         $("#total").html('R$ '+total);

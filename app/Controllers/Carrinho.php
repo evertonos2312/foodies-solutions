@@ -37,9 +37,9 @@ class Carrinho extends BaseController
             $carrinho = session()->get('carrinho');
             $total = 0;
             foreach ($carrinho as &$produto) {
-                $final1 = str_replace (',', '.', str_replace ('.', '', $produto['preco']));
-                $final2 = str_replace (',', '.', str_replace ('.', '', $produto['quantidade']));
-                $produto['subtotal'] = $final1 * $final2;
+                $preco = str_replace (',', '.', str_replace ('.', '', $produto['preco']));
+                $quantidade = str_replace (',', '.', str_replace ('.', '', $produto['quantidade']));
+                $produto['subtotal'] = $preco * $quantidade;
                 $total += $produto['subtotal'];
             }
 
@@ -298,7 +298,7 @@ class Carrinho extends BaseController
                 $bairroRetornoSlug = mb_url_title($consulta->bairro, '-', true);
 
                 $bairro = $this->bairroModel->select('nome, valor_entrega')->where('slug', $bairroRetornoSlug)->where('ativo', true)->first();
-                if(is_null($bairro)) {
+                if(is_null($bairro) || is_null($consulta->bairro)) {
                     $data['code'] = 503;
                     $data['status'] = 'error';
                     $data['detail'] = '';
