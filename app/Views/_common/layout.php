@@ -45,6 +45,19 @@
             color: #fff!important;
             font-family: 'Montserrat-Bold', sans-serif;
         }
+
+        .fonte-food {
+            color: #990100;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+
+        .panel-food {
+            background: #990100!important;
+            color: #fff!important;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+
+
     </style>
 
     <!-- JavaScript -->
@@ -162,7 +175,8 @@
                                     <ul class="nav navbar-nav">
                                         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
                                         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
-                                        <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
+                                        <li><a class="page-scroll" href="{$app_url}bairros">Bairros atendidos</a></li>
+                                        <li><a class="page-scroll" href="#footer">Contato</a></li>
                                         {if $carrinho_exists}
                                         <li><a class="page-scroll" href="{$app_url}carrinho">
                                                 <i class="fa fa-shopping-cart fa-2x"></i>
@@ -288,6 +302,7 @@
     <ul class="rmenu_list">
         <li><a class="page-scroll" href="{$app_url}">Página Inicial</a></li>
         <li><a class="page-scroll" href="{$app_url}#menu">Cardápio</a></li>
+        <li><a class="page-scroll" href="{$app_url}bairros">Bairros atendidos</a></li>
         <li><a class="page-scroll" href="#footer">Entre em contato</a></li>
         {if $carrinho_exists}
         <li><a class="page-scroll" href="{$app_url}carrinho">
