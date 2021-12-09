@@ -52,6 +52,12 @@ class Checkout extends BaseController
 
     public function processar()
     {
+        if(!$this->checkAbertura()) {
+            $this->session->setFlashdata('msg', 'Estamos fechados no momento.');
+            $this->session->setFlashdata('msg_type', 'alert-warning');
+            return redirect()->back();
+        }
+
         if($this->request->getPost()) {
             $checkoutPost = $this->request->getPost('checkout');
             $this->validation->setRules([

@@ -97,7 +97,11 @@
             <div class="col-md-12">
                 <a href="{$app_url}carrinho/limpar" style="font-family: 'Montserrat-Bold', sans-serif;" class="btn btn-default">Limpar carrinho</a>
                 <a href="{$app_url}#menu" style="font-family: 'Montserrat-Bold', sans-serif;" class="btn btn-primary">Mais delícias</a>
+                {if $check_expediente}
                 <a href="{$app_url}checkout" class="btn btn-custom pull-right" >Finalizar pedido</a>
+                {else}
+                <span class="pull-right">Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
+                {/if}
             </div>
             {/if}
         </div>

@@ -105,10 +105,14 @@
                     <input type="hidden" id="bairro_slug" name="checkout[bairro_slug]" placeholder="checkout[bairro_slug]">
                 </div>
                 <div class="" style="margin-top: 25px">
+                    {if $check_expediente}
                     <input type="submit" id="btn-checktout" class="btn btn-food btn-block" value="Antes, consulte a taxa de entrega">
                     <div class="col-md-12 col-md-offset-3">
                         <div class="loader ">Carregando...</div>
                     </div>
+                    {else}
+                    <span>Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
+                    {/if}
                 </div>
                 {form_close()}
             </div>
