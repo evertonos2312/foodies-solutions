@@ -143,6 +143,7 @@
     $("#sem_troco").on('click', function () {
         if(this.checked) {
             $("#troco_para").prop('disabled', true);
+            $("#troco_para").val('');
             $("#troco_para").attr('placeholder', 'Não preciso de troco');
 
         }else {
@@ -210,13 +211,16 @@
             });
         }
     });
-    $("#btn-checktout").on('click', function () {
-        var numero = $("#numero").val();
-        var referencia = $("#referencia").val();
-        if(numero  && referencia){
-            $("#btn-checktout").hide();
-            $(".loader").css('display', 'block');
-        }
+    $("form").submit(function () {
+       $(this).find(":submit").attr('disabled', 'disabled');
+        $("#btn-checktout").hide();
+        $(".loader").css('display', 'block');
     });
+    $(window).keydown(function (event) {
+        if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    })
 </script>
 

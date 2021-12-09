@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BairroModel;
 use App\Models\FormaPagamentoModel;
 use App\Models\PedidoModel;
+use Config\Services;
 
 class Checkout extends BaseController
 {
@@ -108,7 +109,7 @@ class Checkout extends BaseController
             ];
             if($forma['id'] == 1 ){
                 if(isset($checkoutPost['sem_troco'])) {
-                    $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - '.$checkoutPost['numero']. ' Você informou que não precisa de troco';
+                    $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - Número'.$checkoutPost['numero']. ' . Você informou que não precisa de troco';
                 }
                 if(isset($checkoutPost['troco_para'])) {
                     $troco_para = str_replace(',', '.', $checkoutPost['troco_para']);
@@ -122,18 +123,45 @@ class Checkout extends BaseController
                         $this->session->setFlashdata('msg_type', 'alert-warning');
                         return redirect()->back();
                     }
-                    $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - '.$checkoutPost['numero']. ' Você informou que precisa de troco para R$ '. number_format($troco_para, 2, ',', '.');
+                    $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - Número '.$checkoutPost['numero']. ' . Você informou que precisa de troco para R$ '. number_format($troco_para, 2, ',', '.');
                 }
             } else {
-                $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - '.$checkoutPost['numero'];
+                $pedido['observacoes'] = 'Ponto de referência: '.$checkoutPost['referencia']. ' - Número '.$checkoutPost['numero'];
             }
             
-           die('em construção');
+            $saved = $this->pedidoModel->save($pedido);
+            if($saved){
+                $pedido['usuario'] = $this->usuario;
+                $this->enviaEmailPedidoRealizado($pedido);
+                session()->remove('carrinho');
+                session()->remove('endereco_entrega');
+                return redirect()->to(site_url('checkout/sucesso/'.$pedido['codigo']));
 
-
-
+            } else {
+                $this->session->setFlashdata('msg', 'Não conseguimos salvar seu pedido, por favor entre em contato conosco.');
+                $this->session->setFlashdata('msg_type', 'alert-warning');
+                return redirect()->back();
+            }
         }
         return redirect()->back();
+    }
+
+    public function sucesso($codigoPedido = null)
+    {
+        $pedido = $this->buscaPedidoOu404($codigoPedido);
+
+        $this->data['title'] = 'Pedido '. $codigoPedido . ' realizado com sucesso';
+        $this->data['pedido'] = $pedido;
+        $this->data['produtos'] = unserialize($pedido['produtos']);
+        return $this->display_template($this->smarty->setData($this->data)->view('Checkout/sucesso'));
+    }
+
+    private function buscaPedidoOu404(string $codigoPedido = null)
+    {
+        if (!$codigoPedido || !$pedido = $this->pedidoModel->where('codigo', $codigoPedido)->where('usuario_id', $this->usuario['id'])->first()) {
+            return view('errors/404');
+        }
+        return $pedido;
     }
 
     public function consultaCep()
@@ -211,5 +239,17 @@ class Checkout extends BaseController
             $total += ($preco * $quantidade);
         }
         return $total;
+    }
+
+    private function enviaEmailPedidoRealizado(array $pedido)
+    {
+        $email = Services::email();
+        $email->setFrom('no-reply@pizza-planet.fun', 'Pizza Planet');
+        $email->setTo($pedido['usuario']['email']);
+        $email->setSubject("Pedido ".$pedido['codigo']." realizado com sucesso!");
+
+        $mensagem = view('Checkout/pedido_email', ['pedido' => $pedido]);
+        $email->setMessage($mensagem);
+        $email->send();
     }
 }

@@ -3,22 +3,35 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\PedidoModel;
 use App\Models\UsuarioModel;
 
 class Conta extends BaseController
 {
     private $usuario;
     private $usuarioModel;
+    private $pedidoModel;
     public function __construct()
     {
         parent::__construct();
         $this->usuarioModel = new UsuarioModel();
+        $this->pedidoModel = new PedidoModel();
         $this->usuario = service('authentication')->getUserLogged();
     }
 
     public function index()
     {
-        return redirect()->to('Conta/show');
+        $pedidos = $this->pedidoModel->where('usuario_id', $this->usuario['id'])->orderBy('criado_em', 'desc')->findAll();
+
+        if(!is_null($pedidos)) {
+            foreach ($pedidos as &$pedido) {
+                $pedido['produtos'] = unserialize($pedido['produtos']);
+            }
+            $this->data['pedidos'] = $pedidos;
+        }
+
+        $this->data['title'] = 'Meus pedidos';
+        return $this->display_template($this->smarty->setData($this->data)->view('Conta/index'));
     }
 
     public function show()
