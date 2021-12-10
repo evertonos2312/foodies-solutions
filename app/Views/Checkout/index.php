@@ -81,7 +81,7 @@
                 <hr>
                 </div>
                 <div class="input-group" style="margin-bottom: 15px">
-                    <input placeholder="Consulte a taxa de entrega" type="text" name="cep" id="cep_input" class="cep form-control">
+                    <input placeholder="Consulte a taxa de entrega: CEP" type="text" name="cep" id="cep_input" class="cep form-control">
                     <span class="input-group-btn">
                         <button id="cep_buscar" class="btn btn-default">Buscar</button>
                     </span>

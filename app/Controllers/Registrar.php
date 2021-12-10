@@ -50,8 +50,8 @@ class Registrar extends BaseController
                 return redirect()->to("registrar/ativacaoenviado");
             } else {
 
-                $this->data['msg'] = $this->usuarioModel->errors();
-                $this->data['msg_type'] = 'alert-danger';
+                $this->session->setFlashdata('msg', $this->usuarioModel->errors());
+                $this->session->setFlashdata('msg_type', 'alert-danger');
                 return redirect()->back();
             }
         }
@@ -81,7 +81,7 @@ class Registrar extends BaseController
         $email = Services::email();
         $email->setFrom('no-reply@pizza-planet.fun', 'Pizza Planet');
         $email->setTo($usuario['email']);
-        $email->setSubject('Ativacação de Conta');
+        $email->setSubject('Ativação de Conta');
 
         $mensagem = view('Registrar/ativacao_email', ['token' => $usuario['token'], 'nome'=> $usuario['nome']]);
         $email->setMessage($mensagem);
