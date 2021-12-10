@@ -22,6 +22,12 @@
         a:hover {
             color: #000;
         }
+        .bg-white {
+            font-weight: normal;
+            font-family: 'Montserrat-Bold';
+            color: #FFFFFF;
+            align-self: center;
+        }
 
         @font-face {
             font-family: 'Roboto';
@@ -66,8 +72,7 @@
                     <td width="50"></td>
                     <td>
                         <br>
-                        <img src="<?php echo base_url()?>/assets/admin/images/pizza-planet-branco.png"
-                             alt="Pizza Planet" style="display:block; border:0;">
+                        <img src="<?php echo base_url()?>/src/assets/img/logo.png" alt="logo" /> <span class="bg-white">Pizza Planet</span>
                         <br>
                     </td>
                     <td width="50"></td>

@@ -11,25 +11,45 @@
 <div class="content-header">
     <h2 class="content-title"> Dashboard </h2>
 </div>
-{$breadcrumbs}
 <div class="row">
-    <div class="col-lg-6">
-        <div class="card card-body mb-4">
+    <div class="col-lg-3">
+        <div class="card card-body mb-3">
             <article class="icontext">
-                <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-monetization_on"></i></span>
+                <span class="icon icon-sm rounded-circle bg-primary-light"><i class="text-primary material-icons md-local_shipping"></i></span>
                 <div class="text">
-                    <h6 class="mb-1">Vendas</h6>  <span>R$1.058,20</span>
+                    <h6 class="mb-1">Pedidos entregues ( {$valorPedidosEntregues['total']} )</h6>
+                    <span>R$ {number_format($valorPedidosEntregues['valor_pedido'], 2, ',','.')} </span>
                 </div>
             </article>
-
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class="card card-body mb-4">
+    <div class="col-lg-3">
+        <div class="card card-body mb-3">
             <article class="icontext">
-                <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-local_shipping"></i></span>
+                <span class="icon icon-sm rounded-circle bg-danger"><i class="text-white material-icons md-cancel"></i></span>
                 <div class="text">
-                    <h6 class="mb-1">Pedidos</h6> <span>458</span>
+                    <h6 class="mb-1">Pedidos cancelados ( {$valorPedidosCancelados['total']} )</h6>
+                    <span>R$ {number_format($valorPedidosCancelados['valor_pedido'], 2, ',','.')}</span>
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card card-body mb-3">
+            <article class="icontext">
+                <span class="icon icon-sm rounded-circle bg-success-light"><i class="text-success material-icons md-people"></i></span>
+                <div class="text">
+                    <h6 class="mb-1">Clientes ativos ( {$totalClientesAtivos} )</h6>
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card card-body mb-3">
+            <article class="icontext">
+                <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-motorcycle"></i></span>
+                <div class="text">
+                    <h6 class="mb-1">Entregadores ativos ( {$totalEntregadoresAtivos} ) </h6>
                 </div>
             </article>
         </div>
@@ -38,167 +58,32 @@
 
 <div class="card mb-4">
     <div class="card-body">
-        <h5 class="card-title">Últimos pedidos</h5>
-        <div class="table-responsive">
+        {if isset($novosPedidos)}
+        <div id="atualiza" class="table-responsive">
+            <h5 class="card-title">Novos pedidos</h5>
             <table class="table table-hover">
+                {foreach $novosPedidos as $pedido}
                 <tr>
-                    <td>2323</td>
-                    <td><b>Devon Lane</b></td>
-                    <td>devon@example.com</td>
-                    <td>$778.35</td>
-                    <td><span class="badge rounded-pill alert-success">Entregue</span></td>
-                    <td>07.05.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2323</td>
-                    <td><b>Darrell Steward</b></td>
-                    <td>stew123@mysite.com</td>
-                    <td>$980.90</td>
+                    <td><a href="{$app_url}admin/pedidos/show/{$pedido['codigo']}"> {$pedido.codigo}</a></td>
+                    <td><b>{$pedido.cliente}</b></td>
+                    <td>{$pedido.email}</td>
+                    <td>R$ {number_format($pedido.valor_pedido, 2, ',','.')}</td>
                     <td><span class="badge rounded-pill alert-warning">Pendente</span></td>
-                    <td>12.02.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
+                    <td>{$pedido.criado_em|date_format:"%d/%m/%Y %Hh%M"}</td>
                 </tr>
-                <tr>
-                    <td>9053</td>
-                    <td><b>Mike Jonatan</b></td>
-                    <td>mike@somename.com</td>
-                    <td>$778.35</td>
-                    <td><span class="badge rounded-pill alert-warning">Pendente</span></td>
-                    <td>07.05.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td><b>Ahmed Hassan</b></td>
-                    <td>devon@example.com</td>
-                    <td>$75.30</td>
-                    <td><span class="badge rounded-pill alert-danger">Cancelado</span></td>
-                    <td>02.01.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>7532</td>
-                    <td><b>Abdul Mohammad</b></td>
-                    <td>abdu@example.com</td>
-                    <td>$190.15</td>
-                    <td><span class="badge rounded-pill alert-success">Entregue</span></td>
-                    <td>17.02.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2323</td>
-                    <td><b>Devon Lane</b></td>
-                    <td>devon@example.com</td>
-                    <td>$778.35</td>
-                    <td><span class="badge rounded-pill alert-success">Entregue</span></td>
-                    <td>07.05.2020</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4521</td>
-                    <td><b>Alex Pushkin</b></td>
-                    <td>myphkin@company.com</td>
-                    <td>$708.35</td>
-                    <td><span class="badge rounded-pill alert-success">Entregue</span></td>
-                    <td>01.05.2019</td>
-                    <td class="text-end">
-                        <a href="#" class="btn btn-light">Detalhes</a>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-light"> <i class="material-icons md-more_horiz"></i> </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Detalhes</a>
-                                <a class="dropdown-item" href="#">Editar</a>
-                                <a class="dropdown-item text-danger" href="#">Excluir</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                {/foreach}
             </table>
+            <span>Última atualização: {$horaAtual}</span>
+        {else}
+        <h5 class="card-title">Não há novos pedidos no momento <small style="font-weight: normal!important;font-size: 14px">{date('d/m/Y H:i:s')}</small></h5>
         </div>
+        {/if}
+
     </div>
 </div>
-<script src="{$app_url}assets/admin/js/chart.js"></script>
 <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'line',
-
-        // The data for our dataset
-        data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            datasets: [
-                {
-                    label: 'Pedidos',
-                    backgroundColor: 'rgb(44, 120, 220)',
-                    borderColor: 'rgb(44, 120, 220)',
-                    data: [18, 17, 4, 3, 2, 20, 25, 31, 25, 22, 20, 9]
-                },
-            ]
-        },
-
-        // Configuration options go here
-        options: {}
-    });
+    setInterval("atualiza()", 15000); // 15 segundos
+    function atualiza() {
+        $("#atualiza").load(app_url+'admin/home' + ' #atualiza');
+    }
 </script>

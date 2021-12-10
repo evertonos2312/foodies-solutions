@@ -125,9 +125,6 @@
                 <li class="nav-item">
                     <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
-                </li>
                 {if ($isLoggedAdmin)}
                 <li class="dropdown nav-item">
                     <a id="dropdownPerfil" class="dropdown-toggle dropdown-perfil" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

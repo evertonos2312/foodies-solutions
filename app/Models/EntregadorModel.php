@@ -101,4 +101,10 @@ class EntregadorModel extends BaseModel
         return $selectConteudo;
     }
 
+    public function recuperaTotalEntregadoresAtivos()
+    {
+        return $this->where('ativo', true)
+            ->countAllResults();
+    }
+
 }

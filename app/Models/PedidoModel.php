@@ -122,4 +122,33 @@ class PedidoModel extends Model
         }
         return $pedido;
     }
+
+    public function valorPedidosEntregues()
+    {
+        return $this->select('COUNT(*) as total')
+            ->selectSum('valor_pedido')
+            ->groupStart()
+            ->where('situacao', 2)
+            ->orWhere('situacao', 3)
+            ->groupEnd()
+            ->first();
+    }
+
+    public function valorPedidosCancelados()
+    {
+        return $this->select('COUNT(*) as total')
+            ->selectSum('valor_pedido')
+            ->where('situacao', 4)
+            ->first();
+    }
+
+    public function getPedidosCliente()
+    {
+        return $this->select('pedidos.*, usuarios.nome as cliente, usuarios.email')
+            ->where('pedidos.situacao', 0)
+            ->where('usuarios.ativo', true)
+            ->join('usuarios', 'pedidos.usuario_id = usuarios.id')
+            ->orderBy('pedidos.criado_em', 'DESC')
+            ->findAll();
+    }
 }

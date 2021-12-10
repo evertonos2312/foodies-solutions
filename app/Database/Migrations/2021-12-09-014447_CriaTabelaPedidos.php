@@ -38,7 +38,7 @@ class CriaTabelaPedidos extends Migration
             'situacao' => [
                 'type' => 'BOOLEAN',
                 'null' => false,
-                'default' => false, // 0 (Cancelado)  | 1 (Saiu para entrega) | 2 (Pedido entregue) | 3 (Cancelado)
+                'default' => false, // 0 (Cancelado)  | 1 (Saiu para entrega) | 2 (Pedido entregue) | 3 (Entregue balcão) | 4 (Cancelado)
             ],
             'produtos' => [
                 'type' => 'TEXT',
