@@ -23,13 +23,6 @@
             color: #000;
         }
 
-        .bg-white {
-            font-weight: normal;
-            font-family: 'Montserrat-Bold';
-            color: #FFFFFF;
-            align-self: center;
-        }
-
         @font-face {
             font-family: 'Roboto';
             font-style: normal;
@@ -73,7 +66,8 @@
                     <td width="50"></td>
                     <td>
                         <br>
-                        <img src="<?php echo base_url()?>/src/assets/img/logo.png" alt="logo" /> <span class="bg-white">Pizza Planet</span>
+                        <img src="<?php echo base_url()?>/assets/admin/images/pizza-planet-branco.png"
+                             alt="Pizza Planet" style="display:block; border:0; width: 50%">
                         <br>
                     </td>
                     <td width="50"></td>
@@ -99,11 +93,14 @@
                 <tr>
                     <td width="50"></td>
                     <td>
-                        <p style="color: #990100;">Olá, <?php echo strtok($pedido['usuario']['nome']," ")?>!</p>
-                        <p><a href="<?php echo site_url('password/reset/'.$token); ?>" target="_blank">Clique aqui</a> para redefinir sua senha.</p>
+
+                        <p style="color: #990100;">Olá, <?php echo strtok($pedido['cliente']," ")?>!</p>
+                        <p>Que pena, seu pedido <span style="color: #990100">#<?php echo $pedido['codigo']?></span> foi cancelado =(</p>
+
+                        <p>Se a equipe da <span style="color: #990100">Pizza Planet</span> puder fazer alguma coisa para melhorar a sua experiência conosco, não exite em nos contactar.</p>
 
 
-
+                        <p>Caso prefira, <a href="<?php echo site_url('conta')?>" target="_blank">clique aqui</a> para ver os seus pedidos.</p>
                         <br><br>
                         <p><a href="<?php echo site_url()?>" target="_blank"><strong>pizza-planet.fun</strong></a><p>
                         <br><br>

@@ -28,6 +28,10 @@ class Login extends BaseController
                 $usuario = $this->authentication->getUserLogged();
 
                 if(!$usuario['is_admin']) {
+
+                    if(session()->has('carrinho')) {
+                       return redirect()->to(site_url('checkout'));
+                    }
                     return redirect()->to(site_url('/'));
                 }
                 $this->session->setFlashdata('msg', "Olá {$usuario['nome']}, que bom que está de volta.");
@@ -46,7 +50,7 @@ class Login extends BaseController
     public function logout()
     {
         $usuario = $this->authentication->getUserLogged();
-        if($usuario['is_admin']){
+        if(!is_null($usuario) && $usuario['is_admin'] ){
             $this->authentication->logout();
             $this->session->setFlashdata('msg', "Esperamos ver você novamente");
             $this->session->setFlashdata('msg_type', 'alert-info');

@@ -22,7 +22,6 @@
         a:hover {
             color: #000;
         }
-
         .bg-white {
             font-weight: normal;
             font-family: 'Montserrat-Bold';
@@ -100,10 +99,14 @@
                     <td width="50"></td>
                     <td>
                         <p style="color: #990100;">Olá, <?php echo strtok($pedido['usuario']['nome']," ")?>!</p>
-                        <p><a href="<?php echo site_url('password/reset/'.$token); ?>" target="_blank">Clique aqui</a> para redefinir sua senha.</p>
+                        <p>Pedido <?php echo$pedido['codigo']?> realizado com sucesso!</p>
+                        <p>O seu pedido <span style="color: #990100">#<?php echo $pedido['codigo']?></span> está sendo preparado pela equipe da Pizza Planet e em instantes você irá recebê-lo no endereço informado.</p>
 
+                        <p>Detalhes de entrega do seu pedido:</p>
+                        <p><?php echo $pedido['endereco_entrega'] ?></p>
+                        <p><?php echo $pedido['observacoes']?></p>
 
-
+                        <p>Enquanto isso, <a href="<?php echo site_url('conta')?>" target="_blank">clique aqui</a> para ver os seus pedidos.</p>
                         <br><br>
                         <p><a href="<?php echo site_url()?>" target="_blank"><strong>pizza-planet.fun</strong></a><p>
                         <br><br>

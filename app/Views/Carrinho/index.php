@@ -84,7 +84,7 @@
                     </tbody>
                 </table>
                 <div class="input-group col-md-4">
-                    <input placeholder="Consulte a taxa de entrega" type="text" name="cep" id="cep_input" class="cep form-control">
+                    <input placeholder="Consulte a taxa de entrega: CEP" type="text" name="cep" id="cep_input" class="cep form-control">
                     <span class="input-group-btn">
                         <button id="cep_buscar" class="btn btn-default">Buscar</button>
                     </span>
@@ -97,7 +97,11 @@
             <div class="col-md-12">
                 <a href="{$app_url}carrinho/limpar" style="font-family: 'Montserrat-Bold', sans-serif;" class="btn btn-default">Limpar carrinho</a>
                 <a href="{$app_url}#menu" style="font-family: 'Montserrat-Bold', sans-serif;" class="btn btn-primary">Mais delícias</a>
+                {if $check_expediente}
                 <a href="{$app_url}checkout" class="btn btn-custom pull-right" >Finalizar pedido</a>
+                {else}
+                <span class="pull-right">Estamos fechados agora, volte mais tarde e confira nossas delícias.</span>
+                {/if}
             </div>
             {/if}
         </div>
@@ -107,6 +111,11 @@
 <script src="{$app_url}assets/admin/vendors/mask/jquery.mask.min.js"></script>
 <script src="{$app_url}assets/admin/vendors/mask/app.js"></script>
 <script>
+    {if !empty($total)}
+    let total = "{number_format($total, 2, ',', '.')}"
+    {else}
+    total = '';
+    {/if}
     $("#cep_buscar").on('click', function () {
         var cep = $("#cep_input").val()
         if(cep.length === 9) {
@@ -134,7 +143,6 @@
                         $("#cep").html(response.detail.bairro);
 
                     } else {
-                        var total = "{number_format($total, 2, ',', '.')}"
                         $("#valor_entrega").html('Não calculado');
                         $("#cep").html('* '+response.msg_error);
                         $("#total").html('R$ '+total);

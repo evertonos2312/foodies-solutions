@@ -60,6 +60,12 @@
                     <span class="text">Início</span>
                 </a>
             </li>
+
+            <li id="li_pedidos" class="menu-item">
+                <a class="menu-link" href="{$app_url}admin/pedidos"> <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Pedidos</span>
+                </a>
+            </li>
             <li id="li_produtos" class="menu-item has-submenu">
                 <a class="menu-link" href="#"> <i class="icon material-icons md-shopping_bag"></i>
                     <span class="text">Produtos</span>
@@ -91,15 +97,7 @@
                     <span class="text">Expedientes</span>
                 </a>
             </li>
-<!--            <li id="li_pedidos" class="menu-item has-submenu">-->
-<!--                <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>-->
-<!--                    <span class="text">Pedidos</span>-->
-<!--                </a>-->
-<!--                <div class="submenu">-->
-<!--                    <a href="">Lista de pedidos</a>-->
-<!--                    <a href="">Detalhes de pedidos</a>-->
-<!--                </div>-->
-<!--            </li>-->
+
             <li id="li_usuarios" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/usuarios"> <i class="icon material-icons md-people"></i>
                     <span class="text">Usuários</span>
@@ -126,9 +124,6 @@
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link btn-icon" onclick="darkmode(this)" title="Dark mode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-icon" href="#"> <i class="material-icons md-notifications_active"></i> </a>
                 </li>
                 {if ($isLoggedAdmin)}
                 <li class="dropdown nav-item">

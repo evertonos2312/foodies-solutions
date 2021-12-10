@@ -83,4 +83,28 @@ class EntregadorModel extends BaseModel
         return $this;
     }
 
+    public function formDropDown()
+    {
+        $this->select('id, nome');
+        $this->where('ativo', true);
+        $this->orderBy('nome');
+        $categoriasArray = $this->findAll();
+
+        $optionCategorias = array_column($categoriasArray, 'nome', 'id');
+
+        $optionSelecione = [
+            0 => 'Selecione...'
+        ];
+
+        $selectConteudo = $optionSelecione + $optionCategorias;
+
+        return $selectConteudo;
+    }
+
+    public function recuperaTotalEntregadoresAtivos()
+    {
+        return $this->where('ativo', true)
+            ->countAllResults();
+    }
+
 }

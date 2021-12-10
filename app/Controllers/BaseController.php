@@ -95,8 +95,6 @@ class BaseController extends Controller
         $this->smarty = new \App\Libraries\SmartyCI(true);
         $this->SetView();
         $this->SetInitialData();
-
-        $this->session->set('id_usuario', 1);
     }
 
     public function SetView()

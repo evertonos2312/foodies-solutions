@@ -13,6 +13,10 @@ INCLUDE STYLES AND COMPONENTS
   padding: 0.8rem 1rem;
 }
 
+.font-weight-bold-custom{
+  font-weight: bold!important;
+}
+
 .screen-overlay {
   width: 0%;
   height: 100%;
@@ -1136,8 +1140,8 @@ ul.paginacao {
 .loader,
 .loader:after {
   border-radius: 50%;
-  width: 10em;
-  height: 10em;
+  width: 6em;
+  height: 6em;
 }
 .loader {
   display: none;

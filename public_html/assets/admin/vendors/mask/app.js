@@ -7,6 +7,7 @@ $(function () {
     $('.pis').mask('000.00000.00-0', {reverse: true});
     $('.phone_with_ddd').mask('(00) 00000-0000');
     $('.uf').mask('AA');
+    $('.numero').mask('00000');
     $('.selectonfocus').mask("00000000", {selectOnFocus: true});
 
     var SPMaskBehavior = function (val) {
