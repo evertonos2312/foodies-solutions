@@ -7,8 +7,7 @@
 	"require": {
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
-		"smarty/smarty": "~3.1",
-		"daycry/zoom": "^1.1",
+		"smarty/smarty": "^4.0",
       "ext-curl": "*",
 		"ext-json": "*"
 	},
