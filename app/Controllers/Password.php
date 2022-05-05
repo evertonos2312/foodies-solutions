@@ -79,6 +79,7 @@ class Password extends BaseController
                     $this->usuarioModel->save($usuario);
                 }
 
+
                 $data['code'] = 200;
                 $data['status'] = 'success';
                 $data['detail'] = 'Solicitação recebida com sucesso';
@@ -149,17 +150,18 @@ class Password extends BaseController
         $usuario['reset_token'] = $token->getValue();
         $usuario['reset_hash'] = $token->getHash();
         $usuario['reset_expira_em'] = date("Y-m-d H:i:s", time() + 7200);
+        
         return $usuario;
     }
 
     private function enviaRedefinicaoSenha($usuario)
     {
         $email = Services::email();
-        $email->setFrom('no-reply@pizza-planet.fun', 'Pizza Planet');
+        $email->setFrom('no-reply@everton-pizza-planet.online', 'Pizza Planet');
         $email->setTo($usuario['email']);
         $email->setSubject('Redefinição de senha');
 
-        $mensagem = view('Password/reset_email', ['token' => $usuario['reset_token'], 'nome'=> $usuario['nome']]);
+        $mensagem = view('Password/reset_email', ['token' => $usuario['reset_token'], 'pedido'=> ['usuario' => ['nome' => $usuario['nome']]]]);
         $email->setMessage($mensagem);
         $email->send();
     }

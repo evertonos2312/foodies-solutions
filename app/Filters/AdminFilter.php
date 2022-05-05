@@ -34,7 +34,6 @@ class AdminFilter implements FilterInterface
                 return redirect()->to(site_url('login'));
             }
         }
-        return redirect()->to(site_url('login'));
     }
 
     /**
