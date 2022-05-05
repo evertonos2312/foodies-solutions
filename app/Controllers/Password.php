@@ -65,7 +65,7 @@ class Password extends BaseController
 
     public function recoverAdmin()
     {
-        if ($this->request->isAJAX()) {
+        if ($this->request->getPost()) {
             $data = array();
             $data['token'] = csrf_hash();
 
