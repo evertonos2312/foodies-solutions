@@ -142,10 +142,10 @@ class BaseController extends Controller
         $today = date('w');
         $expediente = $expedienteModel->where('dia', $today)->first();
         $horaAtual = date('H:i:s');
-        if($expediente['situacao'] == 0) {
+        if(!is_null($expediente) && $expediente['situacao'] == 0) {
             return false;
         }
-        if($horaAtual >= $expediente['abertura'] && $horaAtual <= $expediente['fechamento']) {
+        if(!is_null($expediente) &&  $horaAtual >= $expediente['abertura'] && $horaAtual <= $expediente['fechamento']) {
             return true;
         }
         return false;

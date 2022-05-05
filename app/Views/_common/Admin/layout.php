@@ -103,11 +103,13 @@
                     <span class="text">Usuários</span>
                 </a>
             </li>
+            {if ($auth_user)}
             <li id="li_conta" class="menu-item">
                 <a class="menu-link" href="{$app_url}admin/usuarios/show/{$auth_user['id']}"> <i class="icon material-icons md-person"></i>
                     <span class="text">Minha Conta</span>
                 </a>
             </li>
+            {/if}
         </ul>
     </nav>
 </aside>

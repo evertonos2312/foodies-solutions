@@ -26,12 +26,15 @@ class AdminFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $usuario = service('authentication')->getUserLogged();
-        if (!$usuario['is_admin']) {
-            $nome = strtok($usuario['nome'], " ");
-            session()->setFlashdata('msg', "Olá, {$nome}! Volte para área do cliente e continue navegando.");
-            session()->setFlashdata('msg_type', 'alert-danger');
-            return redirect()->to(site_url('login'));
+        if (!is_null($usuario)) {
+            if(!$usuario['is_admin']){
+                $nome = strtok($usuario['nome'], " ");
+                session()->setFlashdata('msg', "Olá, {$nome}! Volte para área do cliente e continue navegando.");
+                session()->setFlashdata('msg_type', 'alert-danger');
+                return redirect()->to(site_url('login'));
+            }
         }
+        return redirect()->to(site_url('login'));
     }
 
     /**
