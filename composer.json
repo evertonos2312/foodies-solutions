@@ -8,7 +8,6 @@
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
 		"smarty/smarty": "^4.1",
-		"heroku/heroku-buildpack-php" : "dev-master",
       "ext-curl": "*",
 		"ext-json": "*",
 		"php81_bc/strftime": "^0.0.3"
