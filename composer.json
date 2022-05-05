@@ -13,7 +13,6 @@
 		"php81_bc/strftime": "^0.0.3"
 	},
 	"require-dev": {
-		"heroku/heroku-buildpack-php" : "dev-master",
 		"fakerphp/faker": "^1.9",
 		"mikey179/vfsstream": "^1.6",
 		"phpunit/phpunit": "^9.1",
